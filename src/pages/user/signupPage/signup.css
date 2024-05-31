@@ -1,0 +1,18 @@
+
+  
+   .logo{
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 70px;
+   }
+   #signup{
+    background-image: url(".../../../../../assets/bg1.jpg");
+    background-size:cover; 
+    background-repeat: no-repeat;
+    background-position: 0px -500px;
+    margin: 30px;
+    border-radius: 30px;
+  
+  
+  }

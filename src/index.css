@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+  font-family: "DM Sans", sans-serif;
+ 
+}
+
+.title{
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  letter-spacing: -2.5px;
+
+ }
+
+ ::-webkit-scrollbar{
+  width: 0px;
+}
+

@@ -1,0 +1,93 @@
+body{
+    background-color: rgb(234, 233, 233);
+}
+
+
+.home-main{
+    height: 100vh;
+    display: flex;
+
+    
+    
+}
+
+.home-section-1{
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    top: 10%;
+    left: 5%;
+  
+    
+}
+.home-section-2{
+    width: 40%;
+    height: 100%;
+    position: absolute;
+    left: 25%;
+    top: 10%;
+    
+}
+.home-section-3{
+    width: 30%;
+    height: 100%;
+    position: fixed;
+    right:5%;
+    top: 10%;
+    overflow: auto;
+
+
+}
+
+
+
+.home-profile-card{
+    height: 35%;
+    margin: 20px;
+    border-radius: 10px;
+
+}
+.home-info-card{
+    height: 45%;
+    margin: 20px;
+    border-radius: 10px;
+
+}
+
+.home-addpost-section{
+    height: 18%;
+    margin: 20px;
+    border-radius: 10px;
+
+}
+
+
+.home-post-section{
+   
+    margin: 20px;
+    border-radius: 10px;
+
+}
+
+.home-recommed-section{
+    height: 18%;
+    margin: 20px;
+   
+    border-radius: 10px;
+}
+
+.home-scroll{
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+
+}
+.home-scrollbox{
+    width: 100%;
+    height: 100%;
+
+}
+::-webkit-scrollbar{
+    width: 0px;
+}
+
