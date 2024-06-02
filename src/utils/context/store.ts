@@ -3,7 +3,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import rootReducer from './rootReducers';
+import rootReducer from './reducers/rootReducers';
+import darkmodeSlice from './reducers/darkmodeSlice';
+
 
 const persistConfig = {
   key: 'root',
@@ -13,86 +15,10 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    persistedReducer,
+    darkMode: darkmodeSlice
+  }
 });
 
 export const persistor = persistStore(store);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { combineReducers, configureStore} from "@reduxjs/toolkit";
-// import { persistStore, persistReducer } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
-// import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
-
-
-// import thunk from "redux-thunk";
-
-// import userSlice from "./reducers/userReducers"
-
-
-// const persistConfig = {
-//   key: "root",
-//   storage,
-//   transforms: [], 
-//   stateReconciler: autoMergeLevel2,
-// };
-
-// const rootReducer = combineReducers({
-//   user: userSlice,
-  
-// });
-
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-
-
-
-// export const store = configureStore({
-//   reducer: persistedReducer,
-//   middleware: [thunk]
-// });
-
-// export const persistor = persistStore(store);

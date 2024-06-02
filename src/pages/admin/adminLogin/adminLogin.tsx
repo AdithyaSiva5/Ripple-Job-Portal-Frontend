@@ -6,7 +6,6 @@ import {initialValues,validationSchema} from '../../../utils/validation/loginVal
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../../utils/context/reducers/authSlice';
 import { Fingerprint } from "lucide-react";
 import { adminPostLogin } from '../../../services/api/admin/apiMethods';
 

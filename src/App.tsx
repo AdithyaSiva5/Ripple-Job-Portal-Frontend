@@ -1,9 +1,38 @@
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { Routes, Route, BrowserRouter as Router, useNavigate } from "react-router-dom";
 import AdminRouter from './routes/AdminRouter';
 import UserRouter from './routes/UserRouter';
 import { Toaster } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { darkMode, removeDarkMode, setDarkMode } from "./utils/context/reducers/darkmodeSlice";
 
 function App() {
+
+  const dark = useSelector(darkMode)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    const userTheme = localStorage.getItem('theme')
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (userTheme === 'dark' || (!userTheme && systemTheme)) {
+      dispatch(removeDarkMode());
+      document.documentElement.classList.remove('dark')
+    } else {
+      dispatch(setDarkMode());
+      document.documentElement.classList.add('dark');
+    }
+  }, [])
+
+  // const selectUser = (state:any)=>state.auth.user;
+  // const user = useSelector(selectUser);
+  // const navigate = useNavigate();
+
+  //  useEffect(() => {
+  //   if (!user ) {
+  //     navigate("/login");
+  //   }
+  // },[user,  navigate]);
 
   return (
     <>
