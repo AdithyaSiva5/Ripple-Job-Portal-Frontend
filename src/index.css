@@ -19,3 +19,16 @@ body{
   width: 0px;
 }
 
+:root{
+  --primary: 234, 233 ,233;
+  --purewhite: 255, 255, 255;
+  --pureblack: 0 , 0 , 0;
+
+}
+
+.dark{
+  --primary: 30 , 32 , 42;
+  --purewhite: 30, 32, 42;
+  --pureblack: 255 , 255 , 255;
+}
+

@@ -1,5 +1,8 @@
 import React, {useState,useEffect,useRef} from 'react'
 import {Bell , Bookmark , Mail} from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../utils/context/reducers/authSlice'
 
 interface HeaderProps{}
 
@@ -24,8 +27,18 @@ const Header: React.FC<HeaderProps> = () =>{
             document.removeEventListener("mousedown", handleClickOutside)
         }
     },[])
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+  
+    const handleLogout = () => {
+      dispatch(logout());
+      localStorage.removeItem("email");
+      navigate("/login");
+    };
+  
     return (
-        <nav className="z-10 bg-white lg:px-6 py-2.5 h-16 sticky top-0" >
+        <nav className="z-10 bg-purewhite lg:px-6 py-2.5 h-16 sticky top-0" >
       <div className="flex flex-wrap justify-between">
         <a href="/" className="flex items-center">
           <img
@@ -43,7 +56,7 @@ const Header: React.FC<HeaderProps> = () =>{
             <li>
               <a
                 href="#"
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-green-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-600 lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-pureblack border-b border-gray-100 hover:bg-green-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-600 lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Home
               </a>
@@ -51,7 +64,7 @@ const Header: React.FC<HeaderProps> = () =>{
             <li>
               <a
                 href="#"
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-pureblack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 People
               </a>
@@ -59,7 +72,7 @@ const Header: React.FC<HeaderProps> = () =>{
             <li>
               <a
                 href="#"
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-pureblack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Jobs
               </a>
@@ -169,7 +182,7 @@ const Header: React.FC<HeaderProps> = () =>{
                   </li>
                   <li>
                     <a
-                      href="#"
+                      onClick={handleLogout}
                       className="block px-4 py-2 font-semibold text-xs text-red-500 hover:bg-gray-100"
                     >
                       Sign out

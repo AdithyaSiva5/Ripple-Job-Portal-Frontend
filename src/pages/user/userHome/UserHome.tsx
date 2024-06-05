@@ -145,4 +145,3 @@ function userHome() {
 }
 
 export default userHome;
-{/* <button onClick={handleLogout}>Logout</button> */}

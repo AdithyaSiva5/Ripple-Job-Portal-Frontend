@@ -21,12 +21,11 @@ function Landing() {
   }, [dark])
 
 
-
   return (
-    <>
+    <> 
     
        
-    <nav  className=  " z-10 bg-white border dark:border-none px-4 lg:px-6 py-2.5 dark:bg-background">
+    <nav  className=  " z-10 bg-purewhite border dark:border-none px-4 lg:px-6 py-2.5 ">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl ">
             <a href="" className="flex items-center">
                 <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
