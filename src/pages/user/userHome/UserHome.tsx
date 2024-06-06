@@ -1,9 +1,15 @@
 import Header from "../../../components/Header";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import { logout } from "../../../utils/context/reducers/authSlice";
 import { useNavigate } from 'react-router-dom';
 import "./userHome.css"
-import { Bell, Bookmark, Mail } from "lucide-react";
+import { Bell, Bookmark, Mail,LucideKeySquare } from "lucide-react";
+import { useState,useRef } from "react";
+import { Formik,Form,Field ,ErrorMessage,useFormik} from 'formik';
+import * as Yup from "yup";
+
+
+
 function userHome() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -14,8 +20,42 @@ function userHome() {
     navigate('/login')
   };
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCreatePostClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCancelClick = () => {
+    setShowModal(false);
+  };
 
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click(); // Optional chaining (?.) used here
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; // Optional chaining (?.) used here
+    // Handle the selected file here
+    console.log('Selected file:', file);
+  };
+
+
+  const formik = useFormik({
+    initialValues: {
+      image: ''
+    },
+    validationSchema: Yup.object({
+      image: Yup.mixed().required('Image file required')
+    }),
+    onSubmit: (values) => {
+      // Handle form submission here
+      console.log(values);
+    }
+  });
   return (
     <div>
       <Header />
@@ -33,18 +73,19 @@ function userHome() {
           <div className="home-addpost-text text-gray-500 font-medium text-xs">
             Whats Happening?........
           </div>
-          <div className="flex items-center justify-between">
-          <div className="home-addpost-button-section flex items-end ">
-            <ul className="flex items-end">
+          <div className="flex items-center justify-between align-middle">
+          <div className="home-addpost-button-section flex">
+            <ul className="flex gap-2 ">
               <li ><Bell color="gray" strokeWidth={1.5} size={20}/></li>
               <li><Bookmark color="gray" strokeWidth={1.5} size={20}/></li>
               <li><Mail color="gray" strokeWidth={1.5} size={20}/></li>
-              <li></li>
+              <li><LucideKeySquare color="gray" strokeWidth={1.5} size={20}/></li>
             </ul>
           
           </div>
-          <button className="text-xs bg-black text-white px-4 py-2 mt-6 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Publish Post</button>
+          <button onClick={handleCreatePostClick} className="text-xs mb-4 bg-black text-white px-4 py-2 mt-6 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Create Post</button>
           </div>
+          <hr />
         </div>
         <div className="home-post-section bg-white">
 
@@ -113,7 +154,7 @@ function userHome() {
     <svg fill="#262626" height="24" viewBox="0 0 48 48" width="24"><path d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 29 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1zM24 26c.8 0 1.6.3 2.2.9l15.8 16V3H6v39.9l15.8-16c.6-.6 1.4-.9 2.2-.9z"></path></svg>
   </div>
 </div>
-<div className="font-semibold text-sm mx-4 mt-2 mb-4">0000000 likes</div>
+<div className="font-semibold text-sm mx-4 mt-2 mb-4">92,372 likes</div>
 </div>
    
       </div>
@@ -136,6 +177,61 @@ function userHome() {
       </div>
 
       </div>
+
+      {showModal &&(<div className="addpost-popup">
+      <div className="addpost-popup">
+      <div className="addpost-modal rounded-xl bg-white mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
+          <p className="font-semibold mb-2">Create Post</p>
+          <hr />
+
+          <form onSubmit={formik.handleSubmit} >
+     <div className="flex flex-col">
+     <input  type="text" placeholder="Title"  className="rounded-lg border mt-3 border-gray-300 p-2 mb-4 outline-none text-xs font-normal" />
+        <textarea className=" rounded-lg description sec p-3 h-60 border border-gray-300 outline-none text-xs font-normal" spellCheck="false"  placeholder="Describe everything about this post here"></textarea>
+
+
+     </div>
+        
+       
+        <div className="icons flex text-gray-500 m-2">
+          <svg className="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          <svg className="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <button onClick={handleButtonClick}>
+        <svg
+          className="mr-2 hover:text-gray-700 border rounded-full p-1 h-7"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+          />
+        </svg>
+
+      </button>
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={(e)=>formik.setFieldValue('image',e.target.files[0])}
+      />
+          <div className="count ml-auto text-gray-400 text-xs font-semibold">0/300</div>
+        </div>
+        
+       
+        <div className="buttons flex">
+          <div   onClick={handleCancelClick} className="text-xs rounded btn border border-gray-300 px-4 py-2  cursor-pointer text-gray-500 ml-auto  hover:bg-red-600  hover:text-white ">Cancel</div>
+          <button type="submit" className="text-xs rounded btn border px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600 " >Publish Post</button>
+        </div>
+        </form>
+      </div>
+    </div>
+      </div>)}
 
 
 

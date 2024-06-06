@@ -79,7 +79,7 @@ const Header: React.FC<HeaderProps> = () =>{
             </li>
           </ul>
 
-          <form className="relative w-80 ms-32 me-6">
+          <form className="relative w-80 ms-52 me-6">
             <div className="relative">
               <input
                 type="search"
