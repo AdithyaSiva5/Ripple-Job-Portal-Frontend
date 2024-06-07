@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
     "firebase": "^10.12.1",
     "formik": "^2.4.6",
     "lucide-react": "^0.379.0",

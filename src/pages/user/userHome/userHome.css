@@ -48,7 +48,7 @@ body{
 
 }
 .home-info-card{
-    height: 45%;
+    padding: 20px;
     margin: 20px;
     border-radius: 10px;
 
@@ -93,7 +93,7 @@ body{
 
 .addpost-popup{
     width: 100%;
-
+  z-index: 10;
     background-color: rgba(0, 0, 0, 0.407);
     position: fixed;
     top: 0;
@@ -103,4 +103,34 @@ body{
         display: flex;
         justify-content: center;
         align-items: center;
+}
+
+
+.post-info-section{
+    display: flex;
+   justify-content: space-between;
+   padding: 10px;
+   gap: 10px;
+
+}
+.post-inputs{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+
+
+}
+.image-preview{
+   border: solid rgba(75, 75, 75, 0.214) 1px;
+    width: 300px;
+    height: 290px;
+    margin: 10px;
+    border-radius: 10px;
+ 
+}
+
+.hide {
+    font-size: 4px;
+    color: rgba(0, 0, 0, 0.442);
 }

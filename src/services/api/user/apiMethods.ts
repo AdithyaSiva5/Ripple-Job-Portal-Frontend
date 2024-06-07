@@ -1,4 +1,4 @@
-import { userUrls } from "../endPoints";
+import { postUrls, userUrls } from "../endPoints";
 import { apiCall } from "./apiCalls";
 import { FormValues } from "../../../utils/validation/signupValidation";
 
@@ -159,3 +159,21 @@ export const forgotOTP = (otp: { otp: string }) => {
       }
     });
   };
+
+  //@dec      Renew Password
+  //method    POST
+  export const addPost = (postData: {userId: any , imageUrl:string; title: string ;description:string,hideLikes:boolean,hideComment:boolean}) =>{
+    return new Promise((resolve,reject)=>{
+      try{
+        apiCall("post",postUrls.addPost,postData)
+         .then((response) => {
+          resolve(response)
+         })
+         .catch((err)=>{
+          reject(err)
+         })
+      }catch(error){
+        resolve({ status: 500 , message: "Somethings wrong"})
+      }
+    })
+  }

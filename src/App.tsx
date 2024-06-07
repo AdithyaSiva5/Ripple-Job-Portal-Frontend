@@ -24,16 +24,6 @@ function App() {
     }
   }, [])
 
-  // const selectUser = (state:any)=>state.auth.user;
-  // const user = useSelector(selectUser);
-  // const navigate = useNavigate();
-
-  //  useEffect(() => {
-  //   if (!user ) {
-  //     navigate("/login");
-  //   }
-  // },[user,  navigate]);
-
   return (
     <>
        
