@@ -12,7 +12,7 @@ interface UserData {
   username: string;
   email: string;
 }
-
+ 
 const initialState: AuthState = {
   user: null,
   token: null,

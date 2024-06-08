@@ -59,9 +59,10 @@ function userHome() {
      const formData= new FormData()
  
      try {
+      const cloudName = import.meta.env.VITE_CLOUDNAME;
       formData.append("file",image)
       formData.append("upload_preset","izfeaxkx")
-      const res =await axios.post("https://api.cloudinary.com/v1_1/dxxsszr8t/image/upload",formData)
+      const res =await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,formData)
       console.log(res);
       
      } catch (error) {

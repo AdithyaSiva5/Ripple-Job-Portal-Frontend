@@ -10,10 +10,9 @@ import { addPost } from "../services/api/user/apiMethods";
 
 function AddPost() {
 
-  const selectUser = (state: any) => state.auth.user || ''; 
-  const user = useSelector(selectUser) || '';
-  const userId = user._id || '';
-
+  const selectUser = (state: RootState) => state.auth.user || '';
+  const user = useSelector(selectUser);
+  const userId = user?._id || '';
 
   const [showModal, setShowModal] = useState(false);
   const [hideLikes, setHideLikes] = useState(false);
@@ -69,12 +68,15 @@ function AddPost() {
       const formData = new FormData();
 
       try {
+        const uploadPreset = import.meta.env.VITE_UPLOADPRESET;
+        const cloudName = import.meta.env.VITE_CLOUDNAME;
+        if (!uploadPreset || !cloudName) {
+          console.error("Missing Cloudinary configuration");
+          return;
+        }
         formData.append("file", image);
-        formData.append("upload_preset", "izfeaxkx");
-        const res = await axios.post(
-          "https://api.cloudinary.com/v1_1/dxxsszr8t/image/upload",
-          formData
-        );
+        formData.append("upload_preset", uploadPreset); 
+         const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData);
         if (res.status === 200) {
           const imageUrl = res.data.secure_url;
      
