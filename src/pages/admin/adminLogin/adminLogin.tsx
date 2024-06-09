@@ -8,6 +8,8 @@ import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
 import { Fingerprint } from "lucide-react";
 import { adminPostLogin } from '../../../services/api/admin/apiMethods';
+import { AdminLoginSuccess} from '../../../utils/context/reducers/adminAuthSlice';
+
 
 
 
@@ -28,7 +30,7 @@ function AdminLogin() {
       const data = response.data
       if(response.status === 200) {
        toast.success(data.message)
-    //    dispatch(loginSuccess({ user: data }));
+       dispatch(AdminLoginSuccess({ admin: data }));
         navigate('/admin/');
       } else {
         console.log(response.message);
@@ -56,7 +58,7 @@ function AdminLogin() {
 
 
       
-        <div className='logo'>   <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" /></div>
+        <div className='logo'>   <img src="https://i.postimg.cc/YC7Hwhxb/Screenshot-2024-03-04-151411.png" alt="" /></div>
         
         <div className="max-w-md w-full p-10 rounded-xl bg-white" >
           <p className="title flex gap-2 items-center text-4xl font-black  mb-2 text-black ">Admin Login. <Fingerprint/></p>
@@ -72,12 +74,12 @@ function AdminLogin() {
           
             <div>
               
-              <Field type="text" id="email" placeholder='Email' name="email" className="mt-3 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
+              <Field type="text" id="email" placeholder='Email' name="email" className="mt-3 text-xs p-3 w-full border  border-gray-200 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
               <ErrorMessage name="email" component={TextError} />
             </div>
             <div>
           
-              <Field type="password" placeholder='Password' id="password" name="password" className="mt-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
+              <Field type="password" placeholder='Password' id="password" name="password" className="mt-1 text-xs p-3 w-full border border-gray-200 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
               <ErrorMessage name="password"  component={TextError}/>
 
             </div>

@@ -15,8 +15,8 @@ export const initialValues: FormValues = {
 }
 
 export const validationSchema = Yup.object({
-    username: Yup.string().required("Username is required"),
-    email : Yup.string()
+    username: Yup.string().trim().required("Username is required"),
+    email : Yup.string().trim()
     .email("Invalid email address")
     .required("Email is required"),
     password: Yup.string()

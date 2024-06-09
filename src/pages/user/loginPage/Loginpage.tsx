@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../../utils/context/reducers/authSlice';
 import {auth,provider,fbProvider} from "../../../utils/firebase/config"
 import {signInWithPopup} from "firebase/auth";
+import { useEffect } from 'react';
+import { useSelector } from "react-redux";
 
 
 
@@ -18,10 +20,21 @@ import {signInWithPopup} from "firebase/auth";
 
 
 
- 
+
+
 
 
 function Login() {
+
+
+  const selectUser = (state:any)=>state.auth.user;
+const user = useSelector(selectUser);
+
+
+
+
+
+
   const navigate = useNavigate();
       const dispatch = useDispatch();
   const submit = (values: any) => {
@@ -72,7 +85,17 @@ function Login() {
     });
   };
   
+  
+  useEffect(() => {
+   
 
+    if (user) {
+      navigate('/home')
+    }
+
+   
+  }, [user, navigate])
+  
   
   const facebookSubmit = () => {
     signInWithPopup(auth, fbProvider).then((data: any) => {
@@ -113,10 +136,10 @@ function Login() {
       </div>
 
       <div className="w-full  lg:w-1/2 flex items-center justify-center">
-        <div className='logo'>   <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" /></div>
+        <div className='logo'>   <img src="https://i.postimg.cc/YC7Hwhxb/Screenshot-2024-03-04-151411.png" alt="" /></div>
         
         <div className="max-w-md w-full p-6" >
-          <p className="title text-4xl font-black  mb-2 text-black dark:text-white ">Login to your account.</p>
+          <p className="title text-4xl font-black  mb-2 text-black ">Login to your account.</p>
           <h1 className="text-sm  mb-6 text-gray-500 ">Explore open career opportunities </h1>
           <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
             <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
@@ -135,7 +158,7 @@ function Login() {
               </button>
             </div>
           </div>
-          <div className="mt-4 text-xs text-gray-400 text-center">
+          <div className="mt-4 text-xs text-gray-600 text-center">
             <p>or with email</p>
           </div>
           <Formik       initialValues={initialValues}
@@ -145,7 +168,7 @@ function Login() {
           
             <div>
               
-              <Field type="text" id="email" placeholder='Email' name="email" className="mt-5 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300 " />
+              <Field type="text" id="email" placeholder='Email' name="email" className="mt-5 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
               <ErrorMessage name="email" component={TextError} />
             </div>
             <div>
@@ -163,19 +186,19 @@ function Login() {
   <div className="relative w-9 h-5 bg-gray-200  rounded-full peer dark:bg-gray-100 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
 
 </label>
-<p className='text-xs text-grey-600 dark:text-gray-400'>Remember me</p>
+<p className='text-xs text-grey-600'>Remember me</p>
               </div>
            
            
             <Link  to="/forgot-password"> <p className='text-xs  text-red-600'>Forgot password ?</p></Link>
           </div>
             <div>
-              <button type="submit" className="w-full text-sm bg-green-600 text-white p-3 mt-5 rounded-md hover:bg-gray-800 dark:hover:bg-green-900 dark:text-black dark:focus:bg-green-200 focus:outline-none focus:bg-black  focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Login</button>
+              <button type="submit" className="w-full text-sm bg-green-600 text-white p-3 mt-5 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black  focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Login</button>
             </div>
           </Form>
           </Formik>
        
-          <div className="mt-4 text-xs text-gray-400  text-center">
+          <div className="mt-4 text-xs text-gray-600 text-center">
             <p>Don't have an account yet?  <Link className="font-semibold text-green-600 hover:underline" to="/signup">Register here</Link> </p>
             
           </div>

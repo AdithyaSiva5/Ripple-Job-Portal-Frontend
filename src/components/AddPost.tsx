@@ -3,7 +3,8 @@ import { useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import PreviewImage from "./PreviewImage";import { useSelector } from "react-redux";
+import PreviewImage from "./PreviewImage";
+import { useSelector } from "react-redux";
 import { toast } from 'sonner';
 import { addPost } from "../services/api/user/apiMethods";
  
@@ -59,8 +60,8 @@ function AddPost() {
           "File size too big",
           (value: any) => value && value.size < 1024 * 1024
         ),
-        title: Yup.string().required("Title is required"),
-        description: Yup.string().required("Description is required"),
+        title: Yup.string().trim().required("Title is required"),
+        description: Yup.string().trim().required("Description is required"),
     }),
     onSubmit: async () => {
 

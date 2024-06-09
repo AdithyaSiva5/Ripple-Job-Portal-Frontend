@@ -1,12 +1,17 @@
 import React,{useState, useEffect,useRef} from "react";
 import { Bell, Bookmark, Mail } from "lucide-react";
+import {  useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { AdminLogout } from "../utils/context/reducers/adminAuthSlice";
+
 
 interface HeaderProps {}
 
 const AdminHeader: React.FC<HeaderProps> = ()=>{
     const [isUserMenuOpen , setIsUserMenuOpen] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const toggleUserMenu = () =>{
         setIsUserMenuOpen(!isUserMenuOpen)
     }
@@ -16,6 +21,10 @@ const AdminHeader: React.FC<HeaderProps> = ()=>{
             ){
                 setIsUserMenuOpen(false)
             }
+    }
+    const handleLogout = () =>{
+      dispatch(AdminLogout())
+      navigate("/admin/login");
     }
     useEffect(()=>{
         document.addEventListener("mousedown",handleClickOutside)
@@ -111,10 +120,10 @@ const AdminHeader: React.FC<HeaderProps> = ()=>{
               >
                 <div className="px-4 py-2">
                   <span className="block text-xs font-semibold text-gray-900">
-                    Bonnie Green
+                    Admin
                   </span>
                   <span className="block text-xs text-gray-500 truncate">
-                    name@flowbite.com
+                    admin@gmail.com
                   </span>
                 </div>
                 <ul className="py-2">
@@ -134,17 +143,10 @@ const AdminHeader: React.FC<HeaderProps> = ()=>{
                       Settings
                     </a>
                   </li>
+                  
                   <li>
                     <a
-                      href="#"
-                      className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
-                    >
-                      Earnings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
+                      onClick={handleLogout}
                       className="block px-4 py-2 font-semibold text-xs text-red-500 hover:bg-gray-100"
                     >
                       Sign out

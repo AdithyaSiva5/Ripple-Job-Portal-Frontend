@@ -1,4 +1,4 @@
-import { postUrls, userUrls } from "../endPoints";
+import { userUrls ,postUrls } from "../endPoints";
 import { apiCall } from "./apiCalls";
 import { FormValues } from "../../../utils/validation/signupValidation";
 
@@ -160,20 +160,84 @@ export const forgotOTP = (otp: { otp: string }) => {
     });
   };
 
-  //@dec      Renew Password
-  //method    POST
-  export const addPost = (postData: {userId: any , imageUrl:string; title: string ;description:string,hideLikes:boolean,hideComment:boolean}) =>{
-    return new Promise((resolve,reject)=>{
-      try{
-        apiCall("post",postUrls.addPost,postData)
-         .then((response) => {
-          resolve(response)
-         })
-         .catch((err)=>{
-          reject(err)
-         })
-      }catch(error){
-        resolve({ status: 500 , message: "Somethings wrong"})
-      }
-    })
-  }
+
+  
+//@dec      Renew Password
+//method    POST
+
+export const addPost = (postData: {userId:any, imageUrl: string; title: string; description:string,hideLikes:boolean,hideComment:boolean }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.addPost, postData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      get all post
+//method    POST
+
+export const    getAllPosts = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("get", postUrls.getAllPosts, null)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+
+//@dec      Get User Post
+//method    POST
+
+export const    getUserPost = (userId:{userId:any}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.getUserPosts, userId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+
+//@dec      Edit User post
+//method    POST
+
+export const editPost = (postData: {userId:any,postId:any,  title:any; description:string,hideLikes:boolean,hideComment:boolean }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.editPost, postData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};

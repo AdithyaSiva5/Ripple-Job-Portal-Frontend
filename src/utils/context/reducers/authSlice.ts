@@ -1,10 +1,9 @@
-// src/features/auth/authSlice.ts
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AuthState {
   user: UserData | null;
   token: string | null;
+  userPost:any[]
 }
 
 interface UserData {
@@ -12,25 +11,30 @@ interface UserData {
   username: string;
   email: string;
 }
- 
-const initialState: AuthState = {
+
+const UserInitialState: AuthState = {
   user: null,
   token: null,
+  userPost:[]
 };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState:UserInitialState,
   reducers: {
-    loginSuccess: (state, action: PayloadAction<{ user: UserData}>) => {
+    loginSuccess: (state, action: PayloadAction<{ user: UserData }>) => {
       state.user = action.payload.user;
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
+      state.userPost=[]
     },
+    setUsePosts:(state,action:PayloadAction<{userPost:any[]}>)=>{
+     state.userPost=action.payload.userPost
+    }
   },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { loginSuccess, logout,setUsePosts } = authSlice.actions;
 export default authSlice.reducer;

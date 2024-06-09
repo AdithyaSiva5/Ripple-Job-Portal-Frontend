@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+import flowbitePlugin from 'flowbite/plugin';
 export default {
   darkMode: 'class',
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    'node_modules/flowbite-react/lib/esm/**/*.js',
+    'node_modules/flowbite/**/*.js'
   ],
   theme: {
     extend: {
@@ -11,6 +13,7 @@ export default {
         slideleft: 'slideleft 1s ease-in'
       },
       colors: {
+        'green-600': '#079D46' ,
         grape: "rgba(var(--grape))",
         orange: 'hsl(26, 100%, 55%)',
         paleOrange: 'hsl(25, 100%, 94%)',
@@ -47,6 +50,8 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    flowbitePlugin
+  ],
 }
 

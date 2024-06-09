@@ -3,12 +3,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import rootReducer ,{RootState} from './rootReducers';
+import rootReducer from './reducers/rootReducers';
 
 
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist : ['auth' , 'adminAuth']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

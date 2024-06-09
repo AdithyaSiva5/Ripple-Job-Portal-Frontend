@@ -1,11 +1,12 @@
-body{
+/* body{
     background-color: rgb(234, 233, 233);
-}
+} */
 
 
 .home-main{
     height: 100vh;
     display: flex;
+    background-color: rgb(234, 233, 233);
 
     
     
@@ -121,6 +122,12 @@ body{
 
 
 }
+.user-post-inputs{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+}
 .image-preview{
    border: solid rgba(75, 75, 75, 0.214) 1px;
     width: 300px;
@@ -131,6 +138,6 @@ body{
 }
 
 .hide {
-    font-size: 4px;
+    font-size: 10px;
     color: rgba(0, 0, 0, 0.442);
 }

@@ -1,17 +1,27 @@
-import { Routes, Route, BrowserRouter as Router, useNavigate } from "react-router-dom";
-import AdminRouter from './routes/AdminRouter';
-import UserRouter from './routes/UserRouter';
+import { useNavigate, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { darkMode, removeDarkMode, setDarkMode } from "./utils/context/reducers/darkmodeSlice";
+import Header from "./components/Header";
+import UserProfileBar from "./components/UserProfileBar";
 
 function App() {
+  const selectUser = (state: any) => state.auth.user;
+  const user = useSelector(selectUser);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
 
   const dark = useSelector(darkMode)
   const dispatch = useDispatch()
 
-  useEffect(()=>{
+  useEffect(() => {
     const userTheme = localStorage.getItem('theme')
     const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -24,27 +34,26 @@ function App() {
     }
   }, [])
 
+
+
   return (
     <>
-       
-    <Router>
-    <Toaster
-  toastOptions={{
-    unstyled: true,
-    classNames: {
-      error: 'text-red-600 text-xs flex justify-start border border-rounded gap-3 w-80 px-4 py-5 bg-white rounded-md',
-      success: 'text-green-600 text-xs flex justify-start border border-rounded gap-3 w-80 px-4 py-5 bg-white rounded-md',
-      warning: 'text-gray-300 text-xs flex justify-start border border-rounded gap-3 w-80 px-4 py-5 bg-white rounded-md', 
-      info: 'text-black text-xs flex justify-start border border-rounded gap-3 w-80 px-4 py-5 bg-white rounded-md',
-    },
-  }}
-/>
-      <Routes>
-        <Route path="/admin/*" element={<AdminRouter />} />
-        <Route path="/*" element={<UserRouter />} />
-      </Routes>
-    </Router>
-  </>
+
+
+      <div>
+
+        <Header />
+
+        <div className="home-main">
+          <div className="hidden lg:block home-section-1" id="mobile-menu-2">
+            <UserProfileBar />
+          </div>
+
+          <Outlet />
+        </div>
+      </div>
+
+    </>
   )
 }
 

@@ -12,7 +12,7 @@ function RegisterSucces() {
 
       <div className="w-full  lg:w-1/2 flex items-center justify-center">
         <div className='logo'>
-          <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="Logo" />
+          <img src="https://i.postimg.cc/YC7Hwhxb/Screenshot-2024-03-04-151411.png" alt="Logo" />
         </div>
         
         <div className="max-w-md w-full p-6">
