@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import PostDetails from "./PostDetails"
 import { useDispatch, useSelector } from "react-redux";
 import { getUserPost } from "../services/api/user/apiMethods";
-import { setUsePosts } from "../utils/context/reducers/authSlice"; 
+import { setUsePosts } from "../utils/context/reducers/authSlice";
+import PostDetailsUi from "./skeletonUI/PostSkeletonUi";
+import { toast } from "sonner";
 
 
 
@@ -32,6 +34,7 @@ function UserPost() {
             
           })
           .catch((error) => {
+            toast.error(error.message)
             console.log(error);
           })
           .finally(() => {
@@ -46,8 +49,16 @@ function UserPost() {
   return (
 
     <>
+
+    {loading&&(
+      <PostDetailsUi/>
+  
+    )
+      
+
+    }
      
-          {posts.length >0 && (
+          {posts.length >0 && !loading&&(
           <div className="goals">
             {posts.map((post: any) => (
 

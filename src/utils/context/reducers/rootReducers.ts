@@ -12,5 +12,4 @@ const rootReducer = combineReducers({
   adminAuth: adminAuthReducer,
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

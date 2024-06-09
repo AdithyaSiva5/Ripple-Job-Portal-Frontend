@@ -20,7 +20,7 @@ function PasswordOtp()  {
     const otp4Ref = useRef<HTMLInputElement>(null);
   
   
-    const initialTimer = parseInt(localStorage.getItem("otpTimer") || "30")
+    const initialTimer = parseInt(localStorage.getItem("otpTimer") || "60")
     const [timer, setTimer] = useState<number>(initialTimer);
     const [resend, setResend] = useState<boolean>(false);
   
@@ -43,8 +43,8 @@ function PasswordOtp()  {
   
     const startResendTimer = () => {
       setResend(false);
-      setTimer(30);
-      localStorage.setItem("otpTimer", "30");
+      setTimer(60);
+      localStorage.setItem("otpTimer", "60");
     };
   
     const handleResendClick = () => {

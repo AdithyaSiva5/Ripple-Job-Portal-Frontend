@@ -7,7 +7,7 @@ function UserProfileBar() {
             <div className="home-profile-card bg-white flex flex-col justify-around items-center  pt-6 px-6">
           <img className=" w-16 h-16 rounded-full" src="./src/assets/profile.png"alt="" />
           <div className="flex flex-col items-center" >
-          <p className="text-sm font-bold"> Thomas Jithin</p>
+          <p className="text-sm font-bold"> Adithya Sivan P S</p>
           <p className="text-xs text-gray-400">Mern Stack Developer</p>
           </div>
           

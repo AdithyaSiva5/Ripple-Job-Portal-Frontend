@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { EllipsisVertical, Edit, Delete } from "lucide-react";
+import { useState } from "react";
+import { EllipsisVertical, Edit, Delete, Heart,MessageCircle} from "lucide-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { editPost } from "../services/api/user/apiMethods";
+import { deletePost, editPost, likePost } from "../services/api/user/apiMethods";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsePosts } from "../utils/context/reducers/authSlice";
@@ -14,7 +14,7 @@ interface PostProps {
     userId: {
       _id: string;
       username: string;
-      profileImg: string;
+      profileImageUrl: string;
     };
     title: string;
     imageUrl: string;
@@ -28,11 +28,7 @@ interface PostProps {
   };
 }
 
-
-
-
 const PostDetails: React.FC<PostProps> = ({ post }) => {
-
   const dispatch = useDispatch();
   const [hideLikes, setHideLikes] = useState(post.hideLikes);
   const [hideComment, setHideComment] = useState(post.hideComment);
@@ -53,20 +49,13 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
     initialValues: {
       title: post.title,
       description: post.description,
-      
     },
     validationSchema: Yup.object({
-      title: Yup.string()
-      .trim() 
-      .required('Title is required')
-     ,
-    description: Yup.string()
-      .trim() 
-      .required('Description is required')
-,
+      title: Yup.string().trim().required("Title is required"),
+      description: Yup.string().trim().required("Description is required"),
     }),
     onSubmit: async (values) => {
-        const postId = post._id;
+      const postId = post._id;
       const { title, description } = values;
       try {
         await editPost({
@@ -75,26 +64,20 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
           title,
           description,
           hideComment,
-          hideLikes
-
+          hideLikes,
         })
           .then((response: any) => {
-          const postsData = response.data;
-          dispatch(setUsePosts({ userPost: response.data }));
-         
-          toast.success("Post updated successfully");
-         
-          console.log(postsData);
-          handleCancelClick()
-          
-          
-          
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        
-     
+            const postsData = response.data;
+            dispatch(setUsePosts({ userPost: response.data }));
+
+            toast.success("Post updated successfully");
+
+            console.log(postsData);
+            handleCancelClick();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } catch (error) {
         console.error("Error updating post:", error);
         toast.error("Failed to update post");
@@ -115,14 +98,49 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
     setisEdit(true);
   };
 
-  const handleDelete = () => {
-    setIsOpen(!isOpen);
-  };
   const handleCancelClick = () => {
     setisEdit(false);
-   
   };
-  
+
+  const handleDelete = (postId: string, userId: string) => {
+    try {
+      deletePost({ postId, userId })
+        .then((response: any) => {
+          const postData = response.data;
+          console.log(postData.posts);
+          dispatch(setUsePosts({ userPost: response.data }));
+          toast.info("Post Deleted");
+          setIsOpen(!isOpen);
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  const [isLikedByUser, setIsLikedByUser] = useState(
+    post.likes.includes(userId)
+  );
+
+  const handleLike = (postId: string, userId: string) => {
+    try {
+      likePost({ postId, userId })
+        .then((response: any) => {
+          const postData = response.data;
+          console.log(postData.posts);
+          dispatch(setUsePosts({ userPost: response.data.posts  }));
+          setIsLikedByUser(!isLikedByUser);
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className=" bg-white overflow-hidden shadow-none mt-7 rounded-md">
       <div className="grid grid-cols-3 min-w-full">
@@ -142,7 +160,7 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
                 className="block cursor-pointer py-4 flex items-center text-sm outline-none focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
               >
                 <img
-                  src={post.imageUrl}
+                  src={post.userId.profileImageUrl}
                   className="h-9 w-9 rounded-full object-cover"
                   alt="user"
                 />
@@ -154,7 +172,7 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
               <EllipsisVertical size={18} />
             </button>
           </header>
-          {isOpen && (
+          {isOpen && post.userId==userId && (
             <div className="absolute right-7 top-5 mt-2 w-40 bg-white divide-y divide-gray-100 rounded-lg shadow-lg">
               <ul className="py-2">
                 <li>
@@ -170,7 +188,7 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
                 </li>
                 <li>
                   <a
-                    onClick={handleDelete}
+                    onClick={() => handleDelete(post._id, post.userId._id)}
                     className="block px-4 py-2 font-semibold text-xs text-red-500 hover:bg-gray-100"
                   >
                     <div className="flex gap-1">
@@ -186,18 +204,18 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
           {!isEdit && (
             <div>
               <p className="  text-gray-700  ms-2 text-xs font-semibold">
-              {post.title}
+                {post.title}
               </p>
 
               <p className="ms-3 text-xs text-gray-700 pb-5">
-              {post.description}
+                {post.description}
               </p>
             </div>
           )}
 
           {isEdit && (
             <div>
-              <form  onSubmit={formik.handleSubmit}>
+              <form onSubmit={formik.handleSubmit}>
                 <div className="user-post-inputs">
                   <input
                     type="text"
@@ -275,7 +293,6 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
                 <div className="buttons flex me-4 mt-3">
                   <div
                     onClick={handleCancelClick}
-                
                     className="text-xs rounded btn border border-gray-300 px-4 py-2  cursor-pointer text-gray-500 ml-auto  hover:bg-red-600  hover:text-white "
                   >
                     Cancel
@@ -330,41 +347,28 @@ const PostDetails: React.FC<PostProps> = ({ post }) => {
               <div className="pt-4">
                 <div className="mb-2">
                   <div className="flex items-center">
-                    <span className="mr-3 inline-flex items-center cursor-pointer">
-                      <svg
-                        className="fill-heart text-gray-700 inline-block h-7 w-7 heart"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    <button
+                      className="mr-4"
+                      onClick={() => handleLike(post._id, post.userId._id)}
+                      type="button"
+                    >
+                      {isLikedByUser ? (
+                        <Heart
+                          color="green"
+                          fill="green"
+                          strokeWidth={1.5}
+                          size={22}
                         />
-                      </svg>
-                    </span>
-                    <span className="mr-3 inline-flex items-center cursor-pointer">
-                      <svg
-                        className="text-gray-700 inline-block h-7 w-7 "
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                        />
-                      </svg>
-                    </span>
+                      ) : (
+                        <Heart color="gray" strokeWidth={1.5} size={22} />
+                      )}
+                    </button>
+                    <button type="button">
+                      <MessageCircle color="gray" strokeWidth={1.5} size={22} />
+                    </button>
                   </div>
                   <span className="text-gray-600 text-sm font-bold">
-                    2344 Likes
+                    {post.likes.length} Likes
                   </span>
                 </div>
                 <span className="block ml-2 text-xs text-gray-600">

@@ -1,4 +1,4 @@
-import { Bell, Bookmark, Mail, LucideKeySquare, ImagePlus } from "lucide-react";
+import {  ImagePlus,FileImage,Smile,Type,Camera} from "lucide-react";
 import { useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -7,14 +7,20 @@ import PreviewImage from "./PreviewImage";
 import { useSelector } from "react-redux";
 import { toast } from 'sonner';
 import { addPost } from "../services/api/user/apiMethods";
- 
+
+import { Button, Spinner } from "flowbite-react";
+
+  
+
+
 
 function AddPost() {
 
-  const selectUser = (state: RootState) => state.auth.user || '';
-  const user = useSelector(selectUser);
-  const userId = user?._id || '';
+  const selectUser = (state: any) => state.auth.user || ''; 
+  const user = useSelector(selectUser) || '';
+  const userId = user._id || '';
 
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [hideLikes, setHideLikes] = useState(false);
   const [hideComment, setHideComment] = useState(false);
@@ -60,24 +66,21 @@ function AddPost() {
           "File size too big",
           (value: any) => value && value.size < 1024 * 1024
         ),
-        title: Yup.string().trim().required("Title is required"),
+        title: Yup.string().trim() .required("Title is required"),
         description: Yup.string().trim().required("Description is required"),
     }),
     onSubmit: async () => {
-
+      setLoading(true);
       const { image, title, description} = formik.values;
       const formData = new FormData();
 
       try {
-        const uploadPreset = import.meta.env.VITE_UPLOADPRESET;
-        const cloudName = import.meta.env.VITE_CLOUDNAME;
-        if (!uploadPreset || !cloudName) {
-          console.error("Missing Cloudinary configuration");
-          return;
-        }
         formData.append("file", image);
-        formData.append("upload_preset", uploadPreset); 
-         const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData);
+        formData.append("upload_preset", "izfeaxkx");
+        const res = await axios.post(
+          "https://api.cloudinary.com/v1_1/dxxsszr8t/image/upload",
+          formData
+        );
         if (res.status === 200) {
           const imageUrl = res.data.secure_url;
      
@@ -95,9 +98,11 @@ function AddPost() {
             .catch((error:any) => {
               toast.error(error?.message);
               console.log(error?.message);
+            }) .finally(() => {
+              setLoading(false);
             });
         }
-        console.log(res);
+       
       } catch (error) {
         console.log(error);
       }
@@ -107,9 +112,7 @@ function AddPost() {
   const handleCancelClick = () => {
     setShowModal(false);
     formik.values.image = "";
-    formik.errors.image = undefined;
-    formik.errors.title = undefined;
-    formik.errors.description= undefined;
+ 
   };
   return (
     <>
@@ -121,16 +124,16 @@ function AddPost() {
           <div className="home-addpost-button-section flex">
             <ul className="flex gap-2 ">
               <li>
-                <Bell color="gray" strokeWidth={1.5} size={20} />
+                <FileImage color="gray" strokeWidth={1.5} size={20} />
               </li>
               <li>
-                <Bookmark color="gray" strokeWidth={1.5} size={20} />
+                <Smile color="gray" strokeWidth={1.5} size={20} />
               </li>
               <li>
-                <Mail color="gray" strokeWidth={1.5} size={20} />
+                <Type color="gray" strokeWidth={1.5} size={20} />
               </li>
               <li>
-                <LucideKeySquare color="gray" strokeWidth={1.5} size={20} />
+                <Camera color="gray" strokeWidth={1.5} size={20} />
               </li>
             </ul>
           </div>
@@ -326,12 +329,26 @@ function AddPost() {
                   >
                     Cancel
                   </div>
-                  <button
-                    type="submit"
-                    className="text-xs rounded btn border px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600 "
-                  >
-                    Publish Post
-                  </button>
+                  {loading&&(
+                        <Button className="bg-gray-900 rounded  ml-2" style={{height:'35px'}}>
+                        <Spinner aria-label="Spinner button example "  />
+                        <span className="pl-3 text-xs">Posting...</span>
+                      </Button>
+
+                  )}
+                  {!loading&&(
+                     <button
+                     type="submit"
+                     
+                     className="text-xs rounded btn border px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600 "
+                   >
+                     Publish Post
+                   </button>
+
+                  )
+
+                  }
+                 
                 </div>
               </form>
             </div>

@@ -241,3 +241,48 @@ export const editPost = (postData: {userId:any,postId:any,  title:any; descripti
     }
   });
 };
+
+
+
+//@dec      Delete a post
+//method    POST
+
+export const    deletePost = (postData:{postId:string,userId:string}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.deletePost, postData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+
+//@dec      Like a post
+//method    POST
+
+export const    likePost = (postData:{postId:string,userId:string}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.likePost, postData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+

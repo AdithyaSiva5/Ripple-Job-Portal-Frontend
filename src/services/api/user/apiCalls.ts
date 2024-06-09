@@ -1,4 +1,7 @@
+import { toast } from "sonner";
 import { api } from "./api";
+import { store } from "../../../utils/context/store";
+import { logout } from "../../../utils/context/reducers/authSlice";
 // import { refreshToken, userAuth } from "../const/localStorage";
 // import axios from "axios";
 
@@ -52,27 +55,12 @@ export const apiCall = async (method:string, url:string, data:any) => {
  console.log(error);
  
         reject(error?.response?.data);
-        
-        // if(error?.data?.status === 403 && error?.data?.error_code === "FORBIDDEN"){
-        //   localStorage.setItem(userAuth, "");
-        //   localStorage.setItem(refreshToken, "");
-        //   clearUser();
-        //   window.location.reload("/login");
-        // }
-        
-        // if(error?.response?.status === 401){
-        //   refreshAccessToken(error).then((response)=> {
-        //       resolve(response?.data);
-        //   }).catch((error)=>{
-        //     if(error.response?.status === 401){
-        //       clearUser()
-        //     } else {
-        //       reject(error);
-        //     }
-        //   })
-        // } else {
-        //   reject(error?.response?.data);
-        // }
+        if(error.response.status==401){
+          toast.error("Not Authorized")
+          store.dispatch(logout())
+
+        }
+
       }
     } catch (err) {
         reject(err);

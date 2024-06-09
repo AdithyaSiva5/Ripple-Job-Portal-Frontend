@@ -136,7 +136,7 @@ const user = useSelector(selectUser);
       </div>
 
       <div className="w-full  lg:w-1/2 flex items-center justify-center">
-        <div className='logo'>   <img src="https://i.postimg.cc/YC7Hwhxb/Screenshot-2024-03-04-151411.png" alt="" /></div>
+        <div className='logo'>   <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" /></div>
         
         <div className="max-w-md w-full p-6" >
           <p className="title text-4xl font-black  mb-2 text-black ">Login to your account.</p>
@@ -168,12 +168,12 @@ const user = useSelector(selectUser);
           
             <div>
               
-              <Field type="text" id="email" placeholder='Email' name="email" className="mt-5 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
+              <Field type="text" id="email" placeholder='Email' name="email" className="mt-5 text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
               <ErrorMessage name="email" component={TextError} />
             </div>
             <div>
           
-              <Field type="password" placeholder='Password' id="password" name="password" className="mt-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
+              <Field type="password" placeholder='Password' id="password" name="password" className="mt-1 text-xs p-3 w-full border  border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
               <ErrorMessage name="password"  component={TextError}/>
 
             </div>

@@ -19,7 +19,6 @@ import { AdminLoginSuccess} from '../../../utils/context/reducers/adminAuthSlice
 
 
 
-
 function AdminLogin() {
   const navigate = useNavigate();
       const dispatch = useDispatch();
@@ -58,7 +57,7 @@ function AdminLogin() {
 
 
       
-        <div className='logo'>   <img src="https://i.postimg.cc/YC7Hwhxb/Screenshot-2024-03-04-151411.png" alt="" /></div>
+        <div className='logo'>   <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" /></div>
         
         <div className="max-w-md w-full p-10 rounded-xl bg-white" >
           <p className="title flex gap-2 items-center text-4xl font-black  mb-2 text-black ">Admin Login. <Fingerprint/></p>
@@ -97,4 +96,4 @@ function AdminLogin() {
   )
 }
 
-export default AdminLogin
+export default AdminLogin 

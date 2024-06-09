@@ -17,29 +17,7 @@ import Settings from "../components/Settings";
 
 createBrowserRouter
 
-// const UserRouter=()=>{
-//     return (
-//         <>
-//             <Routes>
-//         <Route  path="/" element={<Landing/>} />
-//         <Route path="/signup" element={< Signup/>} />
-//         <Route path="/login" element={< Login/>} />
-//         <Route path="/otp" element={<OtpPage/>} />
-//         <Route path="/forgot-password" element={<ForgotPassword/>} />
-//         <Route path="/change-password" element={<ChangePassword/>} />
-//         <Route path='/forgot-otp' element={<PasswordOtp />} />
-//         <Route path="/register-success" element={<RegisterSucces/>} />
-//         <Route  path="/home" element={<UserHome/>} />
-//         <Route path='/forgot-password' element={<ForgotPassword />} />
-    
 
-   
-//         </Routes>
-//         </>
-//     )
-
-
-// }
 const appRouter = createBrowserRouter([
     {
         path:"/",

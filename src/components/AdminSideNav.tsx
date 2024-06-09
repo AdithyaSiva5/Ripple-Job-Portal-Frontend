@@ -1,6 +1,8 @@
 import { User ,ClipboardList,Bell,MessageSquareWarning,FilePenLine,BarChartBig} from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 function AdminSideNav() {
+
+    const navigate=useNavigate()
   return (
     <div className="sidebar-menu w-64   p-4 z-50  bg-white ms-6 mt-5 rounded-lg">
  
@@ -13,7 +15,7 @@ function AdminSideNav() {
             </a>
         </li>
         <li className="mb-1 group">
-            <a href="" className="flex   items-center gap-1 font-semibold py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
+            <a onClick={()=>{navigate('/admin/users')}} className="flex   items-center gap-1 font-semibold py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
             <User  strokeWidth={1.5} size={16} />
                 <span className="text-xs">Users</span>
             
@@ -21,14 +23,14 @@ function AdminSideNav() {
        
         </li>
         <li className="mb-1 group">
-            <a href="" className="flex   font-semibold items-center gap-1  py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+            <a onClick={()=>{navigate('/admin/jobs')}} className="flex   font-semibold items-center gap-1  py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
             <ClipboardList  strokeWidth={1.5} size={16} />
-                <span className="text-xs">Jobs</span>
+                <span className="text-xs">Jobs category</span>
             </a>
         </li>
 
         <li className="mb-1 group">
-            <a href="" className="flex font-semibold items-center gap-1 py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
+            <a onClick={()=>{navigate('/admin/posts')}} className="flex font-semibold items-center gap-1 py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
             <FilePenLine  strokeWidth={1.5} size={16} />     
                 <span className="text-xs">Posts</span>
                 

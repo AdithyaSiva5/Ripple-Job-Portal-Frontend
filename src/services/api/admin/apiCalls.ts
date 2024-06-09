@@ -1,5 +1,8 @@
 
+import { toast } from "sonner";
 import { adminApi } from "./api";
+import { store } from "../../../utils/context/store";
+import { AdminLogout } from "../../../utils/context/reducers/adminAuthSlice";
 
 
 const adminApiCalls = async (method:string, url:string, data:any) => {
@@ -36,23 +39,12 @@ const adminApiCalls = async (method:string, url:string, data:any) => {
         console.log(error);
  
         reject(error?.response?.data);
-        // if (error.response?.status === 401) {
-        //   refreshAccessToken(error)
-        //     .then((response) => {
-        //       resolve(response.data);
-        //     })
-        //     .catch((error) => {
-        //       if(error?.response?.status === 401){
-        //         clearAdmin()
-        //       } else {
-        //         reject(error);
-        //       }
-        //     });
-        // } else {
-        //   reject(error?.response?.data);
-        // }
+        if(error.response.status==401){
+          toast.error("Not Authorized")
+          store.dispatch(AdminLogout())
 
-
+        }
+ 
 
 
 
