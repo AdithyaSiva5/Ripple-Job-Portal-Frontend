@@ -15,25 +15,11 @@ import { useEffect } from 'react';
 import { useSelector } from "react-redux";
 
 
-
-
-
-
-
-
-
-
-
 function Login() {
 
 
   const selectUser = (state:any)=>state.auth.user;
 const user = useSelector(selectUser);
-
-
-
-
-
 
   const navigate = useNavigate();
       const dispatch = useDispatch();
@@ -130,12 +116,12 @@ const user = useSelector(selectUser);
    
    
     <div className="flex h-screen">
-      <div id='login' className="hidden login lg:flex items-center justify-center flex-1 bg-white text-black" >
+      <div id='login' className="hidden login lg:flex items-center justify-center flex-1 bg-white  text-black" >
 
 
       </div>
 
-      <div className="w-full  lg:w-1/2 flex items-center justify-center">
+      <div className="w-full  lg:w-1/2 flex items-center justify-center ">
         <div className='logo'>   <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" /></div>
         
         <div className="max-w-md w-full p-6" >

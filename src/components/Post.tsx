@@ -80,7 +80,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
             {post.userId.username}
           </span>
           <span className="text-gray-600 text-xs block">
-            Asheville, North Carolina
+            Ernakulam , Kerala
           </span>
         </div>
       </div>

@@ -75,12 +75,23 @@ function AddPost() {
       const formData = new FormData();
 
       try {
-        formData.append("file", image);
-        formData.append("upload_preset", "izfeaxkx");
-        const res = await axios.post(
-          "https://api.cloudinary.com/v1_1/dxxsszr8t/image/upload",
-          formData
-        );
+        const uploadPreset = import.meta.env.VITE_UPLOADPRESET;
+        const cloudName = import.meta.env.VITE_CLOUDNAME;
+        if (!uploadPreset || !cloudName) {
+          console.error("Missing Cloudinary configuration");
+          toast.error("Missing Cloudinary configuration");
+          return;
+        }
+        if (image) {
+          formData.append("file", image);
+        } else {
+          console.error("No image file selected");
+          toast.error("Please select an image");
+          setLoading(false);
+          return;
+        }
+        formData.append("upload_preset", uploadPreset);
+        const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData);
         if (res.status === 200) {
           const imageUrl = res.data.secure_url;
      
@@ -101,6 +112,9 @@ function AddPost() {
             }) .finally(() => {
               setLoading(false);
             });
+        }else {
+          console.error("Cloudinary upload failed:", res.statusText);
+          toast.error("Image upload failed");
         }
        
       } catch (error) {

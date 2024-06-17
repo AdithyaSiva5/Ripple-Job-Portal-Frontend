@@ -69,7 +69,7 @@ function Landing() {
 
 
 
-<div className="container mx-auto px-7 py-8  text-center bg-purewhite">
+<div className="container mx-auto px-7 py-8  text-center ">
       <div >
             <div className='w-[100%] h-[60vh] flex flex-col items-center justify-center'>
                 <div className='w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-[2rem]'>

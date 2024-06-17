@@ -9,7 +9,7 @@ import rootReducer from './reducers/rootReducers';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist : ['auth' , 'adminAuth']
+  whitelist : ['auth' , 'adminAuth', 'darkMode']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

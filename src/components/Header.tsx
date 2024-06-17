@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = () =>{
     };
   
     return (
-        <nav className="border z-10 bg-purewhite lg:px-6 py-2.5 h-16 sticky top-0" >
+        <nav className="border z-10 bg-purewhite lg:px-6 py-2.5 h-16 sticky top-0 dark:border-none" >
       <div className="flex flex-wrap justify-between">
         <a href="/" className="flex items-center">
           <img

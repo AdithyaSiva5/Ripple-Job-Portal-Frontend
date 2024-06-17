@@ -8,54 +8,54 @@ import PostSkeletonUi from "../../../components/skeletonUI/PostSkeletonUi";
 
 function UserHome() {
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState([]); 
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     try {
       setLoading(true);
       setTimeout(() => {
         getAllPosts()
-          .then((response:any) => {
+          .then((response: any) => {
             const postsData = response.data;
-            setPosts(postsData); 
-            
+            setPosts(postsData);
+
             console.log(postsData);
           })
           .catch((error) => {
-          console.log(error);
-          
+            console.log(error);
+
           })
           .finally(() => {
             setLoading(false);
           });
       }, 2000);
     } catch (error) {
-    console.log(error);
-    
+      console.log(error);
+
     }
   }, []);
 
   return (
 
-      <div>
-      <div className="home-section-2">
-        <div  className="home-scroll">
+    <div>
+      <div className="home-section-2 dark:bg-purewhite">
+        <div className="home-scroll">
           <div className="home-scrollbox">
-          <AddPost />
-{loading&&(
-  <PostSkeletonUi/>
-)}
-{posts.length > 0 && (
-  <div className="posts">
-    {posts.map((post:any) => (
-      <Post key={post._id} post={post} />
-    ))}
-  </div>
-)}
+            <AddPost />
+            {loading && (
+              <PostSkeletonUi />
+            )}
+            {posts.length > 0 && (
+              <div className="posts">
+                {posts.map((post: any) => (
+                  <Post key={post._id} post={post} />
+                ))}
+              </div>
+            )}
 
           </div>
         </div>
-    
+
       </div>
 
       <div className="hidden lg:block home-section-3" id="mobile-menu-2">
@@ -66,9 +66,9 @@ function UserHome() {
         </div>
       </div>
 
-      </div>
+    </div>
 
-    
+
   );
 }
 

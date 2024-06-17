@@ -1,5 +1,4 @@
 import { useNavigate, Outlet } from "react-router-dom";
-import { Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { darkMode, removeDarkMode, setDarkMode } from "./utils/context/reducers/darkmodeSlice";
@@ -29,8 +28,8 @@ function App() {
       dispatch(removeDarkMode());
       document.documentElement.classList.remove('dark')
     } else {
-      dispatch(setDarkMode());
       document.documentElement.classList.add('dark');
+      dispatch(setDarkMode());
     }
   }, [])
 
@@ -40,11 +39,11 @@ function App() {
     <>
 
 
-      <div>
+      <div className=" dark:bg-[#1E202A]">
 
         <Header />
 
-        <div className="home-main">
+        <div className="home-main dark:bg-purewhite">
           <div className="hidden lg:block home-section-1" id="mobile-menu-2">
             <UserProfileBar />
           </div>

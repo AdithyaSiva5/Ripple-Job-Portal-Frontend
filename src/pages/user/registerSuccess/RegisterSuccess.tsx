@@ -7,7 +7,6 @@ function RegisterSucces() {
   return (
     <div className="flex h-screen">
       <div id='register' className="hidden login lg:flex items-center justify-center flex-1 bg-white text-black" >
-        {/* Content for registration form */}
       </div>
 
       <div className="w-full  lg:w-1/2 flex items-center justify-center">
@@ -20,11 +19,9 @@ function RegisterSucces() {
           <h1 className="text-sm mb-6 text-gray-500">Congratulations! Your registration was successful.</h1>
           
           <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
-            {/* Additional content */}
           </div>
           
           <div className="mt-4 text-xs text-gray-600 text-center">
-            {/* Additional text */}
           </div>
           
      

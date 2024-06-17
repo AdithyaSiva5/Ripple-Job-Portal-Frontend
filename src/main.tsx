@@ -13,7 +13,7 @@ import { Toaster } from 'sonner';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 
-    <Provider store={store}>
+    <Provider store={store} >
       <Toaster
   toastOptions={{
     unstyled: true,
@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   }}
 />
     <PersistGate loading={null} persistor={persistor}>
-    <RouterProvider router={appRouter}>
+    <RouterProvider router={appRouter} >
       <App />
       </RouterProvider>
     </PersistGate>
