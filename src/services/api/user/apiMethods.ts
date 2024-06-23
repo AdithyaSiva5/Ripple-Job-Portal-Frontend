@@ -162,7 +162,7 @@ export const forgotOTP = (otp: { otp: string }) => {
 
 
   
-//@dec      Renew Password
+//@dec      Add Post
 //method    POST
 
 export const addPost = (postData: {userId:any, imageUrl: string; title: string; description:string,hideLikes:boolean,hideComment:boolean }) => {
@@ -283,6 +283,104 @@ export const    likePost = (postData:{postId:string,userId:string}) => {
     }
   });
 };
+
+//@dec      get all comment
+//method    POST
+
+export const    getPostComments = (postId:{postId:any}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.getAllPostComments, postId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      Add a comment
+//method    POST
+
+export const addComment = (commentData: {postId:any,userId:any,comment:string }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.addComment, commentData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      Add a reply comment
+//method    POST
+
+export const replyComment = (commentData: {commentId:string,userId:any,replyComment:any }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.replyComment, commentData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      Delete a comment
+//method    post
+export const deleteComment = ( commentId:{commentId:any}) => {
+
+  return new Promise((resolve, reject) => {
+   
+    
+    try {
+      const url = `${postUrls.deleteComment}?commentId=${commentId}`;
+      apiCall("get", url,commentId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      Add a reply comment
+//method    POST
+export const setPreferences = (userData: {userId:string,userType:any,isHiring:any }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", userUrls.setPreferences,userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
 
 
 

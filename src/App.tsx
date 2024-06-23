@@ -5,10 +5,12 @@ import { darkMode, removeDarkMode, setDarkMode } from "./utils/context/reducers/
 import Header from "./components/Header";
 import UserProfileBar from "./components/UserProfileBar";
 
+
 function App() {
   const selectUser = (state: any) => state.auth.user;
   const user = useSelector(selectUser);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!user) {
@@ -17,8 +19,7 @@ function App() {
   }, [user, navigate]);
 
 
-  const dark = useSelector(darkMode)
-  const dispatch = useDispatch()
+  // const dark = useSelector(darkMode)
 
   useEffect(() => {
     const userTheme = localStorage.getItem('theme')

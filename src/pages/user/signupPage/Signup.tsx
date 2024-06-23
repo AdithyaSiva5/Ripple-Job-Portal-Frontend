@@ -6,11 +6,23 @@ import {initialValues,validationSchema} from '../../../utils/validation/signupVa
 import { postRegister } from '../../../services/api/user/apiMethods';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { useSelector } from 'react-redux';
+import { darkMode } from '../../../utils/context/reducers/darkmodeSlice';
+import { useEffect } from 'react';
 
 
 
 
 function Signup() {
+  const dark = useSelector(darkMode)
+
+  useEffect(() => {
+    if (!dark) {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+  }, [dark])
   const navigate = useNavigate();
   localStorage.removeItem('otpTimer')
 
@@ -41,7 +53,7 @@ function Signup() {
 
       </div>
 
-      <div className="w-full  lg:w-1/2 flex items-center justify-center">
+      <div className="w-full  lg:w-1/2 flex items-center justify-center ">
         <div className='logo'>   <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" /></div>
         
         <div className="max-w-md w-full p-6" >

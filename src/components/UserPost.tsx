@@ -3,7 +3,7 @@ import PostDetails from "./PostDetails"
 import { useDispatch, useSelector } from "react-redux";
 import { getUserPost } from "../services/api/user/apiMethods";
 import { setUsePosts } from "../utils/context/reducers/authSlice";
-import PostDetailsUi from "./skeletonUI/PostSkeletonUi";
+import PostDetailsUi from "./skeletonUI/PostDetailsUi";
 import { toast } from "sonner";
 
 
@@ -62,7 +62,7 @@ function UserPost() {
           <div className="goals">
             {posts.map((post: any) => (
 
-              <PostDetails  key={post._id} post={post}/>
+<PostDetails  key={post._id} post={post} likesValue={false} commentsValue={false} />
             ))}
           </div>
         )}

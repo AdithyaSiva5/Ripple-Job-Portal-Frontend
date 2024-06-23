@@ -13,9 +13,19 @@ import {auth,provider,fbProvider} from "../../../utils/firebase/config"
 import {signInWithPopup} from "firebase/auth";
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
+import { darkMode } from '../../../utils/context/reducers/darkmodeSlice';
 
 
 function Login() {
+  const dark = useSelector(darkMode)
+
+  useEffect(() => {
+    if (!dark) {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+  }, [dark])
 
 
   const selectUser = (state:any)=>state.auth.user;

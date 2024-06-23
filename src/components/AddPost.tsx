@@ -1,4 +1,4 @@
-import {  ImagePlus,FileImage,Smile,Type,Camera} from "lucide-react";
+import { ImagePlus,FileImage,Smile,Type,Camera} from "lucide-react";
 import { useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -75,23 +75,12 @@ function AddPost() {
       const formData = new FormData();
 
       try {
-        const uploadPreset = import.meta.env.VITE_UPLOADPRESET;
-        const cloudName = import.meta.env.VITE_CLOUDNAME;
-        if (!uploadPreset || !cloudName) {
-          console.error("Missing Cloudinary configuration");
-          toast.error("Missing Cloudinary configuration");
-          return;
-        }
-        if (image) {
-          formData.append("file", image);
-        } else {
-          console.error("No image file selected");
-          toast.error("Please select an image");
-          setLoading(false);
-          return;
-        }
-        formData.append("upload_preset", uploadPreset);
-        const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData);
+        formData.append("file", image);
+        formData.append("upload_preset", "izfeaxkx");
+        const res = await axios.post(
+          "https://api.cloudinary.com/v1_1/dxxsszr8t/image/upload",
+          formData
+        );
         if (res.status === 200) {
           const imageUrl = res.data.secure_url;
      
@@ -112,9 +101,6 @@ function AddPost() {
             }) .finally(() => {
               setLoading(false);
             });
-        }else {
-          console.error("Cloudinary upload failed:", res.statusText);
-          toast.error("Image upload failed");
         }
        
       } catch (error) {
@@ -174,7 +160,7 @@ function AddPost() {
                     <input
                       type="text"
                       placeholder="Title"
-                      className="rounded-lg border mt-3 border-gray-300 p-2  outline-none text-xs font-normal"
+                      className="rounded-lg border mt-3 border-gray-300 p-2  focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600   outline-none text-xs font-normal"
                       value={formik.values.title}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -186,7 +172,7 @@ function AddPost() {
                       </p>
                     )}
                     <textarea
-                      className=" rounded-lg description sec p-3 mt-4 h-60 border border-gray-300 outline-none text-xs font-normal"
+                      className=" rounded-lg description sec p-3 mt-4 h-60 border  focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600  border-gray-300 outline-none text-xs font-normal"
                       spellCheck="false"
                       placeholder="Describe everything about this post here"
                       value={formik.values.description}

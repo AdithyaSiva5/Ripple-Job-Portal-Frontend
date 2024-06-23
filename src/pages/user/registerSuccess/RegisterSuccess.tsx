@@ -2,8 +2,20 @@
 import { Link } from 'react-router-dom';
 
 import "./registerSuccess.css";
+import { useSelector } from 'react-redux';
+import { darkMode } from '../../../utils/context/reducers/darkmodeSlice';
+import { useEffect } from 'react';
 
 function RegisterSucces() {
+  const dark = useSelector(darkMode)
+
+  useEffect(() => {
+    if (!dark) {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+  }, [dark])
   return (
     <div className="flex h-screen">
       <div id='register' className="hidden login lg:flex items-center justify-center flex-1 bg-white text-black" >

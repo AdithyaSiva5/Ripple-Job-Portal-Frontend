@@ -5,8 +5,17 @@ import PeopleCard from "../../../components/PeopleCard";
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../../../services/api/user/apiMethods";
 import PostSkeletonUi from "../../../components/skeletonUI/PostSkeletonUi";
+import Preferences from "../../../components/Preferences";
+import { useDispatch, useSelector } from "react-redux";
+import BasicInformation from "../../../components/BasicInformation";
+
 
 function UserHome() {
+
+  const dispatch = useDispatch()
+  const selectUser = (state:any) => state.auth.user || '';
+  const user = useSelector(selectUser) || "";
+  const userId = user._id || "";
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
 
@@ -38,7 +47,13 @@ function UserHome() {
   return (
 
     <div>
-      <div className="home-section-2 dark:bg-purewhite">
+       {!user.userType&&(
+          <Preferences/>
+        )}
+        {!user.fullname&&user.userType&&(
+          <BasicInformation/>
+        )}
+      <div className="home-section-2 ">
         <div className="home-scroll">
           <div className="home-scrollbox">
             <AddPost />

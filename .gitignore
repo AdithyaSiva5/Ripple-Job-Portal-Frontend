@@ -26,10 +26,11 @@ dist-ssr
 ./firebase
 firebase
 ./utils/firebase
-env
-./env
-/env
 
+# Environment files
 .env
+env
+/env
 ./env
+
 ./node_modules

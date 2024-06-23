@@ -32,4 +32,8 @@ body{
   --purewhite: 30, 32, 42;
   --pureblack: 255 , 255 , 255;
 }
+*:focus {
+  outline: none;
+}
+
 

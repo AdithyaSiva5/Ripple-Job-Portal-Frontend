@@ -1,52 +1,60 @@
-import React, {useState,useEffect,useRef} from 'react'
-import {Bell , Bookmark , Mail} from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch ,useSelector } from 'react-redux'
-import { logout } from '../utils/context/reducers/authSlice'
+import React, { useState, useEffect, useRef } from "react";
+import { Bell, Bookmark, Mail } from "lucide-react";
+import { useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../utils/context/reducers/authSlice";
 
-interface HeaderProps{}
+import { Spinner } from 'flowbite-react';
 
-const Header: React.FC<HeaderProps> = () =>{
-    const selectUser = (state: any) => state.auth.user || "";
-    const user = useSelector(selectUser) || "";
-    const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false)
-    const dropdownRef = useRef<HTMLDivElement>(null)
 
-    const toggleUserMenu = () =>{
-        setIsUserMenuOpen(!isUserMenuOpen)
+
+interface HeaderProps {}
+
+const Header: React.FC<HeaderProps> = () => {
+  const selectUser = (state: any) => state.auth.user || "";
+  const user = useSelector(selectUser) || "";
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(!isUserMenuOpen);
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsUserMenuOpen(false);
     }
-    const handleClickOutside = (event: MouseEvent) =>{
-        if(
-            dropdownRef.current && !dropdownRef.current.contains(event.target as Node)
-        ){
-            setIsUserMenuOpen(false);
-        }
-    }
+  };
 
-    useEffect(()=>{
-        document.addEventListener("mousedown",handleClickOutside)
-        return() =>{
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-    },[])
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-  
-    const handleLogout = () => {
-      dispatch(logout());
-      localStorage.removeItem("email");
-      navigate("/login");
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  
-    return (
-        <nav className="border z-10 bg-purewhite lg:px-6 py-2.5 h-16 sticky top-0 dark:border-none" >
+  }, []);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("email");
+    navigate("/login");
+  };
+
+
+  return (
+    <nav className="border z-10 bg-white lg:px-6 py-2.5 h-16 sticky top-0" >
+      
+      
       <div className="flex flex-wrap justify-between">
         <a href="/" className="flex items-center">
           <img
-            src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png"
+            src="https://i.postimg.cc/YC7Hwhxb/Screenshot-2024-03-04-151411.png"
             className="mr-3 h-6 sm:h-9"
-            alt="Ripple logo"
+            alt="CircleUp logo"
           />
         </a>
 
@@ -57,8 +65,8 @@ const Header: React.FC<HeaderProps> = () =>{
           <ul className="flex flex-col mt-4 gap-5 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
             <li>
               <a
-                onClick={()=>{navigate('/home')}}
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-pureblack border-b border-gray-100 hover:bg-green-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-600 lg:dark:hover:bg-transparent dark:border-gray-700"
+                onClick={()=>navigate('/home')}
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-green-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-600 lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Home
               </a>
@@ -66,7 +74,7 @@ const Header: React.FC<HeaderProps> = () =>{
             <li>
               <a
                 href="#"
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-pureblack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 People
               </a>
@@ -74,7 +82,7 @@ const Header: React.FC<HeaderProps> = () =>{
             <li>
               <a
                 href="#"
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-pureblack border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Jobs
               </a>
@@ -87,14 +95,14 @@ const Header: React.FC<HeaderProps> = () =>{
                 type="search"
                 name="search"
                 placeholder="Search"
-                className="search-input text-xs bg-white h-8 px-5 w-full pr-10 rounded-full focus:outline-none border border-gray-300"
+                className="search-input text-xs bg-white h-8 px-5 w-full pr-10 rounded-full  focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600  border border-gray-300"
                 style={{
                   position: "relative",
                 }}
               />
               <button
                 type="submit"
-                className="search-icon text-white rounded-full absolute bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 font-medium text-sm px-2 py-2"
+                className="search-icon text-white rounded-full absolute bg-green-600 font-medium text-sm px-2 py-2"
                 style={{
                   position: "absolute",
                   right: "2px",
@@ -138,7 +146,7 @@ const Header: React.FC<HeaderProps> = () =>{
               >
                 <img
                   className="w-6 h-6 rounded-full border"
-                  src={user.profileImg}
+                  src={user.profileImageUrl}
                   alt="user photo"
                 />
               </button>
@@ -151,10 +159,10 @@ const Header: React.FC<HeaderProps> = () =>{
               >
                 <div className="px-4 py-2">
                   <span className="block text-xs font-semibold text-gray-900">
-                  {user.name}
+                   {user.name}
                   </span>
                   <span className="block text-xs text-gray-500 truncate">
-                  {user.email}
+                   {user.email}
                   </span>
                 </div>
                 <ul className="py-2">
@@ -184,7 +192,7 @@ const Header: React.FC<HeaderProps> = () =>{
                   </li>
                   <li>
                     <a
-                      onClick={handleLogout}
+                       onClick={handleLogout}
                       className="block px-4 py-2 font-semibold text-xs text-red-500 hover:bg-gray-100"
                     >
                       Sign out
@@ -197,7 +205,7 @@ const Header: React.FC<HeaderProps> = () =>{
         </div>
       </div>
     </nav>
+  );
+};
 
-    )
-}
 export default Header;
