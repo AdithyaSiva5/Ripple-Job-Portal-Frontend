@@ -1,4 +1,4 @@
-import { userUrls ,postUrls } from "../endPoints";
+import { userUrls ,postUrls ,jobUrls} from "../endPoints";
 import { apiCall } from "./apiCalls";
 import { FormValues } from "../../../utils/validation/signupValidation";
 
@@ -397,7 +397,205 @@ export const setBasicInformation = (userData: any) => {
     }
   });
 };
+export const addJob= (data:any) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.addJob, data)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+//edit job
+
+export const editJob= (data:any) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.editJob, data)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+//list job
+
+export const listJob= (data:any) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.listJob, data)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+//list User Jobs
+export const listUserJob= (userId:{userId:string}) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.listUserJob, userId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//apply-job
+export const applyJob= ({formData}:any) => {
+  
+  return new Promise((resolve, reject) => {
+
+    
+    try {
+      apiCall("post", jobUrls.addJobApplication,formData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//Update  applicationStatus
+export const updateApplicationStatus= (applcationData:{applicationId:string,status:string,userId:string}) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.updateApplicationStatus,applcationData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//get all applications of a user 
+export const getemployeeApplications= (applicantId:{applicantId:string}) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.employeeApplications, applicantId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//get all applications of a user 
+export const getemployerApplications= (userId:{userId:string}) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.employerApplications,userId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+//get all applications of a user 
+export const getAllJobDetails= (data:any) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.getAllJobDetails,data)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 
 
- 
+//get all applications of a user 
+export const cancelApplication= (data:any) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.cancelApplication,data)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+export const getJobDetails = ( jobId:{jobId: string|undefined}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.getJobDetails,jobId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};

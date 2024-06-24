@@ -12,7 +12,6 @@ function UserProfileBar() {
           <img className=" w-16 h-16 rounded-full" src={user.profileImageUrl}alt="" />
           <div className="flex flex-col items-center" >
           <p className="text-sm font-bold flex gap-1 items-center">{user.profile?.fullname||user.companyProfile?.companyName} </p>
-          <p className="text-xs text-gray-400">Mern Stack Developer</p>
           <p className="text-xs text-gray-400">{user.profile?.designation||user.companyProfile?.companyType}</p>
           </div>
           

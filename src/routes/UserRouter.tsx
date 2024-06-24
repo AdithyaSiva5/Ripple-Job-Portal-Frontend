@@ -14,6 +14,17 @@ import Profile from "../pages/user/profilePage/Profile";
 import UserBio from "../components/UserBio";
 import UserPost from "../components/UserPost";
 import Settings from "../components/Settings";
+import JobsHiring from "../pages/user/jobs/JobsHiring";
+import JobsOpenToWork from "../pages/user/jobs/JobsOpenToWork";
+import HiringJobList from "../components/HiringJobList";
+import HiringApplications from "../components/HiringApplicants";
+import HiringInterviews from "../components/HiringInterviews";
+import ViewJob from "../components/ViewJob";
+import AddJob from "../components/AddJob";
+import EditJob from "../components/EditJob";
+import Jobs from "../components/Jobs";
+import Applications from "../components/Applications";
+import Interviews from "../components/Interviews";
 
 createBrowserRouter
 
@@ -22,22 +33,72 @@ const appRouter = createBrowserRouter([
     {
         path:"/",
         element:<Landing/>
-          // errorElement: <Error />,
     },
     {
       path: "/home",
       element: <App />,
-      // errorElement: <Error />,
       children: [
         {
           path: "/home",
           element: <UserHome />,
         },
-        // {
-        //   path: "/profile/:username",
-        //   element: <UserProfile />,
-        // },
       ],
+    },
+    {
+      path:"/jobs",
+      element:<App/>,
+      children:[
+        {
+          path:"/jobs/hiring",
+          element:<JobsHiring/>,
+          children:[
+            {
+              path:"/jobs/hiring/job-list",
+              element:<HiringJobList/>
+            },
+            {
+              path:"/jobs/hiring/applicants",
+              element:<HiringApplications/>
+
+            },
+            {
+              path:"/jobs/hiring/interviews",
+              element:<HiringInterviews/>
+
+            },
+            {
+              path:"/jobs/hiring/view-job",
+              element:<ViewJob/>
+            },
+            {
+              path:"/jobs/hiring/add-job",
+              element:<AddJob/>
+            },
+            {
+              path:"/jobs/hiring/edit-job/:jobId",
+              element:<EditJob/>
+            }
+          ]
+        },{
+          path:"/jobs/open-to-work",
+          element:<JobsOpenToWork/>,
+          children:[
+            {
+              path:"/jobs/open-to-work/job-list",
+              element:<Jobs />
+            },
+            {
+              path:"/jobs/open-to-work/applications",
+              element:<Applications/>
+
+            },
+            {
+              path:"/jobs/open-to-work/interviews",
+              element:<Interviews/>
+            }
+          ]
+        }
+      ]
     },
     {
       path:"/profile",
