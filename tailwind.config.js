@@ -49,6 +49,10 @@ export default {
         }
       }
     },
+    active: {
+      on: "active rounded-t-lg border-b-2 border-green-600 text-green-600 dark:border-green-500 dark:text-green-500",
+      off: "border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300",
+    },
   },
   plugins: [
     flowbitePlugin

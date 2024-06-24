@@ -6,29 +6,26 @@ import { useEffect, useState } from "react";
 import { getAllPosts } from "../../../services/api/user/apiMethods";
 import PostSkeletonUi from "../../../components/skeletonUI/PostSkeletonUi";
 import Preferences from "../../../components/Preferences";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import BasicInformation from "../../../components/BasicInformation";
 
 
 function UserHome() {
 
-  const dispatch = useDispatch()
   const selectUser = (state:any) => state.auth.user || '';
   const user = useSelector(selectUser) || "";
-  const userId = user._id || "";
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     try {
+      
       setLoading(true);
       setTimeout(() => {
         getAllPosts()
           .then((response: any) => {
             const postsData = response.data;
             setPosts(postsData);
-
-            console.log(postsData);
           })
           .catch((error) => {
             console.log(error);
@@ -50,7 +47,7 @@ function UserHome() {
        {!user.userType&&(
           <Preferences/>
         )}
-        {!user.fullname&&user.userType&&(
+         {!user.profile?.fullname &&!user.companyProfile?.companyName&&user.userType&&(
           <BasicInformation/>
         )}
       <div className="home-section-2 ">

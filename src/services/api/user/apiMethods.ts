@@ -363,8 +363,7 @@ export const deleteComment = ( commentId:{commentId:any}) => {
   });
 };
 
-//@dec      Add a reply comment
-//method    POST
+
 export const setPreferences = (userData: {userId:string,userType:any,isHiring:any }) => {
   return new Promise((resolve, reject) => {
     try {
@@ -381,6 +380,24 @@ export const setPreferences = (userData: {userId:string,userType:any,isHiring:an
   });
 };
 
+//@dec      set Preferences
+//method    POST
+export const setBasicInformation = (userData: any) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", userUrls.setBasicInformation,userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 
 
+ 

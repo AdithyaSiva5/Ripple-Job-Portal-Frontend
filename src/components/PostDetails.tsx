@@ -317,7 +317,7 @@ const PostDetails: React.FC<PostProps> = ({
 
         <div className=" col-span-1 relative pl-4  ">
           <header className="border-b border-grey-400 flex justify-between">
-            <div>
+            <div> 
               <a
                 href="#"
                 className="flex cursor-pointer py-4  items-center text-sm outline-none focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"

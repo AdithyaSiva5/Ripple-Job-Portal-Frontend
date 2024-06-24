@@ -40,11 +40,11 @@ function App() {
     <>
 
 
-      <div className=" dark:bg-[#1E202A]">
+      <div>
 
         <Header />
 
-        <div className="home-main dark:bg-purewhite">
+        <div className="home-main">
           <div className="hidden lg:block home-section-1" id="mobile-menu-2">
             <UserProfileBar />
           </div>

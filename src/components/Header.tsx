@@ -4,7 +4,6 @@ import { useDispatch, useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../utils/context/reducers/authSlice";
 
-import { Spinner } from 'flowbite-react';
 
 
 
@@ -52,9 +51,9 @@ const Header: React.FC<HeaderProps> = () => {
       <div className="flex flex-wrap justify-between">
         <a href="/" className="flex items-center">
           <img
-            src="https://i.postimg.cc/YC7Hwhxb/Screenshot-2024-03-04-151411.png"
+            src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png"
             className="mr-3 h-6 sm:h-9"
-            alt="CircleUp logo"
+            alt="Ripple logo"
           />
         </a>
 

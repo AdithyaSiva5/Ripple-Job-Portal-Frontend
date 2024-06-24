@@ -13,7 +13,7 @@ function Preferences() {
   const userId = user._id || '';
   const dispatch = useDispatch()
   const [userType, setuserType] = useState('');
-  const [isHiring, setisHiring] = useState('');
+  const [isHiring, setisHiring] = useState(''); 
 
   const handleTypeSelection = (type:any) => {
     setuserType(type);
@@ -47,7 +47,7 @@ function Preferences() {
 
   return (
     <>
-      <Modal show={true}>
+      <Modal show={true} className="bg-transparent">
         <Modal.Body>
           <p className="text-sm font-semibold">Basic Information</p>
         </Modal.Body>

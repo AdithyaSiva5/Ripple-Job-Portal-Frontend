@@ -5,10 +5,10 @@ export const userUrls ={
     googleAuth:'/google-auth',
     login:'/login',
     forgotPassword:'/forgot-password',
-    forgotOtp:'/forgot-otp',
+    forgotOtp:'/forgot-otp', 
     resetPassword:'/reset-password',
-    setPreferences: '/set-preferences'
-   
+    setPreferences: '/set-preferences',
+    setBasicInformation:'/set-basic-information',
 }
 
 export const authUrl = {

@@ -26,7 +26,7 @@ const adminAuthSlice = createSlice({
   reducers: {
     AdminLoginSuccess: (state, action: PayloadAction<{admin: UserData }>) => {
       state.admin = action.payload.admin;
-      state.token=action.payload.admin.token
+      state.token = action.payload.admin.token
  
     },
     AdminLogout: (state) => {
