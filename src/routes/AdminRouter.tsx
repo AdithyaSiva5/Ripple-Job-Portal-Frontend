@@ -4,6 +4,7 @@ import AdminDashboard from "../pages/admin/adminDashboard/AdminDashboard";
 import UserList from "../pages/admin/userlistPage/UserList";
 import JobCategoryPage from "../pages/admin/categoryListPage/JobCategoryPage";
 import PostList from "../pages/admin/postlistPage/PostList";
+import AdminJobList from "../pages/admin/adminJoblistPage/AdminJobList";
 
 
 
@@ -21,15 +22,19 @@ export const adminRouter = {
         element: <UserList/>
       },
       {
-        path:"/admin/jobs",
+        path:"/admin/job-category",
         element:<JobCategoryPage/>
       },
       {
         path:"/admin/posts",
         element:<PostList/>
         
+      } ,
+      {
+        path:"/admin/jobs",
+        element:<AdminJobList/>
       }
-    
+      
     ]
   };
   

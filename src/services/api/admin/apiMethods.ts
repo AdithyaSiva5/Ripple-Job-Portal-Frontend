@@ -151,3 +151,38 @@ export const blockJobCategory = (jobCategoryId:{jobCategoryId:string}) => {
         }
     })
 };
+
+//@dec      Block post
+//@method   Get
+export const adminJobBlock = (jobId:{jobId:string}) => {
+    return new Promise((resolve, reject) => {
+        try {
+            adminApiCalls("post", adminUrl.jobBlock, jobId).then((response) => {
+                resolve(response);
+              }
+            ).catch((err) => {
+                reject(err);
+            })
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+//@dec      All Job list
+//@method   Get
+export const adminJobList = (page:number) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const queryParams = `?page=${page}`
+            adminApiCalls("get", adminUrl.jobList+queryParams, null).then((response) => {
+                resolve(response);
+              }
+            ).catch((err) => {
+                reject(err);
+            })
+        } catch (error) {
+            reject(error);
+        }
+    })
+};

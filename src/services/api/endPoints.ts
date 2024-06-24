@@ -26,7 +26,7 @@ export const postUrls = {
     getAllPostComments:'/post/get-post-comments',
     addComment:'/post/add-comment',
     replyComment:'/post/reply-comment',
-    deleteComment:'/post/delete-post-comment'
+    deleteComment:'/post/delete-post-comment',
 }
 
 
@@ -38,7 +38,10 @@ export const adminUrl = {
     postBlock:'/admin/post-block',
     jobCategoryList:'/admin/job-category',
     addJobCategory:'/admin/add-job-category',
-    blockJobCategory:'/admin/block-job-category'
+    blockJobCategory:'/admin/block-job-category',
+    jobBlock:'/admin/job-block',
+    jobList:'/admin/get-jobs',
+
 }
 
 export const jobUrls = {
