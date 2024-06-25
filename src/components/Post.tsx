@@ -115,25 +115,34 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <Heart color="gray" strokeWidth={1.5} size={22} />
             )}
           </button>
-          <button type="button" onClick={handleHideCommentToggle}>
-            <MessageCircle color="gray" strokeWidth={1.5} size={22} />
-          </button>
+          {post.hideComment==false&&(
+              <button type="button" onClick={handleHideCommentToggle}>
+              <MessageCircle color="gray" strokeWidth={1.5} size={22} />
+            </button>
+
+
+          )}
           <button type="button">
             <Bookmark color="gray" strokeWidth={1.5} size={22} />
           </button>
         </div>
       </div>
-      <button onClick={handleLikedPeople}>
+ {post.hideLikes==false&&(
+            <button onClick={handleLikedPeople}>
+            <div className="font-semibold text-sm pb-4 mx-4">
+              <p>{likeCount} likes</p>
+            </div>
+      
+            </button>
+      
 
-      <div className="font-semibold text-sm py-4 mx-4">
-        <p>{likeCount} likes</p>
-      </div>
-      </button>
 
-      {isCommentSection && (
+    )}
+
+{isCommentSection && (
             <div className="addpost-popup">
               <div className="addpost-popup">
-              <button className="close-button me-5" onClick={handleClosePostDetails}><X size={18}  color="white"/></button>
+              <button className="close-button mt-16 me-5" onClick={handleClosePostDetails} ><X size={18}  color="white"/></button>
                 <PostDetails  key={post._id} post={post} likesValue={value2} commentsValue={value1} />
         
               </div>

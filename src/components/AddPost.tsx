@@ -130,7 +130,7 @@ function AddPost() {
   };
   return (
     <>
-      <div className="home-addpost-section bg-white flex flex-col justify-between p-4">
+      <div className="home-addpost-section bg-secondary flex flex-col justify-between p-4">
         <div className="home-addpost-text text-gray-500 font-medium text-xs">
           Whats Happening?........
         </div>
@@ -153,7 +153,7 @@ function AddPost() {
           </div>
           <button
             onClick={handleCreatePostClick}
-            className="text-xs mb-4 bg-black text-white px-4 py-2 mt-6 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
+            className="text-xs mb-4 dark:bg-green-600 bg-black text-white px-4 py-2 mt-6 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
           >
             Create Post
           </button>

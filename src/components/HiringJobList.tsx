@@ -117,10 +117,10 @@ const HiringJobList: React.FC = () => {
           <td className="font-xs px-6 py-4">{new Date(job.createdAt).toLocaleDateString()}</td>
           <td className=" font-xs px-6 py-4">{new Date(job.lastDateToApply).toLocaleDateString()}</td>
           <td className="text-xs px-6 py-4">
-            {job.isDeleted ? (
+            {job.isAdminBlocked ? (
               <span className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600">
                 Blocked
-              </span>
+              </span> 
             ) : (
               <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
                 UnBlocked

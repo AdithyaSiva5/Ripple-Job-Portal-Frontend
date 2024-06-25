@@ -3,6 +3,8 @@ import { Bell, Bookmark, Mail } from "lucide-react";
 import { useDispatch, useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../utils/context/reducers/authSlice";
+import { click, darkMode } from "../utils/context/reducers/darkmodeSlice";
+import { BsFillMoonStarsFill, BsSun } from "react-icons/bs";
 
 
 
@@ -10,6 +12,19 @@ import { logout } from "../utils/context/reducers/authSlice";
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
+
+  const dark = useSelector(darkMode)
+  const darkDispatch = useDispatch();
+
+  useEffect(() => {
+    if (!dark) {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+  }, [dark])
+
+
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
   const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
@@ -45,7 +60,7 @@ const Header: React.FC<HeaderProps> = () => {
 
 
   return (
-    <nav className="border z-10 bg-white lg:px-6 py-2.5 h-16 sticky top-0" >
+    <nav className="border z-10 bg-primary dark:border-none lg:px-6 py-2.5 h-16 sticky top-0" >
       
       
       <div className="flex flex-wrap justify-between">
@@ -65,7 +80,7 @@ const Header: React.FC<HeaderProps> = () => {
             <li>
               <a
                 onClick={()=>navigate('/home')}
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-green-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-600 lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-green-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-600 lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Home
               </a>
@@ -73,7 +88,7 @@ const Header: React.FC<HeaderProps> = () => {
             <li>
               <a
                 href="#"
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 People
               </a>
@@ -81,7 +96,7 @@ const Header: React.FC<HeaderProps> = () => {
             <li>
               <a
                 onClick = {()=>navigate('/jobs/open-to-work/job-list')}
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0 dark:text-gray-700 lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Jobs
               </a>
@@ -136,6 +151,22 @@ const Header: React.FC<HeaderProps> = () => {
             </li>
             <li>
               <Mail color="gray" strokeWidth={1.5} size={20} />
+            </li>
+            <li>
+
+                <div className="flex items-center lg:order-2 ms-1">
+                   <div className='p-[5px] rounded-full border-black dark:border-white border-2 cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white transition-all ease-in-out duration-300' onClick={() => {
+                  darkDispatch(click())
+    
+                  if (dark) {
+                    localStorage.setItem("theme", "dark")
+                  } else {
+                    localStorage.setItem("theme", 'light')
+                  }
+                }}>
+                  {dark ? <BsSun className='text-sm dark:text-white dark:hover:text-black' /> : <BsFillMoonStarsFill className='text-sm ' />}
+                </div>  
+                </div>
             </li>
             <li className="relative">
               <button

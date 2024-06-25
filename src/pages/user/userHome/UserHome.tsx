@@ -8,9 +8,19 @@ import PostSkeletonUi from "../../../components/skeletonUI/PostSkeletonUi";
 import Preferences from "../../../components/Preferences";
 import { useSelector } from "react-redux";
 import BasicInformation from "../../../components/BasicInformation";
+import { darkMode } from "../../../utils/context/reducers/darkmodeSlice";
 
 
 function UserHome() {
+  const dark = useSelector(darkMode)
+
+  useEffect(() => {
+    if (!dark) {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+  }, [dark])
 
   const selectUser = (state:any) => state.auth.user || '';
   const user = useSelector(selectUser) || "";
@@ -43,14 +53,14 @@ function UserHome() {
 
   return (
 
-    <div>
+    <div >
        {!user.userType&&(
           <Preferences/>
         )}
          {!user.profile?.fullname &&!user.companyProfile?.companyName&&user.userType&&(
           <BasicInformation/>
         )}
-      <div className="home-section-2 ">
+      <div className="home-section-2 bg-primary">
         <div className="home-scroll">
           <div className="home-scrollbox">
             <AddPost />

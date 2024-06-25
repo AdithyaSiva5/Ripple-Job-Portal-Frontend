@@ -21,14 +21,19 @@ body{
 }
 
 :root{
-  --primary: 234, 233 ,233;
+  --primary: 234 , 233, 233;
+  --secondary: 255 , 255 ,255 ;
+  --accent: 0, 0, 0;
   --purewhite: 255, 255, 255;
   --pureblack: 0 , 0 , 0;
 
 }
 
 .dark{
-  --primary: 30 , 32 , 42;
+  --primary: 27 , 31 , 36;
+  --secondary: 39 , 42 , 48;
+  --accent: 255, 255, 255;
+  /* --primary: 30 , 32 , 42; */
   --purewhite: 30, 32, 42;
   --pureblack: 255 , 255 , 255;
 }

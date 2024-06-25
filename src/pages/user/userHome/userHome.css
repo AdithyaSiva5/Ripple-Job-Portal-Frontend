@@ -4,12 +4,12 @@
 
 
 .home-main{
-    height: 100vh;
+    height: 200vh;
     display: flex;
     background-color: rgb(234, 233, 233);
-
-    
-    
+}
+.dark .home-main {
+    background-color: rgb(27, 31, 36);
 }
 
 .home-section-1{

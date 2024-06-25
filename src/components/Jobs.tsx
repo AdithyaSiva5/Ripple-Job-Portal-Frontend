@@ -11,7 +11,7 @@ interface jobProps {
       _id: string;
       profileImageUrl: string;
     };
-    companyName: string;
+    companyName: string; 
     jobRole: string;
     jobDescription: string;
     requiredSkills: string;
@@ -46,7 +46,8 @@ const Jobs = () => {
       listJob({})
         .then((response: any) => {
           const jobsData = response.data.jobs;
-          setJobs(jobsData);
+          const activeJobs = jobsData.filter((job: any) => !job.isAdminBlocked);
+          setJobs(activeJobs);
         })
         .catch((error) => {
           console.log(error.message);

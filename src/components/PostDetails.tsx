@@ -3,7 +3,7 @@ import { formatDistanceToNow } from "date-fns";
 
 import { Formik, Form, Field } from "formik";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   EllipsisVertical,
   Edit,
@@ -34,6 +34,7 @@ import { setUsePosts } from "../utils/context/reducers/authSlice";
 import {  Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
+
 interface PostProps {
   post: {
     _id: string;
@@ -57,6 +58,7 @@ interface PostProps {
 }
 
 const PostDetails: React.FC<PostProps> = ({
+
   post,
   commentsValue = false,
   likesValue = false,
@@ -75,6 +77,7 @@ const PostDetails: React.FC<PostProps> = ({
   const [replyComments, setReplyComments] = useState(false);
   const [parentCommentId, setParentCommentId] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const commentBoxRef = useRef(null);
 
   useEffect(() => {
     getPostComments({ postId: post._id })
@@ -264,8 +267,8 @@ const PostDetails: React.FC<PostProps> = ({
       deletePost({ postId, userId })
         .then((response: any) => {
           const postData = response.data;
-          console.log(postData.posts);
-          dispatch(setUsePosts({ userPost: response.data }));
+         
+          dispatch(setUsePosts({userPost: postData.posts}));
           toast.info("Post Deleted");
           setIsOpen(!isOpen);
         })
@@ -298,11 +301,18 @@ const PostDetails: React.FC<PostProps> = ({
     }
   };
 
+  useEffect(() => {
+
+    if (commentBoxRef.current) {
+      commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
+    }
+  }, [comments, replyComments,isComment]);
+
 
 
   return (
     <div
-      className=" bg-white overflow-hidden shadow-none mt-7 rounded-md "
+      className=" bg-white overflow-hidden shadow-none mt-7 rounded-md"
       style={{ width: "1136px", height: "476px" }}
     >
       <div className="grid grid-cols-3 min-w-full">
@@ -317,7 +327,7 @@ const PostDetails: React.FC<PostProps> = ({
 
         <div className=" col-span-1 relative pl-4  ">
           <header className="border-b border-grey-400 flex justify-between">
-            <div> 
+            <div>
               <a
                 href="#"
                 className="flex cursor-pointer py-4  items-center text-sm outline-none focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
@@ -331,13 +341,13 @@ const PostDetails: React.FC<PostProps> = ({
               </a>
             </div>
 
-            {post.userId.username == user.name && (
+            {post.userId.username == user.username && (
               <button onClick={toggleDropdown} className="me-2">
                 <EllipsisVertical size={18} />
               </button>
             )}
           </header>
-          {isOpen && post.userId.username == user.name && (
+          {isOpen && post.userId.username == user.username && (
             <div className="absolute right-7 top-5 mt-2 w-40 bg-white divide-y divide-gray-100 rounded-lg shadow-lg">
               <ul className="py-2">
                 <li>
@@ -500,15 +510,34 @@ const PostDetails: React.FC<PostProps> = ({
                         <Heart color="gray" strokeWidth={1.5} size={22} />
                       )}
                     </button>
-                    <button type="button" onClick={handleIsComment}>
-                      <MessageCircle color="gray" strokeWidth={1.5} size={22} />
-                    </button>
-                  </div>
-                  <button onClick={handleIsLikes}>
-                    <span className="text-gray-600 text-sm font-bold">
-                      {post.likes.length} Likes
-                    </span>
-                  </button>
+
+                    
+          {post.hideComment ==false&&(
+           
+           <button type="button" onClick={handleIsComment}>
+           <MessageCircle color="gray" strokeWidth={1.5} size={22} />
+         </button>
+
+
+          )}
+              </div>
+
+
+{post.hideLikes==false&&(
+    <button onClick={handleIsLikes}>
+    <span className="text-gray-600 text-sm font-bold">
+      {post.likes.length} Likes
+    </span>
+  </button>
+            
+      
+
+
+    )}
+
+
+              
+                
                 </div>
                 <span className="block ml-2 text-xs text-gray-600">
                   5 minutes
@@ -528,7 +557,7 @@ const PostDetails: React.FC<PostProps> = ({
               </div>
 
               <div className="home-scroll-post">
-                <div className="home-scrollbox-post pb-96">
+                <div ref={commentBoxRef}  className="home-scrollbox-post  ">
                   {comments.map((comment: any) => (
                     <div key={comment._id}>
                       <div className="mb-6">
@@ -562,7 +591,7 @@ const PostDetails: React.FC<PostProps> = ({
                             >
                               Reply{" "}
                             </button>
-                            {user.name == comment.userId.username && (
+                            {user.username == comment.userId.username && (
                               <button
                                 onClick={() => {setOpenModal(true);setParentCommentId(comment._id)}}
                                 className="ms-2"
@@ -629,7 +658,7 @@ const PostDetails: React.FC<PostProps> = ({
                   <Form>
                     <div className="w-full items-center absolute bottom-0 pe-6 bg-white h-20">
                       <div>
-                        <p className="text-xs font-bold mb-1">@{user.name}</p>
+                        <p className="text-xs font-bold mb-1">@{post.userId.username}</p>
                       </div>
                       <div className="flex">
                         <Field
@@ -722,7 +751,7 @@ const PostDetails: React.FC<PostProps> = ({
           )}
         </div>
       </div>
-      <Modal
+      <Modal      className="bg-transparent"
                   show={openModal}
                   size="md"
                   onClose={() => setOpenModal(false)}

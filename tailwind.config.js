@@ -26,13 +26,15 @@ export default {
 
         purewhite: 'rgba(var(--purewhite))',
         primary: 'rgba(var(--primary))',       // Bright blue for primary actions
+        secondary: 'rgba(var(--secondary))',       // Bright blue for primary actions
+        accent: 'rgba(var(--accent))',       // Bright blue for primary actions
         pureblack: 'rgba(var(--pureblack))',
         background: 'hsl(230, 17%, 14%)',     // Very dark blue for the background
         onBackground: 'hsl(0, 0%, 95%)',      // Very light gray for text on background
 
-
-        secondary: 'hsl(48, 94%, 68%)',       // Soft yellow for secondary accents
-        accent: 'hsl(343, 82%, 58%)',         // Bright red for highlights
+ 
+        // secondary: 'hsl(48, 94%, 68%)',       // Soft yellow for secondary accents
+        // accent: 'hsl(343, 82%, 58%)',         // Bright red for highlights
         surface: 'hsl(230, 20%, 18%)',        // Slightly lighter dark blue for surfaces
         onPrimary: 'hsl(0, 0%, 100%)',        // Pure white for text on primary color
         onSurface: 'hsl(0, 0%, 90%)',         // Light gray for text on surfaces
