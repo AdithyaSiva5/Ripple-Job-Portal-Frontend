@@ -22,7 +22,7 @@ function ApplyJobForm({ job, cancelApplyJob }: any) {
     setLoading(true);
 
     try {
-      const formData = new FormData() as any;
+      const formData = new FormData() as any; 
 
       formData.append('jobId', job._id);
 formData.append('applicantId', userId);

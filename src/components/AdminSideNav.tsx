@@ -1,4 +1,4 @@
-import { User ,ClipboardList,FilePenLine,BarChartBig , Layers3} from "lucide-react";
+import { User ,ClipboardList,FilePenLine,BarChartBig , Layers3, MessageSquareWarning} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 function AdminSideNav() {
 
@@ -43,6 +43,14 @@ function AdminSideNav() {
                 </a>
            
             </li>
+            <li className="mb-1 group">
+            <a onClick={()=>{navigate('/admin/reports')}}  
+            className={`flex font-semibold items-center gap-1 py-3 px-4  hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-950 group-[.active]:text-white ${
+                location.pathname === "/admin/reports" ? "bg-gray-950 text-gray-100" : ""
+            }`}>            <MessageSquareWarning  strokeWidth={1.5} size={16} />  
+                <span className="text-xs">Reports</span>
+            </a>
+        </li>
         
         </ul>
     </div>

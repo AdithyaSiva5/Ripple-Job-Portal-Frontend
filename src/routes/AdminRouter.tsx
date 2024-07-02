@@ -5,18 +5,14 @@ import UserList from "../pages/admin/userlistPage/UserList";
 import JobCategoryPage from "../pages/admin/categoryListPage/JobCategoryPage";
 import PostList from "../pages/admin/postlistPage/PostList";
 import AdminJobList from "../pages/admin/adminJoblistPage/AdminJobList";
+import ReportList from "../pages/admin/adminReportlistPage/ReportList";
 
 
 
 export const adminRouter = {
     path: "/admin",
     element: <AdminDashboard />,
-    // errorElement: <Error />,
     children: [
-      // {
-      //   path:"/admin",
-      //   element: <Dashboard />
-      // },
       {
         path:"/admin/users",
         element: <UserList/>
@@ -33,6 +29,10 @@ export const adminRouter = {
       {
         path:"/admin/jobs",
         element:<AdminJobList/>
+      },
+      {
+        path:"/admin/reports",
+        element:<ReportList/>
       }
       
     ]

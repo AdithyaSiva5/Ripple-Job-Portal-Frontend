@@ -92,6 +92,23 @@ export const adminPostBlock = (postId:{postId:string}) => {
         }
     })
 };
+//@dec      All report list
+//@method   Get
+export const adminReportList = (page:number) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const queryParams = `?page=${page}`
+            adminApiCalls("get", adminUrl.reportList+queryParams, null).then((response) => {
+                resolve(response);
+              }
+            ).catch((err) => {
+                reject(err);
+            })
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
 
 
 //@dec      Job Category

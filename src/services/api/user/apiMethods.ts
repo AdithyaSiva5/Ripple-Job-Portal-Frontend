@@ -599,3 +599,19 @@ export const getJobDetails = ( jobId:{jobId: string|undefined}) => {
     }
   });
 };
+
+export const reportPost = (reportData: {userId: string,postId: string,cause : string}) => {
+  return new Promise((resolve,reject)=>{
+    try{
+      apiCall("post",postUrls.reportPost , reportData)
+       .then((response)=>{
+        resolve(response)
+       })
+       .catch((err)=>{
+        reject(err)
+       })
+    }catch(error){
+      resolve({status : 500, message: "Somethings wrong"})
+    }
+  })
+}

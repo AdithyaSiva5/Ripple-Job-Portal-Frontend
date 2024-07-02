@@ -27,6 +27,7 @@ export const postUrls = {
     addComment:'/post/add-comment',
     replyComment:'/post/reply-comment',
     deleteComment:'/post/delete-post-comment',
+    reportPost: '/post/report-post'
 }
 
 
@@ -41,6 +42,9 @@ export const adminUrl = {
     blockJobCategory:'/admin/block-job-category',
     jobBlock:'/admin/job-block',
     jobList:'/admin/get-jobs',
+    reportList:'/admin/get-reports',
+    
+
 
 }
 

@@ -5,6 +5,7 @@ import { setUsePosts } from "../utils/context/reducers/authSlice";
 import { toast } from "sonner";
 import { useState } from "react";
 import PostDetails from "./PostDetails";
+import ReportModal from "./ReportModal";
 
 interface PostProps {
   post: {
@@ -26,6 +27,7 @@ interface PostProps {
   };
 }
 
+
 const Post: React.FC<PostProps> = ({ post }) => {
   const dispatch = useDispatch();
   const selectUser = (state: any) => state.auth.user || "";
@@ -33,6 +35,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const userId = user._id || "";
   const[value1,setValue1]=useState(false)
   const[value2,setValue2]=useState(false)
+  const [reportModel,setReportModel] = useState(false)
   const[isCommentSection,SetIsCommentSection]=useState(false)
   const handleHideCommentToggle = () => {
     SetIsCommentSection(!isCommentSection);
@@ -51,6 +54,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
     post.likes.some((like) => like._id === userId)
   );
   const[likeCount,setLikeCount]=useState(post.likes.length)
+
+  const openReportModel = () =>{
+    setReportModel(true)
+  }
+  const closeReportModel = () =>{
+    setReportModel(false)
+  }
 
   const handleLike = (postId: string, userId: string) => {
     try {
@@ -77,7 +87,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       console.log(error.message);
     }
   };
-
+  
   return (
     <div className=" home-post-section bg-white">
       <div className="flex items-center px-4 py-3">
@@ -94,6 +104,14 @@ const Post: React.FC<PostProps> = ({ post }) => {
             Asheville, North Carolina
           </span>
         </div>
+        
+        {user._id !== post.userId._id && (
+          <button className="ml-auto inline-flex justify-end items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs font-semibold text-white"
+          onClick={() => openReportModel()}
+          >
+                Report
+              </button>
+        )}
       </div>
       <img style={{ width: "600px" }} src={post.imageUrl} alt="Post" />
 
@@ -148,6 +166,14 @@ const Post: React.FC<PostProps> = ({ post }) => {
               </div>
             </div>
           )}
+          {reportModel && (
+  <ReportModal
+    userId={userId}
+    postId={post._id}
+    openReportModal={openReportModel}
+    closeReportModal={closeReportModel}
+  />
+)}
     </div>
          
 
