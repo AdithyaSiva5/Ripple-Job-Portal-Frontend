@@ -26,11 +26,11 @@ function ReportModal({ userId, postId, openReportModal, closeReportModal }:any) 
 
   return (
     <div>
-      <Modal show={openReportModal} className="bg-transparent mt-44" size="md" onClose={closeReportModal} popup>
+      <Modal show={openReportModal} className="bg-transparent mt-44 " size="md" onClose={closeReportModal} popup>
         <Modal.Header />
         <Modal.Body>
-          <fieldset className="flex max-w-md flex-col gap-4">
-            <legend className="mb-4 text-sm font-medium">Choose your Report cause</legend>
+          <fieldset className="flex max-w-md flex-col gap-4 ">
+            <legend className="mb-4 text-sm font-medium dark:text-green">Choose your Report cause</legend>
             <div className="flex items-center gap-2">
               <Radio
                 id="nudity"

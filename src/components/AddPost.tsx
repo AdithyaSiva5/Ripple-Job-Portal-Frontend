@@ -7,15 +7,15 @@ import PreviewImage from "./PreviewImage";
 import { useSelector } from "react-redux";
 import { toast } from 'sonner';
 import { addPost } from "../services/api/user/apiMethods";
-
 import { Button, Spinner } from "flowbite-react";
+import { darkMode } from "../utils/context/reducers/darkmodeSlice";
 
   
 
 
 
 function AddPost() {
-
+  const dark = useSelector(darkMode);
   const selectUser = (state: any) => state.auth.user || ''; 
   const user = useSelector(selectUser) || '';
   const userId = user._id || '';
@@ -130,24 +130,24 @@ function AddPost() {
   };
   return (
     <>
-      <div className="home-addpost-section bg-secondary flex flex-col justify-between p-4">
-        <div className="home-addpost-text text-gray-500 font-medium text-xs">
+      <div className=" home-addpost-section bg-secondary flex flex-col justify-between p-4 border border-green">
+        <div className="home-addpost-text text-gray-500 font-medium text-xs dark:text-white">
           Whats Happening?........
         </div>
         <div className="flex items-center justify-between align-middle">
           <div className="home-addpost-button-section flex">
             <ul className="flex gap-2 ">
               <li>
-                <FileImage color="gray" strokeWidth={1.5} size={20} />
+                <FileImage color={dark ? "white" : "gray"}  strokeWidth={1.5} size={20} />
               </li>
               <li>
-                <Smile color="gray" strokeWidth={1.5} size={20} />
+                <Smile color={dark ? "white" : "gray"} strokeWidth={1.5} size={20} />
               </li>
               <li>
-                <Type color="gray" strokeWidth={1.5} size={20} />
+                <Type color={dark ? "white" : "gray"} strokeWidth={1.5} size={20} />
               </li>
               <li>
-                <Camera color="gray" strokeWidth={1.5} size={20} />
+                <Camera color={dark ? "white" : "gray"} strokeWidth={1.5} size={20} />
               </li>
             </ul>
           </div>

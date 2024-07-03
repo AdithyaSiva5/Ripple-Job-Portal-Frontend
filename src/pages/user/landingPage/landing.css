@@ -10,9 +10,14 @@
     background-repeat: no-repeat;
     background-position: 0px -200px;
     z-index: 100;
-  
-  
+    min-height: 100vh;
+  } 
+  .dark #home {
+    background-color: #1B1F24;
+    background-image: none;
   }
+  
+   
 
 
   

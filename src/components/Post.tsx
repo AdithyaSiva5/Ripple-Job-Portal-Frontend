@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import PostDetails from "./PostDetails";
 import ReportModal from "./ReportModal";
+import { darkMode } from "../utils/context/reducers/darkmodeSlice";
 
 interface PostProps {
   post: {
@@ -29,6 +30,7 @@ interface PostProps {
 
 
 const Post: React.FC<PostProps> = ({ post }) => {
+  const dark = useSelector(darkMode)
   const dispatch = useDispatch();
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
@@ -89,7 +91,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   };
   
   return (
-    <div className=" home-post-section bg-white">
+    <div className=" home-post-section bg-secondary border border-green">
       <div className="flex items-center px-4 py-3">
         <img
           className="h-8 w-8 rounded-full"
@@ -97,11 +99,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
           alt="Profile"
         />
         <div className="ml-3 ">
-          <span className="text-sm font-semibold antialiased block leading-tight">
+          <span className="text-sm font-semibold antialiased block leading-tight dark:text-white ">
             {post.userId.username}
           </span>
-          <span className="text-gray-600 text-xs block">
-            Asheville, North Carolina
+          <span className="text-gray-600 dark:text-white text-xs block">
+            Ernakulam , Kerala
           </span>
         </div>
         
@@ -115,11 +117,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
       </div>
       <img style={{ width: "600px" }} src={post.imageUrl} alt="Post" />
 
-      <p className="  text-gray-700  ms-4 mt-2 text-xs font-semibold">
+      <p className=" dark:text-white text-gray-700  ms-4 mt-2 text-xs font-semibold">
         {post.title}
       </p>
 
-      <p className="ms-5 text-xs text-gray-700 ">{post.description}</p>
+      <p className="dark:text-white ms-5 text-xs text-gray-700 ">{post.description}</p>
 
       <div className="flex items-center justify-between mx-4  mt-2">
         <div className="flex gap-5">
@@ -130,24 +132,24 @@ const Post: React.FC<PostProps> = ({ post }) => {
             {isLikedByUser ? (
               <Heart color="green" fill="green" strokeWidth={1.5} size={22} />
             ) : (
-              <Heart color="gray" strokeWidth={1.5} size={22} />
+              <Heart color={dark ? "white" : "gray"} strokeWidth={1.5} size={22} />
             )}
           </button>
           {post.hideComment==false&&(
               <button type="button" onClick={handleHideCommentToggle}>
-              <MessageCircle color="gray" strokeWidth={1.5} size={22} />
+              <MessageCircle color={dark ? "white" : "gray"} strokeWidth={1.5} size={22} /> 
             </button>
 
 
           )}
           <button type="button">
-            <Bookmark color="gray" strokeWidth={1.5} size={22} />
+            <Bookmark color={dark ? "white" : "gray"} strokeWidth={1.5} size={22} />
           </button>
         </div>
       </div>
  {post.hideLikes==false&&(
             <button onClick={handleLikedPeople}>
-            <div className="font-semibold text-sm pb-4 mx-4">
+            <div className="font-semibold text-sm pb-4 mx-4 dark:text-white">
               <p>{likeCount} likes</p>
             </div>
       

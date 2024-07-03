@@ -23,16 +23,17 @@ function Landing() {
 
   return (
     <> 
-    
-       
-    <nav  className=  " z-10 bg-purewhite border dark:border-none px-4 lg:px-6 py-2.5 ">
+    <div className="dark:bg-fill min-h-screen " id="home">
+
+
+    <nav  className=  " z-10 bg-primary border dark:border-none px-4 lg:px-6 py-2.5 ">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl ">
             <a href="" className="flex items-center">
                 <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
                
             </a>
             <div className="flex items-center lg:order-2 ms-10">
-                <a href="/login"  className="inline-flex items-center justify-center px-5 py-2 mr-3 text-xs font-medium text-center border rounded-lg text-green-600 hover:bg-gray-100 ">Log in</a>
+                <a href="/login"  className="inline-flex items-center justify-center px-5 py-2 mr-3 text-xs font-medium text-center border rounded-lg text-green-600 border-gray-600 hover:bg-gray-100 ">Log in</a>
                 <div className='p-[5px] rounded-full border-black dark:border-white border-2 cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white transition-all ease-in-out duration-300' onClick={() => {
               dispatch(click())
 
@@ -47,7 +48,7 @@ function Landing() {
             </div>
 
           
-            <div  className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+            <div  className="hidden justify-between  items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                 <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                   
                     <li>
@@ -69,7 +70,7 @@ function Landing() {
 
 
 
-<div className="container mx-auto px-7 py-8  text-center ">
+<div className="container mx-auto px-7 dark:bg-fill py-8  text-center ">
       <div >
             <div className='w-[100%] h-[60vh] flex flex-col items-center justify-center'>
                 <div className='w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-[2rem]'>
@@ -149,6 +150,8 @@ function Landing() {
 </div>
 </div>
 </div>
+    </div>
+       
 
 
 

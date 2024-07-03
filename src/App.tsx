@@ -1,7 +1,7 @@
 import { useNavigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { darkMode, removeDarkMode, setDarkMode } from "./utils/context/reducers/darkmodeSlice";
+import { removeDarkMode, setDarkMode } from "./utils/context/reducers/darkmodeSlice";
 import Header from "./components/Header";
 import UserProfileBar from "./components/UserProfileBar";
 

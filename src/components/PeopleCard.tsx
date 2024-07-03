@@ -18,7 +18,7 @@ function PeopleCard() {
        
           <div className="flex gap-2 justify-between">
           <button className="text-xs border px-4 py-1 rounded-md border-green-600">view</button>
-          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">circle up <CircleArrowUp size={15}/> </button>
+          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">Connect <CircleArrowUp size={15}/> </button>
 
           </div>
         
@@ -40,7 +40,7 @@ function PeopleCard() {
        
           <div className="flex gap-2 justify-between">
           <button className="text-xs border px-4 py-1 rounded-md border-green-600">view</button>
-          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">circle up <CircleArrowUp size={15}/> </button>
+          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">Connect <CircleArrowUp size={15}/> </button>
 
           </div>
         
@@ -62,7 +62,7 @@ function PeopleCard() {
        
           <div className="flex gap-2 justify-between">
           <button className="text-xs border px-4 py-1 rounded-md border-green-600">view</button>
-          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">circle up <CircleArrowUp size={15}/> </button>
+          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">Connect <CircleArrowUp size={15}/> </button>
 
           </div>
         
@@ -84,7 +84,7 @@ function PeopleCard() {
        
           <div className="flex gap-2 justify-between">
           <button className="text-xs border px-4 py-1 rounded-md border-green-600">view</button>
-          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">circle up <CircleArrowUp size={15}/> </button>
+          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">Connect <CircleArrowUp size={15}/> </button>
 
           </div>
         
@@ -106,7 +106,7 @@ function PeopleCard() {
        
           <div className="flex gap-2 justify-between">
           <button className="text-xs border px-4 py-1 rounded-md border-green-600">view</button>
-          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">circle up <CircleArrowUp size={15}/> </button>
+          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">Connect <CircleArrowUp size={15}/> </button>
 
           </div>
         
@@ -128,7 +128,7 @@ function PeopleCard() {
        
           <div className="flex gap-2 justify-between">
           <button className="text-xs border px-4 py-1 rounded-md border-green-600">view</button>
-          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">circle up <CircleArrowUp size={15}/> </button>
+          <button className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">Connect <CircleArrowUp size={15}/> </button>
 
           </div>
         

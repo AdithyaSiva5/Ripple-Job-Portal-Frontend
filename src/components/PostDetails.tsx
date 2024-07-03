@@ -312,10 +312,10 @@ const PostDetails: React.FC<PostProps> = ({
 
   return (
     <div
-      className=" bg-white overflow-hidden shadow-none mt-7 rounded-md"
+      className="border border-green bg-white  overflow-hidden shadow-none mt-7 rounded-md"
       style={{ width: "1136px", height: "476px" }}
     >
-      <div className="grid grid-cols-3 min-w-full">
+      <div className="grid grid-cols-3 min-w-full ">
         <div className="col-span-2 w-full">
           <img
             style={{ width: "768px" }}
