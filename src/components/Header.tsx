@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Bell, Bookmark, Mail } from "lucide-react";
 import { useDispatch, useSelector} from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../utils/context/reducers/authSlice";
 import { click, darkMode } from "../utils/context/reducers/darkmodeSlice";
 import { BsFillMoonStarsFill, BsSun } from "react-icons/bs";
@@ -29,6 +29,7 @@ const Header: React.FC<HeaderProps> = () => {
   const user = useSelector(selectUser) || "";
   const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
@@ -58,7 +59,8 @@ const Header: React.FC<HeaderProps> = () => {
     navigate("/login");
   };
 
-
+  const activeLinkStyle = "text-green-600 "; 
+  const inactiveLinkStyle = "text-gray-700 dark:text-white";
   return (
     <nav className="border z-10 bg-primary dark:border-none lg:px-6 py-2.5 h-16 sticky top-0" >
       
@@ -80,26 +82,32 @@ const Header: React.FC<HeaderProps> = () => {
             <li>
               <a
                 onClick={()=>navigate('/home')}
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-green-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-600 lg:dark:hover:bg-transparent dark:border-gray-700"
+                className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b  border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${
+                  location.pathname.startsWith('/home') ? activeLinkStyle : inactiveLinkStyle
+                }`}
               >
                 Home
               </a>
             </li>
             <li>
-              <a
-                href="#"
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                People
-              </a>
+            <a
+              onClick={() => navigate('/people/discover')}
+              className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${
+                location.pathname.startsWith('/people') ? activeLinkStyle : inactiveLinkStyle
+              }`}
+            >
+              People
+            </a>
             </li>
             <li>
-              <a
-                onClick = {()=>navigate('/jobs/open-to-work/job-list')}
-                className="text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Jobs
-              </a>
+            <a
+              onClick={() => navigate('/jobs/open-to-work/job-list')}
+              className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${
+                location.pathname.startsWith('/jobs') ? activeLinkStyle : inactiveLinkStyle
+              }`}
+            >
+              Jobs
+            </a>
             </li>
           </ul>
 

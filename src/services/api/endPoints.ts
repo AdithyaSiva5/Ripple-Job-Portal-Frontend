@@ -9,6 +9,8 @@ export const userUrls ={
     resetPassword:'/reset-password',
     setPreferences: '/set-preferences',
     setBasicInformation:'/set-basic-information',
+    userSuggestions:'/user-suggestions',
+    getUserDetails:'/user-details',
 }
 
 export const authUrl = {
@@ -27,7 +29,8 @@ export const postUrls = {
     addComment:'/post/add-comment',
     replyComment:'/post/reply-comment',
     deleteComment:'/post/delete-post-comment',
-    reportPost: '/post/report-post'
+    reportPost: '/post/report-post',
+    
 }
 
 
@@ -61,3 +64,23 @@ export const jobUrls = {
     getAllJobDetails:'job/get-all-job-details',
     cancelApplication:'job/cancel-job-application',
   }
+
+  export const connectionUrls = {
+    follow:'/connection/follow',
+    unFollow:'/connection/unFollow',
+    acceptRequest:'/connection/accept-request',
+    rejectRequest:'/connection/reject-request',
+    requestedUsers:'/connection//get-requested-users',
+    getConnection:'/connection/get-connection',
+    cancelRequest:'/connection/cancel-request'
+  }
+
+  export const chatUrl = {
+    addConversation: "/chat/add-conversation",
+    getUserConversation: "/chat/get-conversations",
+    findConversation: "/chat/find-conversation",
+    addMessage: "/chat/add-message",
+    getMessages: "/chat/get-messages",
+    setMessageRead: "/chat/set-message-read",
+    getUnreadMessages:'/chat/get-unread-messages'
+  };

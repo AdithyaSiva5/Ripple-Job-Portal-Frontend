@@ -69,6 +69,7 @@ function Landing() {
 
 
 
+    <div className="flex-grow">
 
 <div className="container mx-auto px-7 dark:bg-fill py-8  text-center ">
       <div >
@@ -152,7 +153,7 @@ function Landing() {
 </div>
     </div>
        
-
+    </div>
 
 
 </>

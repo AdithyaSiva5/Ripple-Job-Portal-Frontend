@@ -9,7 +9,7 @@ import Landing from "../pages/user/landingPage/Landing";
 import UserHome from "../pages/user/userHome/UserHome";
 import PasswordOtp from "../pages/user/passwordOtpPage/PasswordOtp";
 import App from "../App";
-import { adminLoginRouter, adminRouter } from "./AdminRouter";
+import adminRoutes from "./AdminRouter";
 import Profile from "../pages/user/profilePage/Profile";
 import UserBio from "../components/UserBio";
 import UserPost from "../components/UserPost";
@@ -25,8 +25,20 @@ import EditJob from "../components/EditJob";
 import Jobs from "../components/Jobs";
 import Applications from "../components/Applications";
 import Interviews from "../components/Interviews";
-
-createBrowserRouter
+import Protect from "../routes/protectRoutes/ProtectRoutes";
+import PageNotFound from "../components/errorComponents/ErrorPage";
+import NotAuthorized from "../components/errorComponents/NotAuthorised";
+import ErrorPage from "../components/errorComponents/ErrorPage";
+import People from "../pages/user/people/People";
+import PeopleDiscover from "../components/PeopleDiscover";
+import PeopleConnections from "../components/PeopleConnections";
+import PeopleRequests from "../components/PeopleRequests";
+import PeopleRequested from "../components/PeopleRequested";
+import ViewerProfile from "../pages/visitProfile/ViewerProfile";
+import ViewerBio from "../components/ViewerBio";
+import ViewerPosts from "../components/ViewerPost";
+import ViewerJobs from "../components/ViewerJobs";
+import ViewerConnections from "../components/ViewerConnections";
 
 
 const appRouter = createBrowserRouter([
@@ -36,7 +48,7 @@ const appRouter = createBrowserRouter([
     },
     {
       path: "/home",
-      element: <App />,
+      element: <Protect><App /></Protect>,
       children: [
         {
           path: "/home",
@@ -45,8 +57,44 @@ const appRouter = createBrowserRouter([
       ],
     },
     {
+      path:"/people",
+      element: (
+        <Protect>
+       <App/>
+        </Protect>
+      )
+      ,
+      errorElement:<ErrorPage/>
+     ,
+      children:[
+        {
+          path:"/people",
+          element:<People/>, 
+          children:[
+            {
+              path:"/people/discover",
+              element:<PeopleDiscover/>
+            },
+            {
+              path:"/people/connections",
+              element:<PeopleConnections/>
+            },
+            {
+              path:"/people/requests",
+              element:<PeopleRequests/>
+            },
+            {
+              path:"/people/requested",
+              element:<PeopleRequested/>
+            },
+          ]
+        },
+       
+      ]
+    },
+    {
       path:"/jobs",
-      element:<App/>,
+      element: <Protect><App /></Protect>,
       children:[
         {
           path:"/jobs/hiring",
@@ -59,12 +107,10 @@ const appRouter = createBrowserRouter([
             {
               path:"/jobs/hiring/applicants",
               element:<HiringApplications/>
-
             },
             {
               path:"/jobs/hiring/interviews",
               element:<HiringInterviews/>
-
             },
             {
               path:"/jobs/hiring/view-job",
@@ -79,7 +125,8 @@ const appRouter = createBrowserRouter([
               element:<EditJob/>
             }
           ]
-        },{
+        },
+        {
           path:"/jobs/open-to-work",
           element:<JobsOpenToWork/>,
           children:[
@@ -90,7 +137,6 @@ const appRouter = createBrowserRouter([
             {
               path:"/jobs/open-to-work/applications",
               element:<Applications/>
-
             },
             {
               path:"/jobs/open-to-work/interviews",
@@ -117,7 +163,33 @@ const appRouter = createBrowserRouter([
           element:<Settings/>
         }
       ]
+    },
+    {
+      path:"/visit-profile/",
+      element:<ViewerProfile/>
+      ,
+  errorElement:<ErrorPage/>,
+      
+      children:[
+        {
+          path:"bio/:userId",
+          element:<ViewerBio/>,
         },
+        {
+          path:"posts/:userId",
+          element:<ViewerPosts/>,
+        },
+        {
+          path:"jobs/:userId",
+          element:<ViewerJobs/>
+        },
+        
+        {
+          path:"connections/:userId",
+          element:<ViewerConnections/>
+        }
+      ]
+},
     {
       path: "/login",
       element: <Login />,
@@ -146,10 +218,15 @@ const appRouter = createBrowserRouter([
         path:"/register-success",
         element:<RegisterSucces/>
     },
-    adminRouter,  
-    adminLoginRouter,
-  
-  ]);
-  
+    {
+      path: '*',
+      element: <PageNotFound />,
+    },
+    {
+      path: '/not-authorized',
+      element: <NotAuthorized />,
+    },
+    ...adminRoutes,
+]);
 
 export default appRouter;

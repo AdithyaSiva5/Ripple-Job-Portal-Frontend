@@ -4,9 +4,12 @@
 
 
 .home-main{
-    height: 200vh;
+    height: 500vh;
+    position: fixed;
     display: flex;
+    width: 100%;
     background-color: rgb(234, 233, 233);
+    z-index: -100;    
 }
 .dark .home-main {
     background-color: rgb(27, 31, 36);
@@ -23,20 +26,22 @@
 }
 .home-section-2{
     width: 40%;
-    height: 100%;
-    position: absolute;
+    height: 90%;
+    position: fixed;
     left: 25%;
     top: 10%;
+
     
 }
 .home-section-3{
     width: 30%;
-    height: 100%;
-    position: fixed;
+    height: 84%;
+    position:fixed;
     right:5%;
     top: 10%;
     overflow: auto;
-
+    z-index: -1;
+   
 
 }
 
@@ -114,10 +119,10 @@
     top: 0;
     left: 0;
     height: 100%;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
