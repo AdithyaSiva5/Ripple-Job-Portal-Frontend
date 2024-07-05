@@ -1,21 +1,48 @@
 
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'; 
+import { click, darkMode } from '../../utils/context/reducers/darkmodeSlice';
+import { useEffect } from 'react';
+import { BsFillMoonStarsFill, BsSun } from 'react-icons/bs';
+
 
 
 const  NotAuthorized = () => {
+    const dark = useSelector(darkMode)
+    const dispatch = useDispatch();
+  
+    useEffect(() => {
+      if (!dark) {
+        document.documentElement.classList.remove('dark')
+      } else {
+        document.documentElement.classList.add('dark')
+      }
+    }, [dark])
   return (
-    <div>
-          <nav  className=  " z-10 bg-white border px-4 lg:px-6 py-2.5 ">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+    <div className="dark:bg-fill min-h-screen " id="home">
+          <nav  className=  " z-10 bg-primary border dark:border-none px-4 lg:px-6 py-2.5 ">
+        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl ">
             <a href="" className="flex items-center">
                 <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
                
             </a>
             <div className="flex items-center lg:order-2 ms-10">
-                <a href="/signup"  className="inline-flex items-center justify-center px-5 py-2 mr-3 text-xs font-medium text-center border rounded-lg text-green-600 hover:bg-gray-100 ">Sign Up</a>
-        
+                <a href="/login"  className="inline-flex items-center justify-center px-5 py-2 mr-3 text-xs font-medium text-center border rounded-lg text-green-600 border-gray-600 hover:bg-gray-100 ">Log in</a>
+                <div className='p-[5px] rounded-full border-black dark:border-white border-2 cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white transition-all ease-in-out duration-300' onClick={() => {
+              dispatch(click())
+
+              if (dark) {
+                localStorage.setItem("theme", "dark")
+              } else {
+                localStorage.setItem("theme", 'light')
+              }
+            }}>
+              {dark ? <BsSun className='text-sm dark:text-white dark:hover:text-black' /> : <BsFillMoonStarsFill className='text-sm ' />}
+            </div>  
             </div>
-            <div  className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+
+          
+            <div  className="hidden justify-between  items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                 <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                   
                     <li>
@@ -34,14 +61,14 @@ const  NotAuthorized = () => {
         </div>
     </nav>
 
-    <div className="flex items-center justify-center min-h-full bg-white py-48">
+    <div className="flex items-center justify-center min-h-full bg-white dark:bg-fill py-48">
       <div className="flex flex-col">
      
        
         <div className="flex flex-col items-center">
           <div className="text-green-600 font-bold text-5xl tracking-tight">401</div>
 
-          <div className="font-bold  mt-5 text-3xl tracking-tight ">
+          <div className="font-bold  mt-5 text-3xl tracking-tight dark:text-white">
            Not Authorized
           </div>
 

@@ -158,7 +158,7 @@ function BasicInformation() {
     <div>
       <Modal show={true} className="bg-transparent">
         <Modal.Body>
-          <p className="text-sm font-semibold">Company Information</p>
+          <p className="text-sm font-semibold">Basic Information</p>
         </Modal.Body>
 
         {user.userType == "individual" && (

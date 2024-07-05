@@ -34,11 +34,6 @@ function PeopleCard({ user, handleFollow ,updateConnection,updateRequested,updat
     }
   }, []);
   
-  
-
-  
-
-
 
   
   const location = useLocation();
@@ -108,21 +103,21 @@ const handleFollowFromViewProfile = (foloweduserId:string,followedUserName:strin
   const navigate=useNavigate()
   return (
     <>
-        <div className=" home-recommed-section bg-white flex justify-between px-4 py-4 items-end" >
+        <div className=" home-recommed-section bg-secondary border border-green flex justify-between px-4 py-4 items-end" >
           <div>
           <img
         className="h-9 w-9 rounded-full border-2 p-.5 mb-3 border-green-600"
         src={user?.profileImageUrl}
         alt="Profile"
       />
-          <p className="text-sm font-semibold flex items-center gap-1" > {user?.profile?.fullname||user?.companyProfile?.companyName}{user?.isPremium==true&&(<Target color="green" size={15}/>)} </p>
+          <p className="text-sm font-semibold flex items-center gap-1 text-accent" > {user?.profile?.fullname||user?.companyProfile?.companyName} </p>
           <p className="text-xs text-gray-400">{user?.profile?.designation||user?.companyProfile?.companyType}</p>
           <p className="text-xs text-green-600 font-medium">{user?.profile?.location||user?.companyProfile?.companyLocation}</p>
 
           </div>   
        
           <div className="flex gap-2 justify-between">
-          <button onClick={()=>{navigate(`/visit-profile/bio/${user?._id}`)}} className="text-xs border px-4 py-1 rounded-md border-green-600">view</button>
+          <button onClick={()=>{navigate(`/visit-profile/bio/${user?._id}`)}} className="text-xs border px-4 py-1 rounded-md border-green-600 text-accent">view</button>
            
           {location.pathname.startsWith('/visit-profile/connections/') && (
   <div>
@@ -132,11 +127,11 @@ const handleFollowFromViewProfile = (foloweduserId:string,followedUserName:strin
       </button>
     ) : connections?.some((connection:any) => connection._id === user?._id) ? (
       <button onClick={() =>  handleUnFollowFromViewProfile(user)} className="text-xs flex gap-1 text-red-600 font-semibold border px-2 py-1 rounded-md border-red-600">
-        Unfollow <CircleArrowDownIcon size={15} />
+        Turn Down <CircleArrowDownIcon size={15} />
       </button>
     ) : (
       <button onClick={() => handleFollowFromViewProfile(user?._id, user.username)} className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">
-        Follow <CircleArrowUp size={15} />
+        Connect <CircleArrowUp size={15} />
       </button>
     )}
   </div>
@@ -147,7 +142,7 @@ const handleFollowFromViewProfile = (foloweduserId:string,followedUserName:strin
 
       )}
       {location.pathname === '/people/connections' && (
-          <button  onClick={()=>handleUnFollow(user)} className="text-xs flex gap-1 text-red-600 font-semibold border px-2 py-1 rounded-md border-red-600">turn down <CircleArrowDownIcon size={15}/> </button>
+          <button  onClick={()=>handleUnFollow(user)} className="text-xs flex gap-1 text-red-600 font-semibold border px-2 py-1 rounded-md border-red-600">Turn down <CircleArrowDownIcon size={15}/> </button>
 
       )}
       {location.pathname === '/people/requests' && (
@@ -165,8 +160,6 @@ const handleFollowFromViewProfile = (foloweduserId:string,followedUserName:strin
 
 
         </div>
-    
-
     </>
   )
 }

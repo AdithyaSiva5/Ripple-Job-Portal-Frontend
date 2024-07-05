@@ -9,19 +9,18 @@ import { UnFollowUser, cancelFollowRequest, followUser, getUserConnection, getUs
 
 
 
-function ViewerBio() {
+function ViewerBio() { 
   const selectUser = (state: any) => state.auth.user;
   const userData = useSelector(selectUser);
   const loggedUserId = userData._id;
   const [isConnected, setIsConnected] = useState(false);
   const [user, setUser] = useState<any>(null);
-  const [connections, setConnections] = useState<any>(null);
+  const [connections, setConnections] = useState<any>({ connections: [] });
   const[loggedUserConnections,setLoggedUserConnections] = useState<any>(null);
   const [requested, setRequested] = useState<any>(null);
   const [Post, setPost] = useState([]);
   const [loading, setLoading] = useState(false);
   const { userId } = useParams();
-
 
   
 
@@ -29,16 +28,15 @@ function ViewerBio() {
 
   useEffect(() => {
     getUserDetails(userId)
-      .then((response: any) => {
-       
-        setUser(response.data.user);
-        setConnections(response.data.connections);
-        const followers = response.data.connections.connections;
-        setIsConnected(followers.includes(loggedUserId));
-      })
-      .catch((error: any) => {
-        toast.error(error.message);
-      });
+    .then((response: any) => {
+      setUser(response.data.user);
+      setConnections(response.data.connections || { connections: [] });
+      const followers = response.data.connections?.connections || [];
+      setIsConnected(followers.includes(loggedUserId));
+    })
+    .catch((error: any) => {
+      toast.error(error.message);
+    });
     getUserPost({ userId: userId })
       .then((response: any) => {
         const postsData = response.data;
@@ -109,7 +107,8 @@ function ViewerBio() {
   }
   
 
-  
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>User not found</div>;  
 
   return (
 
@@ -148,7 +147,7 @@ function ViewerBio() {
         </div>
         <div>
          
-          <p className="text-sm font-bold text-green-600 my-5" > {connections.connections.length} Circles </p>
+          <p className="text-sm font-bold text-green-600 my-5" > {connections?.connections?.length ?? 0} Connections </p>
         </div>
         <div className="flex gap-4">
         {location.pathname.startsWith('/visit-profile/bio/') && (
@@ -160,7 +159,7 @@ function ViewerBio() {
     ) : loggedUserConnections?.some((connection:any) => connection._id === userId) ? (
       <div className="flex gap-2">
            <button onClick={() =>  handleUnFollowFromViewProfile(user)} className="text-xs flex gap-1 text-red-600 font-semibold border px-2 py-1 rounded-md ">
-       Circle Down <CircleArrowDownIcon size={15} />
+       Turn down <CircleArrowDownIcon size={15} />
       </button>
       <Link to={`/chat?userId=${user._id}`} className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md broder" >
         Message <MessageCircle size={15} />
@@ -171,7 +170,7 @@ function ViewerBio() {
    
     ) : (
       <button onClick={() => handleFollowFromViewProfile(userId, user.username)} className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600">
-        Circle Up <CircleArrowUp size={15} />
+        Connect <CircleArrowUp size={15} />
       </button>
     )}
   </div>

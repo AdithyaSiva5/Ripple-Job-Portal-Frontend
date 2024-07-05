@@ -26,8 +26,6 @@ import Jobs from "../components/Jobs";
 import Applications from "../components/Applications";
 import Interviews from "../components/Interviews";
 import Protect from "../routes/protectRoutes/ProtectRoutes";
-import PageNotFound from "../components/errorComponents/ErrorPage";
-import NotAuthorized from "../components/errorComponents/NotAuthorised";
 import ErrorPage from "../components/errorComponents/ErrorPage";
 import People from "../pages/user/people/People";
 import PeopleDiscover from "../components/PeopleDiscover";
@@ -39,6 +37,8 @@ import ViewerBio from "../components/ViewerBio";
 import ViewerPosts from "../components/ViewerPost";
 import ViewerJobs from "../components/ViewerJobs";
 import ViewerConnections from "../components/ViewerConnections";
+import NotAuthorized from "../components/errorComponents/NotAuthorised";
+import Chat from "../pages/user/chat/Chat";
 
 
 const appRouter = createBrowserRouter([
@@ -148,7 +148,11 @@ const appRouter = createBrowserRouter([
     },
     {
       path:"/profile",
-      element:<Profile/>,
+      element: (
+        <Protect>
+     <Profile/>
+        </Protect>
+      ),
       children:[
         {
           path:"bio",
@@ -164,6 +168,7 @@ const appRouter = createBrowserRouter([
         }
       ]
     },
+    
     {
       path:"/visit-profile/",
       element:<ViewerProfile/>
@@ -217,11 +222,20 @@ const appRouter = createBrowserRouter([
     {
         path:"/register-success",
         element:<RegisterSucces/>
-    },
-    {
-      path: '*',
-      element: <PageNotFound />,
-    },
+    },{
+      path:"/chat",
+      element: (
+        <Protect>
+     <Chat/>
+        </Protect>
+      ),
+      errorElement:<ErrorPage/>
+     
+     },
+    // {
+    //   path: '*',
+    //   element: <PageNotFound />,
+    // },
     {
       path: '/not-authorized',
       element: <NotAuthorized />,

@@ -83,4 +83,4 @@ export const jobUrls = {
     getMessages: "/chat/get-messages",
     setMessageRead: "/chat/set-message-read",
     getUnreadMessages:'/chat/get-unread-messages'
-  };
+  }; 

@@ -887,4 +887,41 @@ export const getUserDetails = (  userId: string|undefined) => {
     }
   });
 };
+ //@dec      Get Unread Messages
+//method    Get
 
+export const getUnreadMessages = (messageData:{conversationId: string,userId:string}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", chatUrl.getUnreadMessages, messageData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+//@dec      Set Messages Read
+//method    Patch
+
+export const setMessageRead = (messageData:{conversationId: string,userId:string}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("patch", chatUrl.setMessageRead, messageData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    } 
+  });
+};
