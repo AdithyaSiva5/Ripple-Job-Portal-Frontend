@@ -9,7 +9,7 @@ import {useLocation,useNavigate} from 'react-router-dom';
 function Messages({ user, currentChat,socket,onlineUsers}:any) {
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
-  const [friend, setFriend] = useState<any>(null);
+  const [friend, setFriend] = useState<any>(null); 
   const [isOnline, setIsOnline] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();

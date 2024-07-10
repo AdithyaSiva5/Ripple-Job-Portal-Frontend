@@ -94,9 +94,9 @@ function UserHome() {
       <div className="hidden lg:block home-section-3" id="mobile-menu-2">
         <div className="home-scroll">
           <div className="home-scrollbox">
-            {users?.map((user:any)=>(
+            {users?.map((user:any)=>( 
 
-            <PeopleCard user={user}/>
+            <PeopleCard key={user._id} user={user}/>
             ))}
           </div>
         </div>

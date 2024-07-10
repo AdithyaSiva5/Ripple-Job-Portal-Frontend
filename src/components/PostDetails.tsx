@@ -63,6 +63,7 @@ const PostDetails: React.FC<PostProps> = ({
   commentsValue = false,
   likesValue = false,
 }) => {
+  
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
   const userId = user._id || "";
@@ -74,7 +75,7 @@ const PostDetails: React.FC<PostProps> = ({
   const [isLikes, setIsLikes] = useState(likesValue);
   const [isEdit, setIsEdit] = useState(false);
   const [comments, setComments] = useState([]);
-  const [replyComments, setReplyComments] = useState(false);
+  const [replyComments, setReplyComments] = useState(false); 
   const [parentCommentId, setParentCommentId] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const commentBoxRef = useRef(null);
@@ -529,7 +530,7 @@ const PostDetails: React.FC<PostProps> = ({
       {post.likes.length} Likes
     </span>
   </button>
-            
+             
       
 
 

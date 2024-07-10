@@ -1,7 +1,6 @@
 import ChatUsers from "../../../components/chatComponents/ChatUser";
 import Messages from "../../../components/chatComponents/Messages";
-import ChatingUser from "../../../components/chatComponents/ChatingUser";
-import { addConversation, getUserConversations, getUserMessages } from "../../../services/api/user/apiMethods";
+import { addConversation, getUserConversations } from "../../../services/api/user/apiMethods";
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import NochatScreen from "../../../components/chatComponents/NochatScreen";
@@ -12,11 +11,10 @@ import { useLocation } from "react-router-dom";
 function Chat() {
   const selectUser = (state: any) => state.auth.user;
   const user = useSelector(selectUser);
-  const userId = user._id;
+  const userId = user._id; 
   const [conversations, setConversations] = useState<any[]>([]);
   const [currentChat, setCurrentChat] = useState('');
-  const socket = useRef<any>()
-  
+  const socket = useRef<any>() 
   const [onlineUsers, setOnlineUsers] = useState([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -26,7 +24,6 @@ function Chat() {
     socket.current = io(BASE_URL);
 
     if(messageUserId){
-
       addConversation({ senderId: userId, receiverId: messageUserId }).then(
         (response:any) => {
           const userData = response.data;

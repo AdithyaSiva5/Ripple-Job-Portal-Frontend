@@ -3,7 +3,7 @@ import { likePost } from "../services/api/user/apiMethods";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsePosts } from "../utils/context/reducers/authSlice";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostDetails from "./PostDetails";
 import ReportModal from "./ReportModal";
 import { darkMode } from "../utils/context/reducers/darkmodeSlice";
@@ -29,7 +29,7 @@ interface PostProps {
 }
 
 
-const Post: React.FC<PostProps> = ({ post }) => {
+const Post: React.FC<PostProps> = ({ post }) => {  
   const dark = useSelector(darkMode)
   const dispatch = useDispatch();
   const selectUser = (state: any) => state.auth.user || "";
@@ -60,7 +60,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const openReportModel = () =>{
     setReportModel(true)
   }
-  const closeReportModel = () =>{
+  const closeReportModel = () =>{ 
     setReportModel(false)
   }
 
@@ -147,15 +147,42 @@ const Post: React.FC<PostProps> = ({ post }) => {
           </button>
         </div>
       </div>
- {post.hideLikes==false&&(
-            <button onClick={handleLikedPeople}>
+        {post.hideLikes==false&&(
+            <button onClick={handleLikedPeople} className="w-full text-left">
             <div className="font-semibold text-sm pb-4 mx-4 dark:text-white">
-              <p>{likeCount} likes</p>
+            <p >{likeCount } likes</p>
+              {likeCount >= 2 && (
+                <div className="flex items-center mt-1">
+                 <span className="mr-2 text-sm font-normal">Liked by</span>
+                  <div  className="flex -space-x-2 ">
+                    <div className="relative group">
+                <img 
+            className="w-5 h-5 rounded-full border-2 border-white"
+            src={post.likes[0].profileImageUrl} 
+            alt={post.likes[0].username}
+          />
+           <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                {post.likes[0].username}
+              </div>
+              </div>
+              <div className="relative group">
+          <img 
+            className="w-5 h-5 rounded-full border-2 border-white"
+            src={post.likes[1].profileImageUrl} 
+            alt={post.likes[1].username}
+          />
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+          {post.likes[1].username}
+              </div>
+              </div>
+              </div>
+              </div>
+              ) }
+              
             </div>
       
             </button>
-      
-
+    
 
     )}
 

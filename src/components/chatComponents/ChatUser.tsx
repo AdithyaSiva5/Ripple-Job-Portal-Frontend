@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { addConversation, getUserConnection } from '../../services/api/user/apiMethods';
 import Friend from './Friend';
 import { toast } from 'sonner';
-
+ 
   
 function ChatUsers({conversations,user,setCurrentChat,  onlineUsers  ,setConversations}:any) {
     const [openModal, setOpenModal] = useState(false);

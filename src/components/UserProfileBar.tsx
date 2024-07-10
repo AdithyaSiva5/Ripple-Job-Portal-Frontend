@@ -6,7 +6,8 @@ function UserProfileBar() {
   const user = useSelector(selectUser) || "";
   const userId = user._id || "";
   const navigate =useNavigate()
-  return (
+
+  return (  
     <>
             <div className="home-profile-card border border-green bg-secondary flex flex-col justify-around items-center  pt-6 px-6 ">
           <img className=" w-16 h-16 rounded-full border border-green" src={user.profileImageUrl}alt="" />
@@ -22,7 +23,17 @@ function UserProfileBar() {
     <div className=" home-info-card border border-green bg-secondary flex flex-col justify-around px-6">
       <div className="">
       <p className="text-sm font-bold dark:text-white">Availabilty</p>
-      <p className="text-xs bg-green-600 text-white py-1 mt-1 w-32 rounded-full text-center">Available for work</p>
+      <div className="flex space-x-2">
+
+      {!user.isHiring?(
+         <p className="text-xs bg-green-600 text-white py-1 mt-1 w-32 rounded-full text-center">Available for work</p>
+
+      ):( <p className="text-xs bg-green-600 text-white py-1 mt-1 w-32 rounded-full text-center">Recruiting </p>)}
+      {user.userType==='individual'?(
+         <p className="text-xs bg-amber-500 text-black  py-1 mt-1 w-32 rounded-full text-center">Individual</p>
+
+      ):( <p className="text-xs bg-red-500 text-black  py-1 mt-1 w-32 rounded-full text-center">Company </p>)}
+      </div>
       </div>
 
       <div className="mt-4" >
@@ -30,14 +41,14 @@ function UserProfileBar() {
       <p className="text-xs text-green-600" >18 connections</p>
       <p className="text-xs text-green-600">4 connection request</p>
 
-      </div>
+      </div> 
     <div className="mt-4">
     <p className="text-sm font-bold dark:text-white">Skills</p>
     <div className="mt-1 flex flex-wrap">
-  <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">UI Designer</p>
-  <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">Graphics</p>
-  <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">VFX</p>
-  <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">Front end-development</p>
+  <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">React</p> 
+  <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">Node</p>
+  <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">MongoDB</p>
+  <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">Express</p>
 </div>
     </div>
 
@@ -45,7 +56,7 @@ function UserProfileBar() {
 
     </div>
     </>
-  )
+  ) 
 }
 
 export default UserProfileBar

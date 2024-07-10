@@ -6,6 +6,7 @@ interface AuthState {
   userPost:any[]
 }
 
+
 interface UserData {
   token:string;
   user:any

@@ -236,10 +236,10 @@ const appRouter = createBrowserRouter([
     //   path: '*',
     //   element: <PageNotFound />,
     // },
-    {
-      path: '/not-authorized',
-      element: <NotAuthorized />,
-    },
+    // {
+    //   path: '/not-authorized',
+    //   element: <NotAuthorized />,
+    // },
     ...adminRoutes,
 ]);
 

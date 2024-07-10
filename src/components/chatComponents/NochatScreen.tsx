@@ -3,7 +3,7 @@ import {useLocation,useNavigate} from 'react-router-dom';
 
 function NochatScreen() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); 
   return (
     
     <div className="relative flex flex-col flex-1  items-center justify-center">

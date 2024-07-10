@@ -105,11 +105,17 @@ const handleFollowFromViewProfile = (foloweduserId:string,followedUserName:strin
     <>
         <div className=" home-recommed-section bg-secondary border border-green flex justify-between px-4 py-4 items-end" >
           <div>
+            <div className="flex items-center">
+
           <img
         className="h-9 w-9 rounded-full border-2 p-.5 mb-3 border-green-600"
         src={user?.profileImageUrl}
         alt="Profile"
-      />
+      /><div className="ml-2">{!user.isHiring?(
+        <p className="text-xs bg-green-600 text-white py-1 mt-1 w-24 mb-5 rounded-full text-center">OpentoWork</p>
+
+     ):( <p className="text-xs bg-red-600 text-white py-1 mt-1 w-12 mb-5 rounded-full text-center">Hiring </p>)}</div> 
+            </div>
           <p className="text-sm font-semibold flex items-center gap-1 text-accent" > {user?.profile?.fullname||user?.companyProfile?.companyName} </p>
           <p className="text-xs text-gray-400">{user?.profile?.designation||user?.companyProfile?.companyType}</p>
           <p className="text-xs text-green-600 font-medium">{user?.profile?.location||user?.companyProfile?.companyLocation}</p>

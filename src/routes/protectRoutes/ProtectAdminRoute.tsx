@@ -9,7 +9,7 @@ function Protect({ children }: any) {
 
   useEffect(() => {
     if (!user) {
-      navigate('/not-authorized');
+      navigate('/admin/login');
     }
   }, [user, navigate]);
 

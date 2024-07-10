@@ -3,7 +3,7 @@ import { apiCall } from "./apiCalls";
 import { FormValues } from "../../../utils/validation/signupValidation";
 
 //@dec      user Registration
-//method    POST
+//method    POST 
 
 export const postRegister = (userData:FormValues) => {
     return new Promise((resolve) => {

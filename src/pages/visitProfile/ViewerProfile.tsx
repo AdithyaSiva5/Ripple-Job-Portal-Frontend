@@ -10,7 +10,7 @@ function ViewerProfile() {
   return (
     <div className="wrapper">
       <Header />
-      <div className="profile-wrapper px-48 mt-10" style={{ backgroundColor: "rgb(234, 233, 233)" }}>
+      <div className="profile-wrapper px-48 mt-10"  style={{ backgroundColor: "rgb(234, 233, 233)" }}>
         <div className="border profile-nav flex items-center justify-center gap-32 bg-white rounded-md">
           <button
             onClick={() => { navigate(`/visit-profile/bio/${userId}`) }}

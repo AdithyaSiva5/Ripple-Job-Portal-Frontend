@@ -19,7 +19,6 @@ function App() {
   }, [user, navigate]);
 
 
-  // const dark = useSelector(darkMode)
 
   useEffect(() => {
     const userTheme = localStorage.getItem('theme')
