@@ -4,6 +4,13 @@
 @tailwind utilities;
 
 
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 body{
   font-family: "DM Sans", sans-serif;
  
@@ -21,7 +28,7 @@ body{
 }
 
 :root{
-  --primary: 234 , 233, 233;
+  --primary: 234 , 233, 233;  
   --secondary: 255 , 255 ,255 ;
   --accent: 0, 0, 0;
   --purewhite: 255, 255, 255;

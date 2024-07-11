@@ -61,10 +61,9 @@ const handleAddConversation=(senderId:string,receiverId:string) => {
           console.log(error);
         }
       }, []);
-      console.log(userlist);
 
   return (
-    <div className="relative flex flex-col hidden h-full bg-white border-r border-gray-300  md:block transform transition-all duration-500 ease-in-out" style={{ width: '24rem' }}>
+    <div className="relative flex flex-col  h-full bg-white border-r border-gray-300  md:block transform transition-all duration-500 ease-in-out" style={{ width: '24rem' }}>
     <div className="flex justify-between px-3 pt-1 text-white">
       <div className="flex items-center w-full py-2">
   
@@ -84,7 +83,7 @@ const handleAddConversation=(senderId:string,receiverId:string) => {
     </div>
    
     <div className="relative mt-2 mb-4 overflow-x-hidden overflow-y-auto scrolling-touch lg:max-h-sm scrollbar-w-2 scrollbar-track-gray-lighter scrollbar-thumb-rounded scrollbar-thumb-gray">
-    <ul className="flex flex-col inline-block w-full h-screen px-2 select-none">
+    <ul className="flex flex-col  w-full h-screen px-2 select-none">
    
     {conversations && conversations?.map((conversation:any)=>(
     <div onClick={()=>setCurrentChat(conversation)}>

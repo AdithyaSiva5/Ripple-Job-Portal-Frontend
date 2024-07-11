@@ -10,7 +10,7 @@ import {
 import {  listUserJob } from "../services/api/user/apiMethods";
 import "../pages/admin/userlistPage/userList.css";
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 const HiringJobList: React.FC = () => {
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
@@ -91,7 +91,7 @@ const HiringJobList: React.FC = () => {
       </tr>
     </thead>
     <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-      {jobs?.map((job: any) => (
+      {jobs?.reverse().map((job: any) => (
         <tr key={job._id} className="hover:bg-gray-50">
           <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
             <div className="relative h-10 w-10">

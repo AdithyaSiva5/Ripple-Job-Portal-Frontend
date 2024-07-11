@@ -43,7 +43,7 @@ function App() {
 
         <Header />
 
-        <div className="home-main">
+        <div className="home-main ">
           <div className="hidden lg:block home-section-1" id="mobile-menu-2">
             <UserProfileBar />
           </div>

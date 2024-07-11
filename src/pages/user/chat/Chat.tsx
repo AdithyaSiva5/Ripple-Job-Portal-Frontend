@@ -7,6 +7,7 @@ import NochatScreen from "../../../components/chatComponents/NochatScreen";
 import { io } from "socket.io-client";
 import { BASE_URL } from "../../../constants/baseUrls"
 import { useLocation } from "react-router-dom";
+import { darkMode } from "../../../utils/context/reducers/darkmodeSlice";
 
 function Chat() {
   const selectUser = (state: any) => state.auth.user;
@@ -43,7 +44,6 @@ function Chat() {
     socket?.current?.emit("addUser", user._id);
     socket?.current?.on("getUsers", (users:any) => {
       setOnlineUsers(users);
-      
     });
   }, [user]);
 
@@ -61,11 +61,19 @@ function Chat() {
       document.removeEventListener('keydown', handleKeyPress);
     };
   }, []);
+   const dark = useSelector(darkMode)
 
+  useEffect(() => {
+    if (!dark) {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+  }, [dark])
 
   return (
-    <div> 
-      <div className="relative flex w-full  overflow-hidden antialiased bg-gray-200" style={{ height: "730px" }}>
+    <div > 
+      <div className="relative flex w-full  overflow-hidden antialiased bg-gray-200 dark:bg-fill" style={{ height: "100vh" }}>
 
         <ChatUsers conversations={conversations}  onlineUsers={onlineUsers}   user={user}  setCurrentChat={setCurrentChat} setConversations={setConversations} />
 
