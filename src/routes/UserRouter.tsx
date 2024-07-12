@@ -39,6 +39,7 @@ import ViewerJobs from "../components/ViewerJobs";
 import ViewerConnections from "../components/ViewerConnections";
 import NotAuthorized from "../components/errorComponents/NotAuthorised";
 import Chat from "../pages/user/chat/Chat";
+import InterviewCall from "../pages/interviewCall/interviewCall";
 
 
 const appRouter = createBrowserRouter([
@@ -113,6 +114,10 @@ const appRouter = createBrowserRouter([
               element:<HiringInterviews/>
             },
             {
+              path:"/jobs/hiring/interview-call/:roomId",
+              element:<InterviewCall/>
+            },
+            {
               path:"/jobs/hiring/view-job/:jobId",
               element:<ViewJob/>
             },
@@ -141,7 +146,50 @@ const appRouter = createBrowserRouter([
             {
               path:"/jobs/open-to-work/interviews",
               element:<Interviews/>
-            }
+            },
+            {
+              path:"/jobs/open-to-work/interview-call/:roomId",
+              element:<InterviewCall/>
+            },
+          ]
+        },{
+          path:"/jobs/view-job/",
+          element: (
+            <Protect>
+             <JobsDetails/>
+            </Protect>
+          )
+          ,
+      errorElement:<ErrorPage/>
+          
+          ,
+          children:[
+            {
+              path:"/jobs/view-job/job-info/:jobId",
+              element:<ViewJob/>
+            },
+            {
+              path:"/jobs/view-job/applications/pending/:jobId",
+              element:<ViewJobApplications/>
+
+            },
+            {
+              path:"/jobs/view-job/applications/accepted/:jobId",
+              element:<ViewJobApplications/>
+            },
+            
+            {
+              path:"/jobs/view-job/applications/rejected/:jobId",
+              element:<ViewJobApplications/>
+            } ,
+            {
+              path:"/jobs/view-job/interviews/:jobId",
+              element:<ViewJobInterviews/>
+            },
+            {
+              path:"/jobs/view-job/interview-call/:roomId",
+              element:<InterviewCall/>
+            },
           ]
         }
       ]

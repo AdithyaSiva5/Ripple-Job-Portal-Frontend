@@ -992,3 +992,105 @@ export const cancelJobApplication= (applcationId:{applicationId:string,applicant
     }
   });
 };
+
+//@dec      add-interview
+//method    POST
+
+export const  addInterview= (
+  interviewData:
+   { 
+    applicationId: string,
+    jury:any[] ,
+    interviewDate: string ,
+    interviewTime: string 
+    }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      
+      
+      apiCall("post", jobUrls.addInterview, interviewData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      Login user
+//method    POST
+
+export const setInterviewStatus = (interviewData:{interviewId:string,status:string}) => {
+  return new Promise((resolve, reject) => {
+      try {
+          apiCall('patch', jobUrls.setInterviewStatus, interviewData).then((response)=>{
+              resolve(response);
+          }).catch((err)=>{
+              reject(err);
+          })
+      } catch (error) {
+          resolve({ status: 500, message:"Somethings wrong." });
+      }
+  })
+
+}
+
+//get interviewe interview
+export const getIntervieweeInterviews= (intervieweeId:{intervieweeId:string}) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.getIntervieweeInterviews, intervieweeId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+//get interviewer interview
+export const getInterviewerInterviews= (interviewerId:{interviewerId:string}) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.getInterviewerInterviews, interviewerId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
+//get job interview
+export const getJobInterviews= (jobId:{jobId:string}) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.getJobInterviews, jobId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};

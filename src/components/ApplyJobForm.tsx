@@ -32,7 +32,6 @@ function ApplyJobForm({ job, cancelApplyJob }: any) {
 
 
 
-      console.log(formData.userId);
       const response = await axios.post(`${BASE_URL}/api/job/apply-job`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -41,16 +40,23 @@ function ApplyJobForm({ job, cancelApplyJob }: any) {
 
 
 
-      if (response.status == 201) {
+      if (response.data.success) {
         toast.success(response.data.message)
+        resetForm();
+        cancelApplyJob()
       } else {
-        toast.error(response.data.message)
+        toast.error(response.data.message || 'An error occurred while applying for the job')
       }
 
-      resetForm();
-      cancelApplyJob()
-    } catch (error) {
-      console.error('Error uploading file:', error);
+    } catch (error : any) {
+      console.error('Error applying for job:', error);
+      if (error.response) {
+        toast.error(error.response.data.message || 'An error occurred while applying for the job');
+      } else if (error.request) {
+        toast.error('No response received from server. Please try again.');
+      } else {
+        toast.error('An error occurred while applying for the job');
+      }
     } finally {
       setLoading(false);
       setSubmitting(false);
@@ -74,10 +80,10 @@ function ApplyJobForm({ job, cancelApplyJob }: any) {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, setFieldValue }) => (
+          {({ isSubmitting }) => (
             <Form className="w-full p-5">
               <div className="w-full mb-4  text-xs  rounded-md">
-                <div className="flex gap-2"> 
+                <div className="flex gap-2">
                   <p className="text-xs text-gray-600 dark:text-white ">Applying for the postion of :</p><p className="font-semibold dark:text-white">{job.jobRole}</p>
 
                 </div>
@@ -93,7 +99,7 @@ function ApplyJobForm({ job, cancelApplyJob }: any) {
 
               <div className="mb-4 w-full flex flex-col gap-2">
                 <label className="text-xs text-gray-600 " htmlFor="coverLetter">Cover Letter:</label>
-                <Field name="coverLetter " className=" h-40 text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
+                <Field name="coverLetter" className="h-40 text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                   as="textarea" />
                 <ErrorMessage name="coverLetter" component="div" className="text-red-500" />
               </div>

@@ -24,7 +24,7 @@ const adminRoutes: RouteObject[] = [
   },
   {
     path: "/admin/login",
-    element: <AdminLogin />,
+    element: <i />,
     errorElement: <ErrorPage />,
   }
 ];

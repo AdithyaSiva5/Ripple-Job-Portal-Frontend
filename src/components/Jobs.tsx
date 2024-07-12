@@ -34,6 +34,7 @@ const Jobs = () => {
   const [jobs, setJobs] = useState<jobProps["post"][]>([]);
   const [selectedjob, setSelectedJob] = useState<any>({});
   const [isApply, setIsApply] = useState<boolean>(false);
+  
 
   const handleApplyJob = (job:any) => {
     setIsApply(true);
