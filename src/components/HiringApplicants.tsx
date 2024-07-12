@@ -67,6 +67,7 @@ const HiringApplications: React.FC = () => {
       .then((response: any) => {
         const applicationsData = response.data.applications;
         setApplications(applicationsData);
+        console.log(applicationsData)
       })
       .catch((error) => {
         console.error("Error fetching applications:", error);
@@ -82,7 +83,7 @@ const HiringApplications: React.FC = () => {
   }
 
   if (applications.length === 0) {
-    return <div>No applications found.</div>;
+    return <div className="dark:text-white">No applications found.</div>;
   }
 
   return (

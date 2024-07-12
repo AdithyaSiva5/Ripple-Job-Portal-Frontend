@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Bookmark } from "lucide-react";
 import { listJob } from "../services/api/user/apiMethods";
 import { useSelector } from "react-redux";
 import ApplyJobForm from "./ApplyJobForm";
+import { debounce } from "lodash";
+import { useFilterContext } from "../utils/context/jobfilterData/FilterContext";
 
 interface jobProps {
   post: {
@@ -24,6 +26,7 @@ interface jobProps {
 }
 
 const Jobs = () => {
+  const { filterData } = useFilterContext();
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
   const userId = user._id || "";
@@ -40,6 +43,25 @@ const Jobs = () => {
     setIsApply(false)
   }
 
+  
+  const debouncedListJob = debounce((filterData, userId) => {
+    listJob({ filterData, userId })
+      .then((response: any) => {
+        const jobsData = response.data.jobs;
+        setJobs(jobsData);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, 600); 
+
+  useEffect(() => {
+    debouncedListJob(filterData, userId); 
+    return () => {
+   
+      debouncedListJob.cancel();
+    };
+  }, [filterData]);
 
   useEffect(() => {
     try {
@@ -60,13 +82,13 @@ const Jobs = () => {
   return (
     <>
       {jobs.map((job) => (
-        <div key={job._id} className="home-post-section bg-white p-4 py-10" style={{ height: "520px" }}>
+        <div key={job._id} className="home-post-section bg-secondary border border-green p-4 py-10" style={{ height: "520px" }}>
           <div className="w-full flex justify-between items-center">
             <div className="flex">
-              <img className="w-14 h-14 rounded-md" src={job.userId.profileImageUrl} alt="" />
+              <img className="w-14 h-14 rounded-md border border-green" src={job.userId.profileImageUrl} alt="" />
               <div className="mx-5">
-                <p className="text-sm">{job.companyName}</p>
-                <p className="text-sm font-bold">{job.jobRole}</p>
+                <p className="text-sm text-white">{job.companyName}</p>
+                <p className="text-sm font-bold text-white" >{job.jobRole}</p>
               </div>
             </div>
 
@@ -75,37 +97,37 @@ const Jobs = () => {
             </button>
           </div>
           <div className="mt-10">
-            <p className="text-sm mb-3 font-bold">Job Overview</p>
-            <p className="text-xs">{job.jobDescription}</p>
+            <p className="text-sm mb-3 font-bold dark:text-white">Job Overview</p>
+            <p className="text-xs dark:text-white">{job.jobDescription}</p>
           </div>
           <div className="mt-10">
-            <p className="text-sm mb-3 font-bold">Skills Required</p>
+            <p className="text-sm mb-3 font-bold dark:text-white">Skills Required</p>
             <div className="flex">
-              <p className="text-xs">{job.requiredSkills}</p>
+              <p className="text-xs dark:text-white">{job.requiredSkills}</p>
             </div>
           </div>
           <div className="mt-10">
-            <p className="text-sm mb-3 font-bold">Job Details</p>
+            <p className="text-sm mb-3 font-bold dark:text-white">Job Details</p>
             <div className="flex w-full justify-between">
               <div>
-                <p className="text-xs font-semibold">Location</p>
-                <p className="text-xs">{job.jobLocation}</p>
+                <p className="text-xs font-semibold dark:text-white">Location</p>
+                <p className="text-xs dark:text-white">{job.jobLocation}</p>
               </div>
               <div>
-                <p className="text-xs font-semibold">Salary</p>
-                <p className="text-xs">{job.salary}</p>
+                <p className="text-xs font-semibold dark:text-white">Salary</p>
+                <p className="text-xs dark:text-white">{job.salary}</p>
               </div>
               <div>
-                <p className="text-xs font-semibold">Job Type</p>
-                <p className="text-xs">{job.jobType}</p>
+                <p className="text-xs font-semibold dark:text-white">Job Type</p>
+                <p className="text-xs dark:text-white">{job.jobType}</p>
               </div>
               <div>
-                <p className="text-xs font-semibold">Experience</p>
-                <p className="text-xs">{job.experience} years</p>
+                <p className="text-xs font-semibold dark:text-white">Experience</p>
+                <p className="text-xs dark:text-white">{job.experience} years</p>
               </div>
               <div>
-                <p className="text-xs font-semibold">Qualifications</p>
-                <p className="text-xs">{job.qualification}</p>
+                <p className="text-xs font-semibold dark:text-white">Qualifications</p>
+                <p className="text-xs dark:text-white">{job.qualification}</p>
               </div>
             </div>
           </div>

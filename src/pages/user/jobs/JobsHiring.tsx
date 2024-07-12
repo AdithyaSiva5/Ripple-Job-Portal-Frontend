@@ -1,22 +1,38 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useFilterContext } from '../../../utils/context/jobfilterData/FilterContext';
 
 function JobsHiring() {
   const selectUser = (state: any) => state.auth.user;
+  const { filterData, setFilterData } = useFilterContext();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [searchText, setSearchText] = useState("");
   useEffect(() => {
     if (user.isHiring === false) {
       navigate("jobs/open-to-work/job-list");
     }
   }, [user, navigate]);
+  useEffect(() => {
+    setFilterData({
+      search: searchText,
+      jobRole: null,
+      location: null,
+      jobType: null,
+      salaryRange: null,
+      experienceRange: null,
+    });
+  }, [searchText, setFilterData]);
 
+  const handleInputChange = (e:any) => {
+    setSearchText(e.target.value);
+  };
+  
   return (
     <div className='tho'>
-      <div className="home-section-2">
+      <div className="people-section-2">
         <div className='flex w-full'>
           <div className="border profile-nav flex items-center justify-center gap-20 bg-white rounded-md mx-5" >
             <button
@@ -56,7 +72,17 @@ function JobsHiring() {
     >
       Add Job
     </button>
-          <div className="border w-1/3 profile-nav flex items-center justify-center gap-20 bg-white rounded-md ms-4"></div>
+    <div className="border w-1/3 profile-nav flex items-center justify-center gap-20 bg-white rounded-md ms-4">
+          <div className="flex items-center justify-start g-2 w-full p-2">
+            <p className="text-xs text-gray-500 w-1/3 ps-5">Search Job</p>
+            <input
+              type="text"
+              className="searchInput w-3/4 text-xs text-gray-400 p-2 border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
+              value={searchText}
+              onChange={handleInputChange}
+            />
+          </div>
+          </div>
         </div>
         <div className="home-scroll">
           <div className="home-scrollbox">
@@ -67,5 +93,4 @@ function JobsHiring() {
     </div>
   );
 }
-
 export default JobsHiring;

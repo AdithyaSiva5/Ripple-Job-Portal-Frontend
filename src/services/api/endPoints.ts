@@ -53,16 +53,19 @@ export const adminUrl = {
 
 export const jobUrls = {
     addJob:'/job/add-job',
-    listJob:'/job/list-all-job',
+    listJob:'/job/list-all-job', 
     listUserJob:'/job/list-user-job',
     getJobDetails:'/job/job-details',
     editJob:'/job/edit-job',
+    viewJob:'/job/view-job',
     addJobApplication:'job/apply-job',
     updateApplicationStatus:'job/update-application-status',
     employeeApplications:'job/get-applications-employee',
     employerApplications:'job/get-applications-empolyer',
     getAllJobDetails:'job/get-all-job-details',
     cancelApplication:'job/cancel-job-application',
+    getFormSelectData:'/job/form-select-data',
+    blockJob:'/job/block-job'
   }
 
   export const connectionUrls = {

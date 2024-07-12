@@ -4,12 +4,12 @@ import * as Yup from 'yup';
 import TextError from './TextError';
 import { editJob, getJobDetails } from '../services/api/user/apiMethods';
 import { useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 const EditJob = () => {
 
-
+  const navigate = useNavigate()
   const selectUser = (state: any) => state.auth.user || ''; 
   const user = useSelector(selectUser) || '';
   const userId = user._id || '';
@@ -99,7 +99,8 @@ const EditJob = () => {
     editJob(data).then((response: any) => {
       const data = response.data;
       if (response.status === 200) {
-        toast.success(data.message);
+        toast.success(data.message)
+        navigate("/jobs/hiring/job-list");
        
       } else {
         console.log(response.message);
@@ -110,13 +111,7 @@ const EditJob = () => {
       toast.error(error?.message);
       console.log(error?.message);
     })
-
-
-
-
-
     setSubmitting(false);
-  
     
 
   };

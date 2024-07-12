@@ -433,6 +433,23 @@ export const editJob= (data:any) => {
 };
 
 
+export const viewJob= (data:any) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.viewJob, data)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+
 //list job
 
 export const listJob= (data:any) => {
@@ -829,6 +846,23 @@ export const addMessage = (messageData: {conversationId:string,sender:string,tex
     }
   });
 };
+//get all applications of a user 
+export const getFormSelectFormData= () => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("get", jobUrls.getFormSelectData,null)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 
 //@dec      Get User Conversations
@@ -905,7 +939,22 @@ export const getUnreadMessages = (messageData:{conversationId: string,userId:str
     }
   });
 };
-
+//@dec      Block job
+//@method   Get
+export const userJobBlock = (jobId:{jobId:string}) => {
+  return new Promise((resolve, reject) => {
+      try {
+        apiCall("post",jobUrls.blockJob, jobId).then((response) => {
+              resolve(response);
+            }
+          ).catch((err) => {
+              reject(err);
+          })
+      } catch (error) {
+          reject(error);
+      }
+  })
+};
 
 //@dec      Set Messages Read
 //method    Patch
@@ -923,5 +972,23 @@ export const setMessageRead = (messageData:{conversationId: string,userId:string
     } catch (error) {
       resolve({ status: 500, message: "Somethings wrong." });
     } 
+  });
+};
+
+//cancel  application
+export const cancelJobApplication= (applcationId:{applicationId:string,applicantId:string}) => {
+  
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("patch", jobUrls.cancelApplication,applcationId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
   });
 };

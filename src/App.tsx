@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { removeDarkMode, setDarkMode } from "./utils/context/reducers/darkmodeSlice";
 import Header from "./components/Header";
 import UserProfileBar from "./components/UserProfileBar";
+import FilterProvider from "./utils/context/jobfilterData/FilterProvider";
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
   return (
     <>
 
-
+      <FilterProvider>
       <div >
 
         <Header />
@@ -51,7 +52,7 @@ function App() {
           <Outlet />
         </div>
       </div>
-
+      </FilterProvider>
     </>
   )
 }

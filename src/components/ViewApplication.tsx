@@ -3,19 +3,17 @@
 
 import {  Modal } from "flowbite-react";
 import { X } from "lucide-react";
-
+import { BASE_URL } from "../constants/baseUrls";
 
 function  ViewApplication({application,cancelViewApplication}:any) {
 
 const showPdf=(pdf:string)=>{
   console.log(pdf) 
-    window.open(`http://localhost:3000/uploads/${pdf}`,"_blank","noreferrer")
+    window.open(`${BASE_URL}/uploads/${pdf}`,"_blank","noreferrer")
 }
   return (
     <>
-     
       <Modal show={true} className="bg-transparent">
-    
         <Modal.Body>
         <div className='flex  justify-between items-center '>
           <p className='text-sm font-semibold'>Review Job Application</p>

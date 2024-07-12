@@ -58,12 +58,10 @@ interface PostProps {
 }
 
 const PostDetails: React.FC<PostProps> = ({
-
   post,
   commentsValue = false,
   likesValue = false,
 }) => {
-  
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
   const userId = user._id || "";
@@ -75,7 +73,7 @@ const PostDetails: React.FC<PostProps> = ({
   const [isLikes, setIsLikes] = useState(likesValue);
   const [isEdit, setIsEdit] = useState(false);
   const [comments, setComments] = useState([]);
-  const [replyComments, setReplyComments] = useState(false); 
+  const [replyComments, setReplyComments] = useState(false);
   const [parentCommentId, setParentCommentId] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const commentBoxRef = useRef(null);
@@ -313,10 +311,10 @@ const PostDetails: React.FC<PostProps> = ({
 
   return (
     <div
-      className="border border-green bg-white  overflow-hidden shadow-none mt-7 rounded-md"
+      className=" bg-white overflow-hidden shadow-none mt-7 rounded-md"
       style={{ width: "1136px", height: "476px" }}
     >
-      <div className="grid grid-cols-3 min-w-full ">
+      <div className="grid grid-cols-3 min-w-full">
         <div className="col-span-2 w-full">
           <img
             style={{ width: "768px" }}
@@ -513,7 +511,7 @@ const PostDetails: React.FC<PostProps> = ({
                     </button>
 
                     
-          {post.hideComment ==false&&(
+          {post.hideComment==false&&(
            
            <button type="button" onClick={handleIsComment}>
            <MessageCircle color="gray" strokeWidth={1.5} size={22} />
@@ -530,7 +528,7 @@ const PostDetails: React.FC<PostProps> = ({
       {post.likes.length} Likes
     </span>
   </button>
-             
+            
       
 
 
@@ -752,7 +750,7 @@ const PostDetails: React.FC<PostProps> = ({
           )}
         </div>
       </div>
-      <Modal      className="bg-transparent"
+      <Modal
                   show={openModal}
                   size="md"
                   onClose={() => setOpenModal(false)}
