@@ -2,8 +2,21 @@ import { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useFilterContext } from '../../../utils/context/jobfilterData/FilterContext';
+import { darkMode } from '../../../utils/context/reducers/darkmodeSlice';
 
 function JobsHiring() {
+
+  const dark = useSelector(darkMode)
+
+  useEffect(() => {
+    if (!dark) {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+  }, [dark])
+  
+
   const selectUser = (state: any) => state.auth.user;
   const { filterData, setFilterData } = useFilterContext();
   const user = useSelector(selectUser);

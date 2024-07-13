@@ -25,12 +25,13 @@ const ViewJobInterviews = () => {
     const handleStatusChange = (interviewId: string, selectedOption: any) => {
         setInterviewStatus({ interviewId: interviewId, status: selectedOption.value });
     };
-
+  
     useEffect(() => {
         try {
             getInterviewerInterviews({ interviewerId: userId })
                 .then((response: any) => {
                     const interviewsData = response.data.interviews;
+                    console.log(interviewsData)
                     setInterviews(interviewsData);
                 })
                 .catch((error) => {

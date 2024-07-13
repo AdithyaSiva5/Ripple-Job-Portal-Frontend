@@ -13,12 +13,10 @@ const HiringInterviews = () => {
 
   const handleGroupVideoCall = (interviewLink: string, interviewId: string) => {
 
-
-
+    
     const roomId = interviewLink
     setInterviewStatus({ interviewId: interviewId, status: "Started" })
-    navigate(`/interview-call/${roomId}`, { state: { from: location.pathname } })
-
+    navigate(`/interview-call/${roomId}/${user._id}`, { state: { from: location.pathname } })
   }
 
   const selectUser = (state: any) => state.auth.user || "";
@@ -72,7 +70,7 @@ const HiringInterviews = () => {
             <div className="flex flex-col items-start mt-4">
               <div>
                 <div className="flex text-xs gap-1">
-                  <p className="font-semibold">Interview Date :</p>
+                  <p className="font-semibold ">Interview Date :</p>
                   <p className="text-xs">{formatDate(interview.interviewDate)}</p>
                 </div>
                 <div className="flex text-xs gap-1">

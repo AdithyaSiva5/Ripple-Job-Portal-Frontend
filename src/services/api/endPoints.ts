@@ -46,10 +46,9 @@ export const adminUrl = {
     jobBlock:'/admin/job-block',
     jobList:'/admin/get-jobs',
     reportList:'/admin/get-reports',
-    
-
-
+  
 }
+
 
 export const jobUrls = {
     addJob:'/job/add-job',
@@ -66,7 +65,7 @@ export const jobUrls = {
     cancelApplication:'job/cancel-job-application',
     addInterview:'/job/add-interview',
     editInterview:'/job/edit-interview',
-    setInterviewStatus:'/job/set-interview-status',
+    setInterviewStatus:'/job/set-interview-status', 
     getIntervieweeInterviews:'/job/get-interviewee-interviews',
     getInterviewerInterviews:'/job/get-interviewer-interviews',
     getJobInterviews:'/job/get-job-interviews',
@@ -92,4 +91,4 @@ export const jobUrls = {
     getMessages: "/chat/get-messages",
     setMessageRead: "/chat/set-message-read",
     getUnreadMessages:'/chat/get-unread-messages'
-  }; 
+  };  

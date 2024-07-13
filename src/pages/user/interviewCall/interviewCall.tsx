@@ -18,13 +18,18 @@ function InterviewCall() {
   const handleLeaveRoom = () => {
  
     navigate(location.state?.from || "/");
-  };
+  }; 
 
   useEffect(() => {
     if (!containerRef.current) return;
     const myMeeting = async () => {
-    const appId = import.meta.env.VITE_APPID;
-    const serverSecret = import.meta.env.VITE_SERVERSECRET;
+      const appId = parseInt(import.meta.env.VITE_APPID);
+      const serverSecret = import.meta.env.VITE_SERVERSECRET;
+      if (isNaN(appId) || !serverSecret) {
+        console.error("Invalid Zegocloud configuration");
+        return;
+      }
+      
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appId,
         serverSecret,
@@ -40,10 +45,10 @@ function InterviewCall() {
         },
         showPreJoinView: true,
         preJoinViewConfig: {
-          title: "Interview Meeting" 
+          title: "Interview Meeting"  
         },
         branding: {
-          logoURL: "https://i.postimg.cc/YC7Hwhxb/Screenshot-2024-03-04-151411.png"
+          logoURL: "https://i.postimg.cc/wvvhmZhZ/ripple-logo.png"
         },
         showScreenSharingButton: true,
         showRoomTimer:true,

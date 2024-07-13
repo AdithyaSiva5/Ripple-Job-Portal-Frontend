@@ -60,7 +60,6 @@ const HiringApplications: React.FC = () => {
         toast.error("Failed to update application status");
       });
   };
-
   useEffect(() => {
     setIsLoading(true);
     getemployerApplications({ userId })
@@ -135,7 +134,7 @@ const HiringApplications: React.FC = () => {
                 onClick={() => handleViewApplication(application)}
                 className="text-xs rounded btn border px-4 py-2 cursor-pointer bg-white ml-2 text-green-600"
               >
-                <View size={18} />
+                <View size={18} /> 
               </button>
 
               {application.applicationStatus === 'Rejected' && (
@@ -145,7 +144,7 @@ const HiringApplications: React.FC = () => {
                 >
                   Accept Application
                 </button>
-              )}
+              )} 
 
               {application.applicationStatus === 'Pending' && (
                 <>

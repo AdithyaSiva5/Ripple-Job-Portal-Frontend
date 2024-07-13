@@ -46,24 +46,29 @@ const ViewJobApplications = () => {
 
     const handleApplictionStatus = (applicationId: string, status: string, userId: string) => {
         updateApplicationStatus({ applicationId, status, userId }).then((response: any) => {
-            const applicationsData = response.data.jobSpecificApplications
+            const applicationsData = response.data?.jobSpecificApplications || [];
 
-
-            switch (pathname) {
-                case `/jobs/view-job/applications/pending/${jobId}`:
-                    setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Pending'));
-                    break;
-                case `/jobs/view-job/applications/accepted/${jobId}`:
-                    setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Accepted'));
-                    break;
-                case `/jobs/view-job/applications/rejected/${jobId}`:
-                    setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Rejected'));
-                    break;
-                default:
-                    setApplications(applicationsData);
-                    break;
+            if (Array.isArray(applicationsData)) {
+                switch (pathname) {
+                    case `/jobs/view-job/applications/pending/${jobId}`:
+                        setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Pending'));
+                        break;
+                    case `/jobs/view-job/applications/accepted/${jobId}`:
+                        setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Accepted'));
+                        break;
+                    case `/jobs/view-job/applications/rejected/${jobId}`:
+                        setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Rejected'));
+                        break;
+                    default:
+                        setApplications(applicationsData);
+                        break;
+                }
+            } else {
+                console.error('applicationsData is not an array:', applicationsData);
+                setApplications([]);
             }
-            toast.success(response.data.message)
+            toast.success(response.data?.message || 'Status updated successfully')
+
         })
             .catch((error) => {
                 console.log(error.message);
@@ -82,7 +87,7 @@ const ViewJobApplications = () => {
 
                 const applicationsData = response.data.applications
 
-
+                console.log(applicationsData)
                 switch (pathname) {
                     case `/jobs/view-job/applications/pending/${jobId}`:
                         setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Pending'));

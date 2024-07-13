@@ -32,263 +32,275 @@ import PeopleDiscover from "../components/PeopleDiscover";
 import PeopleConnections from "../components/PeopleConnections";
 import PeopleRequests from "../components/PeopleRequests";
 import PeopleRequested from "../components/PeopleRequested";
-import ViewerProfile from "../pages/visitProfile/ViewerProfile";
+import ViewerProfile from "../pages/user/visitProfile/ViewerProfile";
 import ViewerBio from "../components/ViewerBio";
 import ViewerPosts from "../components/ViewerPost";
 import ViewerJobs from "../components/ViewerJobs";
 import ViewerConnections from "../components/ViewerConnections";
 import NotAuthorized from "../components/errorComponents/NotAuthorised";
 import Chat from "../pages/user/chat/Chat";
-import InterviewCall from "../pages/interviewCall/interviewCall";
+import InterviewCall from "../pages/user/interviewCall/interviewCall";
+import JobsDetails from "../pages/user/jobs/JobDetails";
+import ViewJobApplications from "../components/ViewJobApplications";
+import ViewJobInterviews from "../components/ViewJobInterviews";
+import ProtectedVideoCall from "../components/ProtectedVideoCall";
+
 
 
 const appRouter = createBrowserRouter([
-    {
-        path:"/",
-        element:<Landing/>
-    },
-    {
-      path: "/home",
-      element: <Protect><App /></Protect>,
-      children: [
-        {
-          path: "/home",
-          element: <UserHome />,
-        },
-      ],
-    },
-    {
-      path:"/people",
-      element: (
-        <Protect>
-       <App/>
-        </Protect>
-      )
-      ,
-      errorElement:<ErrorPage/>
-     ,
-      children:[
-        {
-          path:"/people",
-          element:<People/>, 
-          children:[
-            {
-              path:"/people/discover",
-              element:<PeopleDiscover/>
-            },
-            {
-              path:"/people/connections",
-              element:<PeopleConnections/>
-            },
-            {
-              path:"/people/requests",
-              element:<PeopleRequests/>
-            },
-            {
-              path:"/people/requested",
-              element:<PeopleRequested/>
-            },
-          ]
-        },
-       
-      ]
-    },
-    {
-      path:"/jobs",
-      element: <Protect><App /></Protect>,
-      children:[
-        {
-          path:"/jobs/hiring",
-          element:<JobsHiring/>,
-          children:[
-            {
-              path:"/jobs/hiring/job-list",
-              element:<HiringJobList/>
-            },
-            {
-              path:"/jobs/hiring/applicants",
-              element:<HiringApplications/>
-            },
-            {
-              path:"/jobs/hiring/interviews",
-              element:<HiringInterviews/>
-            },
-            {
-              path:"/jobs/hiring/interview-call/:roomId",
-              element:<InterviewCall/>
-            },
-            {
-              path:"/jobs/hiring/view-job/:jobId",
-              element:<ViewJob/>
-            },
-            {
-              path:"/jobs/hiring/add-job",
-              element:<AddJob/>
-            },
-            {
-              path:"/jobs/hiring/edit-job/:jobId",
-              element:<EditJob/>
-            }
-          ]
-        },
-        {
-          path:"/jobs/open-to-work",
-          element:<JobsOpenToWork/>,
-          children:[
-            {
-              path:"/jobs/open-to-work/job-list",
-              element:<Jobs />
-            },
-            {
-              path:"/jobs/open-to-work/applications",
-              element:<Applications/>
-            },
-            {
-              path:"/jobs/open-to-work/interviews",
-              element:<Interviews/>
-            },
-            {
-              path:"/jobs/open-to-work/interview-call/:roomId",
-              element:<InterviewCall/>
-            },
-          ]
-        },{
-          path:"/jobs/view-job/",
-          element: (
-            <Protect>
-             <JobsDetails/>
-            </Protect>
-          )
-          ,
-      errorElement:<ErrorPage/>
-          
-          ,
-          children:[
-            {
-              path:"/jobs/view-job/job-info/:jobId",
-              element:<ViewJob/>
-            },
-            {
-              path:"/jobs/view-job/applications/pending/:jobId",
-              element:<ViewJobApplications/>
+  {
+    path: "/",
+    element: <Landing />
+  },
+  {
+    path: "/home",
+    element: <Protect><App /></Protect>,
+    children: [
+      {
+        path: "/home",
+        element: <UserHome />,
+      },
+    ],
+  },
+  {
+    path: "/people",
+    element: (
+      <Protect>
+        <App />
+      </Protect>
+    )
+    ,
+    errorElement: <ErrorPage />
+    ,
+    children: [
+      {
+        path: "/people",
+        element: <People />,
+        children: [
+          {
+            path: "/people/discover",
+            element: <PeopleDiscover />
+          },
+          {
+            path: "/people/connections",
+            element: <PeopleConnections />
+          },
+          {
+            path: "/people/requests",
+            element: <PeopleRequests />
+          },
+          {
+            path: "/people/requested",
+            element: <PeopleRequested />
+          },
+        ]
+      },
 
-            },
-            {
-              path:"/jobs/view-job/applications/accepted/:jobId",
-              element:<ViewJobApplications/>
-            },
-            
-            {
-              path:"/jobs/view-job/applications/rejected/:jobId",
-              element:<ViewJobApplications/>
-            } ,
-            {
-              path:"/jobs/view-job/interviews/:jobId",
-              element:<ViewJobInterviews/>
-            },
-            {
-              path:"/jobs/view-job/interview-call/:roomId",
-              element:<InterviewCall/>
-            },
-          ]
-        }
-      ]
-    },
-    {
-      path:"/profile",
-      element: (
-        <Protect>
-     <Profile/>
-        </Protect>
-      ),
-      children:[
-        {
-          path:"bio",
-          element:<UserBio/>,
-        },
-        {
-          path:"user-posts",
-          element:<UserPost/>,
-        },
-        {
-          path:"settings",
-          element:<Settings/>
-        }
-      ]
-    },
-    
-    {
-      path:"/visit-profile/",
-      element:<ViewerProfile/>
-      ,
-  errorElement:<ErrorPage/>,
-      
-      children:[
-        {
-          path:"bio/:userId",
-          element:<ViewerBio/>,
-        },
-        {
-          path:"posts/:userId",
-          element:<ViewerPosts/>,
-        },
-        {
-          path:"jobs/:userId",
-          element:<ViewerJobs/>
-        },
-        
-        {
-          path:"connections/:userId",
-          element:<ViewerConnections/>
-        }
-      ]
-},
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/signup",
-      element: <Signup />,
-    },
-    {
-      path: "/forgot-password",
-      element: <ForgotPassword />,
-    },
-    {
-      path: "/otp",
-      element: <OtpPage />,
-    },
-    {
-      path: "/forgot-otp",
-      element: <PasswordOtp />,
-    },
-    {
-      path: "/change-password",
-      element: <ChangePassword />,
-    },
-    {
-        path:"/register-success",
-        element:<RegisterSucces/>
-    },{
-      path:"/chat",
-      element: (
-        <Protect>
-     <Chat/>
-        </Protect>
-      ),
-      errorElement:<ErrorPage/>
-     
-     },
-    // {
-    //   path: '*',
-    //   element: <PageNotFound />,
-    // },
-    // {
-    //   path: '/not-authorized',
-    //   element: <NotAuthorized />,
-    // },
-    ...adminRoutes,
+    ]
+  },
+  {
+    path: "/jobs",
+    element: <Protect><App /></Protect>,
+    children: [
+      {
+        path: "/jobs/hiring",
+        element: <JobsHiring />,
+        children: [
+          {
+            path: "/jobs/hiring/job-list",
+            element: <HiringJobList />
+          },
+          {
+            path: "/jobs/hiring/applicants",
+            element: <HiringApplications />
+          },
+          {
+            path: "/jobs/hiring/interviews",
+            element: <HiringInterviews />
+          },
+          {
+            path: "/jobs/hiring/interview-call/:roomId",
+            element: <InterviewCall />
+          },
+          {
+            path: "/jobs/hiring/view-job/:jobId",
+            element: <ViewJob />
+          },
+          {
+            path: "/jobs/hiring/add-job",
+            element: <AddJob />
+          },
+          {
+            path: "/jobs/hiring/edit-job/:jobId",
+            element: <EditJob />
+          }
+        ]
+      },
+      {
+        path: "/jobs/open-to-work",
+        element: <JobsOpenToWork />,
+        children: [
+          {
+            path: "/jobs/open-to-work/job-list",
+            element: <Jobs />
+          },
+          {
+            path: "/jobs/open-to-work/applications",
+            element: <Applications />
+          },
+          {
+            path: "/jobs/open-to-work/interviews",
+            element: <Interviews />
+          },
+          {
+            path: "/jobs/open-to-work/interview-call/:roomId",
+            element: <InterviewCall />
+          },
+        ]
+      }, {
+        path: "/jobs/view-job/",
+        element: (
+          <Protect>
+            <JobsDetails />
+          </Protect>
+        )
+        ,
+        errorElement: <ErrorPage />
+
+        ,
+        children: [
+          {
+            path: "/jobs/view-job/job-info/:jobId",
+            element: <ViewJob />
+          },
+          {
+            path: "/jobs/view-job/applications/pending/:jobId",
+            element: <ViewJobApplications />
+
+          },
+          {
+            path: "/jobs/view-job/applications/accepted/:jobId",
+            element: <ViewJobApplications />
+          },
+
+          {
+            path: "/jobs/view-job/applications/rejected/:jobId",
+            element: <ViewJobApplications />
+          },
+          {
+            path: "/jobs/view-job/interviews/:jobId",
+            element: <ViewJobInterviews />
+          },
+          {
+            path: "/jobs/view-job/interview-call/:roomId",
+            element: <InterviewCall />
+          },
+        ]
+      }
+    ]
+  },
+  {
+    path: "/profile",
+    element: (
+      <Protect>
+        <Profile />
+      </Protect>
+    ),
+    children: [
+      {
+        path: "bio",
+        element: <UserBio />,
+      },
+      {
+        path: "user-posts",
+        element: <UserPost />,
+      },
+      {
+        path: "settings",
+        element: <Settings />
+      }
+    ]
+  },
+
+  {
+    path: "/visit-profile/",
+    element: <ViewerProfile />
+    ,
+    errorElement: <ErrorPage />,
+
+    children: [
+      {
+        path: "bio/:userId",
+        element: <ViewerBio />,
+      },
+      {
+        path: "posts/:userId",
+        element: <ViewerPosts />,
+      },
+      {
+        path: "jobs/:userId",
+        element: <ViewerJobs />
+      },
+
+      {
+        path: "connections/:userId",
+        element: <ViewerConnections />
+      }
+    ]
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/otp",
+    element: <OtpPage />,
+  },
+  {
+    path: "/forgot-otp",
+    element: <PasswordOtp />,
+  },
+  {
+    path: "/change-password",
+    element: <ChangePassword />,
+  },
+  {
+    path: "/register-success",
+    element: <RegisterSucces />
+  }, {
+    path: "/chat",
+    element: (
+      <Protect>
+        <Chat />
+      </Protect>
+    ),
+    errorElement: <ErrorPage />
+
+  },
+  {
+    path:"/interview-call/:roomId/:userId",
+    element:<ProtectedVideoCall/>
+    ,
+    errorElement:<ErrorPage/>
+
+  },
+  // {
+  //   path: '*',
+  //   element: <PageNotFound />,
+  // },
+  // {
+  //   path: '/not-authorized',
+  //   element: <NotAuthorized />,
+  // },
+  ...adminRoutes,
 ]);
 
 export default appRouter;

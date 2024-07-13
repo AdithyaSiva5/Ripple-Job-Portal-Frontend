@@ -82,7 +82,6 @@ function InterviewForm({ application, cancelscheduleInterview, setApplications }
         addInterview({ applicationId, jury, interviewDate, interviewTime }).then((response: any) => {
             const applicationsData = response.data.applications
 
-
             switch (pathname) {
                 case `/jobs/view-job/applications/pending/${jobId}`:
                     setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Pending'));
@@ -132,7 +131,7 @@ function InterviewForm({ application, cancelscheduleInterview, setApplications }
                             <Form className="w-full">
                                 <div className="flex w-full justify-between px-3">
                                     <div className="w-1/2">
-                                        <label className='text-xs text-gray-600 mt-3' htmlFor="interviewDate">Interview Date</label>
+                                        <label className='text-xs text-gray-600 mt-3' htmlFor="interviewDate ">Interview Date</label>
                                         <Field className="text-xs  w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                                             type="date" id="interviewDate" name="interviewDate" />
                                         <ErrorMessage name="interviewDate" component={TextError} className="error-message" />
@@ -151,7 +150,7 @@ function InterviewForm({ application, cancelscheduleInterview, setApplications }
 
 
                                 <div className="w-full mt-4 ">
-                                    <label className='text-xs text-gray-600 ms-3 mt-3' htmlFor="jury">Jury Members</label>
+                                    <label className='text-xs text-gray-600 ms-3 mt-3 Jury Members' htmlFor="jury">Jury Members</label>
                                     <Select
                                         className="text-xs  text-gray-500 p-3 w-full rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                                         id="jury"
@@ -189,5 +188,5 @@ function InterviewForm({ application, cancelscheduleInterview, setApplications }
         </>
     );
 }
-
+ 
 export default InterviewForm;

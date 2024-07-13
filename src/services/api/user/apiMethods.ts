@@ -962,7 +962,7 @@ export const userJobBlock = (jobId:{jobId:string}) => {
 export const setMessageRead = (messageData:{conversationId: string,userId:string}) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("patch", chatUrl.setMessageRead, messageData)
+      apiCall("post", chatUrl.setMessageRead, messageData)
         .then((response) => {
           resolve(response);
         })
@@ -980,7 +980,7 @@ export const cancelJobApplication= (applcationId:{applicationId:string,applicant
   
   return new Promise((resolve, reject) => {
     try {
-      apiCall("patch", jobUrls.cancelApplication,applcationId)
+      apiCall("post", jobUrls.cancelApplication,applcationId)
         .then((response) => {
           resolve(response);
         })
@@ -1000,7 +1000,7 @@ export const  addInterview= (
   interviewData:
    { 
     applicationId: string,
-    jury:any[] ,
+    jury:any[] , 
     interviewDate: string ,
     interviewTime: string 
     }) => {
@@ -1027,7 +1027,7 @@ export const  addInterview= (
 export const setInterviewStatus = (interviewData:{interviewId:string,status:string}) => {
   return new Promise((resolve, reject) => {
       try {
-          apiCall('patch', jobUrls.setInterviewStatus, interviewData).then((response)=>{
+          apiCall("post", jobUrls.setInterviewStatus, interviewData).then((response)=>{
               resolve(response);
           }).catch((err)=>{
               reject(err);
@@ -1086,7 +1086,7 @@ export const getJobInterviews= (jobId:{jobId:string}) => {
         .then((response) => {
           resolve(response);
         })
-        .catch((err) => {
+        .catch((err) => { 
           reject(err);
         });
     } catch (error) {

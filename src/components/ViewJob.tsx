@@ -3,7 +3,6 @@ import { updateApplicationStatus, viewJob } from '../services/api/user/apiMethod
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import ViewApplication from './ViewApplication';
 import { useSelector } from 'react-redux';
 import { View } from 'lucide-react';
 const ViewJob = () => {
