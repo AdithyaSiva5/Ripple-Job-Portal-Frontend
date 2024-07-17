@@ -13,12 +13,19 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-  } 
+    
+  }  
   .dark #home {
     background-color: #1B1F24;
     background-image: none;
     min-height: 100vh;
   }
  
+  
+/* body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; 
+} */
 
   

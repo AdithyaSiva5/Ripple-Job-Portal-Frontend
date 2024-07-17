@@ -600,6 +600,24 @@ export const cancelApplication= (data:any) => {
     }
   });
 };
+  //@dec      Add New Message
+  //method    post
+  export const getAllTransactions = (userId: {userId:string}) => {
+    return new Promise((resolve, reject) => {
+      try {
+        apiCall("post", userUrls.allTransactions, userId)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      } catch (error) {
+        resolve({ status: 500, message: "Somethings wrong." });
+      }
+    });
+  };
+
 
 export const getJobDetails = ( jobId:{jobId: string|undefined}) => {
   return new Promise((resolve, reject) => {
@@ -1087,6 +1105,104 @@ export const getJobInterviews= (jobId:{jobId:string}) => {
           resolve(response);
         })
         .catch((err) => { 
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+//@dec      get notifications
+//method    POST
+
+export const getNotifications= (userId: { userId: string }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      
+      
+      apiCall("post", userUrls.getNotifications, userId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      initiate checkout 
+//method    get
+export const initiateCheckout = (userId:{userId:string}) => {
+  return new Promise((resolve, reject) => {
+    try {
+     
+       
+      apiCall("post", userUrls.checkout,userId).then((response)=>{
+
+        resolve(response);
+        
+    })   .catch((err) => {
+      reject(err);
+    });
+} catch (error) {
+    resolve({status:500, message: "Somethings wrong."})
+}
+});
+};
+
+
+//@dec      validate payment
+//method    post
+export const validatePayment = (paymentData: {userId:string,sessionId:string}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", userUrls.validate, paymentData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      Get Saved Post
+//method    POST
+
+export const getSavedPost = (userId: string|undefined) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const url:string = `${postUrls.getSavedPosts}/${userId}`
+      apiCall("get", url, null)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
+
+//@dec      Like a post
+//method    POST
+
+export const savePost = (postData: { postId: string|null,jobId:string|null, userId: string }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.savePost, postData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
           reject(err);
         });
     } catch (error) {

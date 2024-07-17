@@ -75,6 +75,25 @@
 
 }
 
+.job-post-section{
+   
+    margin: 20px;
+    border-radius: 10px;
+    margin-bottom: 45px;
+
+}
+
+
+
+ .job-scroll{
+    width: 100%;
+    height: 85%;
+    overflow: auto;
+ 
+ 
+ }
+
+
 .home-recommed-section{
     height: 18%;
     margin: 20px;
@@ -184,4 +203,32 @@
     
   }
 
+  .home-notification-section-2{
+    width: 60%;
+    height: 100%;
+    position: fixed;
+    left: 25%;
+    top: 10%;
+    
+}
+/* .home-recommed-section{
+    height: 134px;
+    margin: 20px 0px 0px 0px  ;
+   width: 440px;
+    border-radius: 10px;
+
   
+
+} */
+
+.home-section-3{
+    width: 30%;
+    height: 84%;
+    position:fixed;
+    right:5%;
+    top: 10%;
+    overflow: auto;
+    z-index: -1;
+   
+
+}

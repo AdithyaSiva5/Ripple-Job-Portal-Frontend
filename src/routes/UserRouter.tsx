@@ -44,6 +44,14 @@ import JobsDetails from "../pages/user/jobs/JobDetails";
 import ViewJobApplications from "../components/ViewJobApplications";
 import ViewJobInterviews from "../components/ViewJobInterviews";
 import ProtectedVideoCall from "../components/ProtectedVideoCall";
+import PremiumPlans from "../pages/user/premiumPage/PremiumPlans";
+import Premium from "../components/Premium";
+import PaymentSuccess from "../components/PaymentSuccess";
+import PaymentFailed from "../components/PaymentFailed";
+import Notifications from "../components/Notifications";
+import SavedCollections from "../components/SavedCollections";
+import SavedPosts from "../components/SavedPosts";
+import SavedJobs from "../components/SavedJobs";
 
 
 
@@ -60,6 +68,28 @@ const appRouter = createBrowserRouter([
         path: "/home",
         element: <UserHome />,
       },
+      {
+        path: "/home/notifications",
+        element: (
+
+          <Notifications />
+        )
+      },
+      {
+        path: "/home/saved",
+        element: <SavedCollections />,
+        children: [
+          {
+            path: "/home/saved/posts",
+            element: <SavedPosts />
+          },
+          {
+            path: "/home/saved/jobs",
+            element: <SavedJobs />
+
+          }
+        ]
+      }
     ],
   },
   {
@@ -284,12 +314,35 @@ const appRouter = createBrowserRouter([
     ),
     errorElement: <ErrorPage />
 
+  }, {
+    path: "/premium",
+    element: (
+      <Protect>
+        <PremiumPlans />
+      </Protect>
+    ),
+    errorElement: <ErrorPage />
+    ,
+    children: [
+      {
+        path: "/premium/plans",
+        element: <Premium />,
+      },
+      {
+        path: "/premium/payment-success",
+        element: <PaymentSuccess />,
+      },
+      {
+        path: "/premium/payment-failed",
+        element: <PaymentFailed />,
+      }
+    ]
   },
   {
-    path:"/interview-call/:roomId/:userId",
-    element:<ProtectedVideoCall/>
+    path: "/interview-call/:roomId/:userId",
+    element: <ProtectedVideoCall />
     ,
-    errorElement:<ErrorPage/>
+    errorElement: <ErrorPage />
 
   },
   // {

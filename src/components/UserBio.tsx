@@ -24,6 +24,11 @@ function UserBio() {
         <div className="flex justify-between mb-4">
           
         <div className="flex space-x-2">
+        {user.isPremium && (
+        <p className="text-xs bg-red-600 text-black py-1 mt-1 w-32 rounded-full text-center dark:text-white">
+          Premium
+        </p>
+      )}
  
       {!user.isHiring?(
          <p className="text-xs bg-green-600 text-white py-1 mt-1 w-32 rounded-full text-center dark:text-white">Available for work</p>

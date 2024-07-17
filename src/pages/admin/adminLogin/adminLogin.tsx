@@ -11,14 +11,6 @@ import { adminPostLogin } from '../../../services/api/admin/apiMethods';
 import { AdminLoginSuccess} from '../../../utils/context/reducers/adminAuthSlice';
 
 
-
-
-
-
-
-
-
-
 function AdminLogin() {
   const navigate = useNavigate();
       const dispatch = useDispatch();
@@ -40,14 +32,7 @@ function AdminLogin() {
       toast.error(error?.message);
     })
   };
-  
 
-
-
-
-  
-
-  
 
 
   return (

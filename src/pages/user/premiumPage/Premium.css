@@ -1,0 +1,52 @@
+@keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+    }
+  }
+  
+  .premium-badge {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .premium-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 50%
+    );
+    transform: rotate(-45deg);
+    animation: shine 3s infinite linear;
+  }
+  
+  .premium-badge:hover {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes shine {
+    0% {
+      top: -50%;
+      left: -50%;
+    }
+    100% {
+      top: 150%;
+      left: 150%;
+    }
+  }
+  
+  .hover\:shadow-glow:hover {
+    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.7);
+  }

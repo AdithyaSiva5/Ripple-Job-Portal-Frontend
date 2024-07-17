@@ -106,7 +106,7 @@ const EditJob = () => {
         console.log(response.message);
         toast.error(data.message);
       }
-    })
+    }) 
     .catch((error:any) => {
       toast.error(error?.message);
       console.log(error?.message);

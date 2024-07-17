@@ -8,6 +8,8 @@ import AdminJobList from "../pages/admin/adminJoblistPage/AdminJobList";
 import ReportList from "../pages/admin/adminReportlistPage/ReportList";
 import ProtectAdmin from "../routes/protectRoutes/ProtectAdminRoute";
 import ErrorPage from "../components/errorComponents/ErrorPage";
+import AdminTransactions from '../pages/admin/adminTransactions/AdminTransactions';
+import AdminNotifications from '../pages/admin/adminNotifications/AdminNotifications';
 
 const adminRoutes: RouteObject[] = [
   {
@@ -20,11 +22,13 @@ const adminRoutes: RouteObject[] = [
       { path: "posts", element: <PostList /> },
       { path: "jobs", element: <AdminJobList /> },
       { path: "reports", element: <ReportList /> },
+      { path: "transactions", element: <AdminTransactions /> },
+      // { path: "notifications", element: <AdminNotifications /> },
     ]
   },
   {
     path: "/admin/login",
-    element: <i />,
+    element: <AdminLogin />,
     errorElement: <ErrorPage />,
   }
 ];

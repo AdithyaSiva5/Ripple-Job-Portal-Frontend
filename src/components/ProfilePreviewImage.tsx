@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 
 
 interface ProfilePreviewImageProps {
-  file: any; 
+  file: any;
 }
 
 const ProfilePreviewImage: React.FC<ProfilePreviewImageProps> = ({ file }) => {
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null); 
-  const selectUser = (state: any) => state.auth.user || ''; 
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+  const selectUser = (state: any) => state.auth.user || '';
   const user = useSelector(selectUser) || '';
 
 
@@ -18,18 +18,18 @@ const ProfilePreviewImage: React.FC<ProfilePreviewImageProps> = ({ file }) => {
       reader.readAsDataURL(file);
       reader.onload = () => {
         if (typeof reader.result === 'string') {
-          setPreview(reader.result); 
+          setPreview(reader.result);
         }
       };
     } else {
-      setPreview(null); 
+      setPreview(null);
     }
   }, [file]);
 
   return (
     <div>
-      {preview && <img className="w-28 h-28 rounded-full" src={preview.toString()} alt="" />} 
-     
+      {preview && <img className="w-28 h-28 rounded-full" src={preview.toString()} alt="" />}
+
 
     </div>
   );

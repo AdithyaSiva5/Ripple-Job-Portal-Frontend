@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Bookmark } from "lucide-react";
-import { listJob } from "../services/api/user/apiMethods";
-import { useSelector } from "react-redux";
+import { listJob, savePost } from "../services/api/user/apiMethods";
+import { useDispatch, useSelector } from "react-redux";
 import ApplyJobForm from "./ApplyJobForm";
 import { debounce } from "lodash";
 import { useFilterContext } from "../utils/context/jobfilterData/FilterContext";
+import { updateUser } from "../utils/context/reducers/authSlice";
+import { toast } from "sonner";
 
 interface jobProps {
   post: {
@@ -13,7 +15,7 @@ interface jobProps {
       _id: string;
       profileImageUrl: string;
     };
-    companyName: string; 
+    companyName: string;
     jobRole: string;
     jobDescription: string;
     requiredSkills: string;
@@ -26,6 +28,7 @@ interface jobProps {
 }
 
 const Jobs = () => {
+  const dispatch = useDispatch();
   const { filterData } = useFilterContext();
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
@@ -34,17 +37,17 @@ const Jobs = () => {
   const [jobs, setJobs] = useState<jobProps["post"][]>([]);
   const [selectedjob, setSelectedJob] = useState<any>({});
   const [isApply, setIsApply] = useState<boolean>(false);
-  
+  console.log(user)
 
-  const handleApplyJob = (job:any) => {
+  const handleApplyJob = (job: any) => {
     setIsApply(true);
     setSelectedJob(job);
   };
-  const cancelApplyJob=()=>{
+  const cancelApplyJob = () => {
     setIsApply(false)
   }
 
-  
+
   const debouncedListJob = debounce((filterData, userId) => {
     listJob({ filterData, userId })
       .then((response: any) => {
@@ -54,12 +57,12 @@ const Jobs = () => {
       .catch((error) => {
         console.log(error.message);
       });
-  }, 600); 
+  }, 600);
 
   useEffect(() => {
-    debouncedListJob(filterData, userId); 
+    debouncedListJob(filterData, userId);
     return () => {
-   
+
       debouncedListJob.cancel();
     };
   }, [filterData]);
@@ -79,6 +82,22 @@ const Jobs = () => {
       console.log(error);
     }
   }, []);
+  const handleSave = (jobId: string, userId: string) => {
+    try {
+      savePost({ postId:null, userId,jobId})
+        .then((response: any) => {
+          const userData = response.data;
+      
+          dispatch(updateUser({ user: userData }));
+     
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <>
@@ -93,9 +112,18 @@ const Jobs = () => {
               </div>
             </div>
 
-            <button>
-              <Bookmark size={18} color="gray" />
-            </button>
+            <div className="flex ">
+              {user.savedJobs?.includes(job._id) ? (
+                <button onClick={() => handleSave(job._id, user._id)} type="button">
+                  <Bookmark color="green" fill="green" strokeWidth={1.5} size={22} />
+                </button>
+              ) : (
+                <button onClick={() => handleSave(job._id, user._id)} type="button">
+                  <Bookmark color="gray" strokeWidth={1.5} size={22} />
+                </button>
+              )}
+
+            </div>
           </div>
           <div className="mt-10">
             <p className="text-sm mb-3 font-bold dark:text-white">Job Overview</p>

@@ -11,6 +11,10 @@ export const userUrls ={
     setBasicInformation:'/set-basic-information',
     userSuggestions:'/user-suggestions',
     getUserDetails:'/user-details',
+    checkout:'/checkout-user',
+    validate:'/validate-payment',
+    allTransactions:'/get-transactions',
+    getNotifications:'/get-notifications',
 }
 
 export const authUrl = {
@@ -30,7 +34,8 @@ export const postUrls = {
     replyComment:'/post/reply-comment',
     deleteComment:'/post/delete-post-comment',
     reportPost: '/post/report-post',
-    
+    savePost: "post/save-post",
+    getSavedPosts: "post/user-saved-post",
 }
 
 
@@ -46,6 +51,7 @@ export const adminUrl = {
     jobBlock:'/admin/job-block',
     jobList:'/admin/get-jobs',
     reportList:'/admin/get-reports',
+    transactionsList:'/admin/get-transactions',
   
 }
 
@@ -66,7 +72,7 @@ export const jobUrls = {
     addInterview:'/job/add-interview',
     editInterview:'/job/edit-interview',
     setInterviewStatus:'/job/set-interview-status', 
-    getIntervieweeInterviews:'/job/get-interviewee-interviews',
+    getIntervieweeInterviews:'/job/get-interviewee-interviews',   
     getInterviewerInterviews:'/job/get-interviewer-interviews',
     getJobInterviews:'/job/get-job-interviews',
     getFormSelectData:'/job/form-select-data',
