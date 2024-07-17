@@ -3,7 +3,7 @@ import { likePost, savePost } from "../services/api/user/apiMethods";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsePosts, updateUser } from "../utils/context/reducers/authSlice";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import PostDetails from "./PostDetails";
 import ReportModal from "./ReportModal";
 import { darkMode } from "../utils/context/reducers/darkmodeSlice";

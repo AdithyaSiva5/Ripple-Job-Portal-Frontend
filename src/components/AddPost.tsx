@@ -1,29 +1,31 @@
-import { ImagePlus,FileImage,Smile,Type,Camera} from "lucide-react";
+import { ImagePlus, FileImage, Smile, Type, Camera } from "lucide-react";
 import { useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import PreviewImage from "./PreviewImage";
 import { useSelector } from "react-redux";
 import { toast } from 'sonner';
 import { addPost } from "../services/api/user/apiMethods";
 import { Button, Spinner } from "flowbite-react";
 import { darkMode } from "../utils/context/reducers/darkmodeSlice";
+import CropImage from "./CropImage";
 
-  
+
 
 
 
 function AddPost() {
   const dark = useSelector(darkMode);
-  const selectUser = (state: any) => state.auth.user || ''; 
+  const selectUser = (state: any) => state.auth.user || '';
   const user = useSelector(selectUser) || '';
   const userId = user._id || '';
 
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [hideLikes, setHideLikes] = useState(false);
+  const [hideLikes, setHideLikes] = useState(false); 
   const [hideComment, setHideComment] = useState(false);
+  const [croppedImage, setCroppedImage] = useState("");
+  const [isCroppeSelected, setIsCroppeSelected] = useState(false);
 
 
   const handleHideLikesToggle = () => {
@@ -37,7 +39,10 @@ function AddPost() {
   const handleCreatePostClick = () => {
     setShowModal(true);
   };
-
+  const handleCancel = () => {
+    setIsCroppeSelected(false);
+    formik.setFieldValue("image", "");
+  };
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleButtonClick = (e: any) => {
@@ -54,36 +59,30 @@ function AddPost() {
     },
     validationSchema: Yup.object({
       image: Yup.mixed()
-        .required("Image file required")
-        .test(
-          "FILE_TYPE",
-          "Invalid file type",
-          (value: any) =>
-            value && ["image/png", "image/jpeg"].includes(value.type)
-        )
-        .test(
-          "FILE_SIZE",
-          "File size too big",
-          (value: any) => value && value.size < 1024 * 1024
-        ),
-        title: Yup.string().trim() .required("Title is required"),
-        description: Yup.string().trim().required("Description is required"),
+        .required("Image file required"),
+
+      title: Yup.string().trim().required("Title is required"),
+      description: Yup.string().trim().required("Description is required"),
     }),
     onSubmit: async () => {
       setLoading(true);
-      const { image, title, description} = formik.values;
+      const { title, description } = formik.values;
       const formData = new FormData();
 
       try {
+        const response = await fetch(croppedImage);
+        const blob = await response.blob();
+
         const uploadPreset = import.meta.env.VITE_UPLOADPRESET;
         const cloudName = import.meta.env.VITE_CLOUDNAME;
+        
         if (!uploadPreset || !cloudName) {
           console.error("Missing Cloudinary configuration");
           toast.error("Missing Cloudinary configuration");
           return;
         }
-        if (image) {
-          formData.append("file", image);
+        if (blob) {
+          formData.append("file", blob);
         } else {
           console.error("No image file selected");
           toast.error("Please select an image");
@@ -94,8 +93,8 @@ function AddPost() {
         const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData);
         if (res.status === 200) {
           const imageUrl = res.data.secure_url;
-     
-          addPost({ userId, imageUrl, title, description,hideLikes,hideComment })
+
+          addPost({ userId, imageUrl, title, description, hideLikes, hideComment })
             .then((response: any) => {
               const data = response.data;
               if (response.status === 200) {
@@ -106,17 +105,17 @@ function AddPost() {
                 toast.error(data.message);
               }
             })
-            .catch((error:any) => {
+            .catch((error: any) => {
               toast.error(error?.message);
               console.log(error?.message);
-            }) .finally(() => {
+            }).finally(() => {
               setLoading(false);
             });
-        }else {
+        } else {
           console.error("Cloudinary upload failed:", res.statusText);
           toast.error("Image upload failed");
         }
-       
+
       } catch (error) {
         console.log(error);
       }
@@ -126,7 +125,10 @@ function AddPost() {
   const handleCancelClick = () => {
     setShowModal(false);
     formik.values.image = "";
- 
+    setCroppedImage("")
+  };
+  const handleCloseCanvas = () => {
+    setIsCroppeSelected(!isCroppeSelected);
   };
   return (
     <>
@@ -138,7 +140,7 @@ function AddPost() {
           <div className="home-addpost-button-section flex">
             <ul className="flex gap-2 ">
               <li>
-                <FileImage color={dark ? "white" : "gray"}  strokeWidth={1.5} size={20} />
+                <FileImage color={dark ? "white" : "gray"} strokeWidth={1.5} size={20} />
               </li>
               <li>
                 <Smile color={dark ? "white" : "gray"} strokeWidth={1.5} size={20} />
@@ -180,7 +182,7 @@ function AddPost() {
                       onBlur={formik.handleBlur}
                       name="title"
                     />
-                          {formik.touched.title && formik.errors.title && (
+                    {formik.touched.title && formik.errors.title && (
                       <p className="text-red-600 text-xs">
                         {formik.errors.title}
                       </p>
@@ -194,7 +196,7 @@ function AddPost() {
                       onBlur={formik.handleBlur}
                       name="description"
                     ></textarea>
-                        {formik.touched.description &&
+                    {formik.touched.description &&
                       formik.errors.description && (
                         <p className="text-red-600 text-xs">
                           {formik.errors.description}
@@ -214,11 +216,28 @@ function AddPost() {
                             <p className="text-xs">Select Image</p>{" "}
                           </div>
                         )}
-                        {formik.values.image && !formik.errors.image && (
-                          <PreviewImage file={formik.values.image} />
+
+
+                        {croppedImage && !formik.errors.image && (
+                          <img
+                            style={{ borderRadius: "10px" }}
+                            src={croppedImage}
+                            alt="img"
+                          />
                         )}
                       </div>
                     </button>
+                    {formik.values.image &&
+                      isCroppeSelected &&
+                      !formik.errors.image && (
+                        <CropImage
+                          imgUrl={formik.values.image}
+                          aspectInit={{ value: 1.59 / 1 }}
+                          setCroppedImg={setCroppedImage}
+                          handleNextImage={handleCloseCanvas}
+                          handleCancel={handleCancel}
+                        />
+                      )}
                     {formik.errors.image && (
                       <p className="text-red-600 text-xs">
                         {formik.errors.image}
@@ -239,12 +258,12 @@ function AddPost() {
 
                   <label className="inline-flex items-center   cursor-pointer">
                     <input
-                     type="checkbox"
+                      type="checkbox"
                       value=""
-                       className="sr-only peer"
-                       checked={hideLikes}
-                       onChange={handleHideLikesToggle}
-                       />
+                      className="sr-only peer"
+                      checked={hideLikes}
+                      onChange={handleHideLikesToggle}
+                    />
                     <div className="relative w-9 h-5 bg-gray-200  rounded-full peer dark:bg-gray-100 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                   </label>
                 </div>
@@ -260,11 +279,11 @@ function AddPost() {
                   </div>
 
                   <label className="inline-flex items-center  cursor-pointer">
-                    <input type="checkbox" 
-                    value="" 
-                    className="sr-only peer" 
-                    checked={hideComment}
-                    onChange={handleHideCommentToggle}
+                    <input type="checkbox"
+                      value=""
+                      className="sr-only peer"
+                      checked={hideComment}
+                      onChange={handleHideCommentToggle}
                     />
                     <div className="relative w-9 h-5 bg-gray-200  rounded-full peer dark:bg-gray-100 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                   </label>
@@ -330,7 +349,10 @@ function AddPost() {
                       const files = e.target.files;
                       if (files && files.length > 0) {
                         const file = files[0];
-                        formik.setFieldValue("image", file);
+                        const imageUrl = URL.createObjectURL(file);
+
+                        formik.setFieldValue("image", imageUrl);
+                        setIsCroppeSelected(!isCroppeSelected);
                       }
                     }}
                   />
@@ -343,26 +365,26 @@ function AddPost() {
                   >
                     Cancel
                   </div>
-                  {loading&&(
-                        <Button className="bg-gray-900 rounded  ml-2" style={{height:'35px'}}>
-                        <Spinner aria-label="Spinner button example "  />
-                        <span className="pl-3 text-xs">Posting...</span>
-                      </Button>
+                  {loading && (
+                    <Button className="bg-gray-900 rounded  ml-2" style={{ height: '35px' }}>
+                      <Spinner aria-label="Spinner button example " />
+                      <span className="pl-3 text-xs">Posting...</span>
+                    </Button>
 
                   )}
-                  {!loading&&(
-                     <button
-                     type="submit"
-                     
-                     className="text-xs rounded btn border px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600 "
-                   >
-                     Publish Post
-                   </button>
+                  {!loading && (
+                    <button
+                      type="submit"
+
+                      className="text-xs rounded btn border px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600 "
+                    >
+                      Publish Post
+                    </button>
 
                   )
 
                   }
-                 
+
                 </div>
               </form>
             </div>

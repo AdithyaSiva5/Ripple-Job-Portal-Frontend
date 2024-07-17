@@ -59,10 +59,6 @@ export const postResendOTP = (email:{email:string})=>{
         }
     })
     }
-
-
-
-
     
 //@dec      Login user
 //method    POST
@@ -301,7 +297,7 @@ export const    getPostComments = (postId:{postId:any}) => {
       resolve({ status: 500, message: "Somethings wrong." });
     }
   });
-};
+}; 
 
 //@dec      Add a comment
 //method    POST
