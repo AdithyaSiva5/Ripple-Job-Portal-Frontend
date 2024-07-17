@@ -178,12 +178,12 @@ export const addPost = (postData: {userId:any, imageUrl: string; title: string; 
 };
 
 //@dec      get all post
-//method    POST
+//method    Get
 
-export const    getAllPosts = () => {
+export const    getAllPosts = (page: number) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("get", postUrls.getAllPosts, null)
+      apiCall("get", `${postUrls.getAllPosts}?page=${page}`, null)
         .then((response) => {
           resolve(response);
         })
