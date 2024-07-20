@@ -59,10 +59,6 @@ export const postResendOTP = (email:{email:string})=>{
         }
     })
     }
-
-
-
-
     
 //@dec      Login user
 //method    POST
@@ -182,12 +178,12 @@ export const addPost = (postData: {userId:any, imageUrl: string; title: string; 
 };
 
 //@dec      get all post
-//method    POST
+//method    Get
 
-export const    getAllPosts = () => {
+export const    getAllPosts = (page: number) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("get", postUrls.getAllPosts, null)
+      apiCall("get", `${postUrls.getAllPosts}?page=${page}`, null)
         .then((response) => {
           resolve(response);
         })
@@ -301,7 +297,7 @@ export const    getPostComments = (postId:{postId:any}) => {
       resolve({ status: 500, message: "Somethings wrong." });
     }
   });
-};
+}; 
 
 //@dec      Add a comment
 //method    POST
