@@ -55,7 +55,7 @@ function Messages({ user, currentChat, socket, onlineUsers }) {
     ) {
       setMessages((prev) => [...prev, arrivalMessage]);
     }
-  }, [arrivalMessage, currentChat]);
+  }, [arrivalMessage, currentChat]); 
 
   useEffect(() => {
     setMessageRead({ conversationId: currentChat._id, userId: user._id });
@@ -70,7 +70,7 @@ function Messages({ user, currentChat, socket, onlineUsers }) {
       senderId: user._id,
       receiverId,
       text: newMessage,
-      createdAt: Date.now(),
+      createdAt: Date.now(), 
     });
 
     addMessage({

@@ -222,3 +222,41 @@ export const adminTransactions= (page:number) => {
         }
     })
 };
+
+  //@dec     Get Dashboard Stats
+  //@method   Get
+  export const getDashboardStats = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        adminApiCalls("get", adminUrl.dashboardStats, null)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+  
+  
+//@dec     Get Chart Data
+//@method   Get
+export const chartData = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        adminApiCalls("get", adminUrl.chartData, null)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+  

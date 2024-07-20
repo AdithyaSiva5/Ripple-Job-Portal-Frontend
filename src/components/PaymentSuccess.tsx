@@ -55,7 +55,7 @@ function PaymentSuccess() {
   return (
     <>
       {isSuccess ? (
-        <div className="success rounded-2xl  bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+        <div className="success rounded-2xl  bg-gray-50  py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
           <div className="mx-auto max-w-xs px-8 flex flex-col items-center">
             <p className="text-base font-semibold text-green-600">Payment Successful</p>
             <div style={{ width: "120px" }} className=' flex justify-center'>

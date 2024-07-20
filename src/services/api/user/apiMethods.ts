@@ -1,167 +1,171 @@
-import { userUrls ,postUrls ,jobUrls, connectionUrls, chatUrl} from "../endPoints";
+import {
+  userUrls,
+  postUrls,
+  jobUrls,
+  connectionUrls,
+  chatUrl,
+} from "../endPoints";
 import { apiCall } from "./apiCalls";
 import { FormValues } from "../../../utils/validation/signupValidation";
 
 //@dec      user Registration
-//method    POST 
+//method    POST
 
-export const postRegister = (userData:FormValues) => {
-    return new Promise((resolve) => {
-        try {
-            apiCall("post", userUrls.register, userData).then((response)=>{
-                resolve(response);
-                console.log("apiMethods"+response);
-                
-            })
-        } catch (error) {
-            resolve({status:500, message: "Somethings wrong."})
-        }
-    })
-}
-
+export const postRegister = (userData: FormValues) => {
+  return new Promise((resolve) => {
+    try {
+      apiCall("post", userUrls.register, userData).then((response) => {
+        resolve(response);
+        console.log("apiMethods" + response);
+      });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 //@dec      Verify  Otp
 //method    POST
 
-export const postOTP = (otp:{ otp: string })=>{
-return new Promise((resolve)=>{
+export const postOTP = (otp: { otp: string }) => {
+  return new Promise((resolve) => {
     try {
-        apiCall("post", userUrls.registerOtp, otp).then((response)=>{
-            resolve(response);
-            console.log("apiMethods"+response);
-            
-        })
-        
+      apiCall("post", userUrls.registerOtp, otp).then((response) => {
+        resolve(response);
+        console.log("apiMethods" + response);
+      });
     } catch (error) {
-        resolve({status:500, message: "Somethings wrong."})
-        
+      resolve({ status: 500, message: "Somethings wrong." });
     }
-})
-}
-
+  });
+};
 
 //@dec      Resend Otp
 //method    POST
 
-export const postResendOTP = (email:{email:string})=>{
-    return new Promise((resolve)=>{
-        try {
-            console.log(email)
-            apiCall("post", userUrls.resendOtp, email).then((response)=>{
-                
-                resolve(response);
-                console.log("apiMethods"+response);
-            })
-            
-        } catch (error) {
-            resolve({status:500, message: "Somethings wrong."})
-            
-        }
-    })
+export const postResendOTP = (email: { email: string }) => {
+  return new Promise((resolve) => {
+    try {
+      console.log(email);
+      apiCall("post", userUrls.resendOtp, email).then((response) => {
+        resolve(response);
+        console.log("apiMethods" + response);
+      });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
     }
-    
+  });
+};
+
 //@dec      Login user
 //method    POST
 
-export const postLogin = (userData:{email:string,password:string}) => {
-    return new Promise((resolve, reject) => {
-        try {
-            apiCall('post', userUrls.login, userData).then((response)=>{
-                resolve(response);
-            }).catch((err)=>{
-                reject(err);
-            })
-        } catch (error) {
-            resolve({ status: 500, message:"Somethings wrong." });
-        }
-    })
-
-}
-
-
+export const postLogin = (userData: { email: string; password: string }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", userUrls.login, userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 //@dec      Google signup  user
 //method    POST
 
-export const  googleAuthenticate = (userData:{username:string,email:string,imageUrl:string}) => {
-    return new Promise((resolve, reject) => {
-        try {
-            apiCall('post', userUrls.googleAuth, userData).then((response)=>{
-                resolve(response);
-            }).catch((err)=>{
-                reject(err);
-            })
-        } catch (error) {
-            resolve({ status: 500, message:"Somethings wrong." });
-        }
-    })
-
-}
-
+export const googleAuthenticate = (userData: {
+  username: string;
+  email: string;
+  imageUrl: string;
+}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", userUrls.googleAuth, userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 //@dec      Forgot Password
 //method    POST
 
-
 export const forgotPassword = (email: { email: string }) => {
-    return new Promise((resolve) => {
-      try {
-        console.log(email);
-        apiCall("post", userUrls.forgotPassword, email).then((response) => {
-          resolve(response);
-          console.log("apiMethods" + response);
-        });
-      } catch (error) {
-        resolve({ status: 500, message: "Somethings wrong." });
-      }
-    });
-  };
+  return new Promise((resolve) => {
+    try {
+      console.log(email);
+      apiCall("post", userUrls.forgotPassword, email).then((response) => {
+        resolve(response);
+        console.log("apiMethods" + response);
+      });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
-
-
-   //@dec      Forgot Password OTP sent
+//@dec      Forgot Password OTP sent
 //method    POST
 
-
 export const forgotOTP = (otp: { otp: string }) => {
-    return new Promise((resolve) => {
-      try {
-        console.log(otp);
-        apiCall("post", userUrls.forgotOtp, otp).then((response) => {
-          resolve(response);
-          console.log("apiMethods" + response);
-        });
-      } catch (error) {
-        resolve({ status: 500, message: "Somethings wrong." });
-      }
-    });
-  };
+  return new Promise((resolve) => {
+    try {
+      console.log(otp);
+      apiCall("post", userUrls.forgotOtp, otp).then((response) => {
+        resolve(response);
+        console.log("apiMethods" + response);
+      });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 //@dec      Renew Password
 //method    POST
 
-  export const renewPassword = (userData: { password: string; confirmPassword: string }) => {
-    return new Promise((resolve, reject) => {
-      try {
-        apiCall("post", userUrls.resetPassword, userData)
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      } catch (error) {
-        resolve({ status: 500, message: "Somethings wrong." });
-      }
-    });
-  };
+export const renewPassword = (userData: {
+  password: string;
+  confirmPassword: string;
+}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", userUrls.resetPassword, userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
-
-  
 //@dec      Add Post
 //method    POST
 
-export const addPost = (postData: {userId:any, imageUrl: string; title: string; description:string,hideLikes:boolean,hideComment:boolean }) => {
+export const addPost = (postData: {
+  userId: any;
+  imageUrl: string;
+  title: string;
+  description: string;
+  hideLikes: boolean;
+  hideComment: boolean;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.addPost, postData)
@@ -180,7 +184,7 @@ export const addPost = (postData: {userId:any, imageUrl: string; title: string; 
 //@dec      get all post
 //method    Get
 
-export const    getAllPosts = (page: number) => {
+export const getAllPosts = (page: number) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("get", `${postUrls.getAllPosts}?page=${page}`, null)
@@ -196,12 +200,10 @@ export const    getAllPosts = (page: number) => {
   });
 };
 
-
-
 //@dec      Get User Post
 //method    POST
 
-export const    getUserPost = (userId:{userId:any}) => {
+export const getUserPost = (userId: { userId: any }) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.getUserPosts, userId)
@@ -217,12 +219,17 @@ export const    getUserPost = (userId:{userId:any}) => {
   });
 };
 
-
-
 //@dec      Edit User post
 //method    POST
 
-export const editPost = (postData: {userId:any,postId:any,  title:any; description:string,hideLikes:boolean,hideComment:boolean }) => {
+export const editPost = (postData: {
+  userId: any;
+  postId: any;
+  title: any;
+  description: string;
+  hideLikes: boolean;
+  hideComment: boolean;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.editPost, postData)
@@ -238,12 +245,10 @@ export const editPost = (postData: {userId:any,postId:any,  title:any; descripti
   });
 };
 
-
-
 //@dec      Delete a post
 //method    POST
 
-export const    deletePost = (postData:{postId:string,userId:string}) => {
+export const deletePost = (postData: { postId: string; userId: string }) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.deletePost, postData)
@@ -259,12 +264,10 @@ export const    deletePost = (postData:{postId:string,userId:string}) => {
   });
 };
 
-
-
 //@dec      Like a post
 //method    POST
 
-export const    likePost = (postData:{postId:string,userId:string}) => {
+export const likePost = (postData: { postId: string; userId: string }) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.likePost, postData)
@@ -283,7 +286,7 @@ export const    likePost = (postData:{postId:string,userId:string}) => {
 //@dec      get all comment
 //method    POST
 
-export const    getPostComments = (postId:{postId:any}) => {
+export const getPostComments = (postId: { postId: any }) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.getAllPostComments, postId)
@@ -297,12 +300,16 @@ export const    getPostComments = (postId:{postId:any}) => {
       resolve({ status: 500, message: "Somethings wrong." });
     }
   });
-}; 
+};
 
 //@dec      Add a comment
 //method    POST
 
-export const addComment = (commentData: {postId:any,userId:any,comment:string }) => {
+export const addComment = (commentData: {
+  postId: any;
+  userId: any;
+  comment: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.addComment, commentData)
@@ -321,7 +328,11 @@ export const addComment = (commentData: {postId:any,userId:any,comment:string })
 //@dec      Add a reply comment
 //method    POST
 
-export const replyComment = (commentData: {commentId:string,userId:any,replyComment:any }) => {
+export const replyComment = (commentData: {
+  commentId: string;
+  userId: any;
+  replyComment: any;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.replyComment, commentData)
@@ -339,14 +350,11 @@ export const replyComment = (commentData: {commentId:string,userId:any,replyComm
 
 //@dec      Delete a comment
 //method    post
-export const deleteComment = ( commentId:{commentId:any}) => {
-
+export const deleteComment = (commentId: { commentId: any }) => {
   return new Promise((resolve, reject) => {
-   
-    
     try {
       const url = `${postUrls.deleteComment}?commentId=${commentId}`;
-      apiCall("get", url,commentId)
+      apiCall("get", url, commentId)
         .then((response) => {
           resolve(response);
         })
@@ -359,11 +367,14 @@ export const deleteComment = ( commentId:{commentId:any}) => {
   });
 };
 
-
-export const setPreferences = (userData: {userId:string,userType:any,isHiring:any }) => {
+export const setPreferences = (userData: {
+  userId: string;
+  userType: any;
+  isHiring: any;
+}) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", userUrls.setPreferences,userData)
+      apiCall("post", userUrls.setPreferences, userData)
         .then((response) => {
           resolve(response);
         })
@@ -381,7 +392,7 @@ export const setPreferences = (userData: {userId:string,userType:any,isHiring:an
 export const setBasicInformation = (userData: any) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", userUrls.setBasicInformation,userData)
+      apiCall("post", userUrls.setBasicInformation, userData)
         .then((response) => {
           resolve(response);
         })
@@ -393,7 +404,7 @@ export const setBasicInformation = (userData: any) => {
     }
   });
 };
-export const addJob= (data:any) => {
+export const addJob = (data: any) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.addJob, data)
@@ -409,10 +420,9 @@ export const addJob= (data:any) => {
   });
 };
 
- 
 //edit job
 
-export const editJob= (data:any) => {
+export const editJob = (data: any) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.editJob, data)
@@ -428,8 +438,7 @@ export const editJob= (data:any) => {
   });
 };
 
-
-export const viewJob= (data:any) => {
+export const viewJob = (data: any) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.viewJob, data)
@@ -445,11 +454,9 @@ export const viewJob= (data:any) => {
   });
 };
 
-
 //list job
 
-export const listJob= (data:any) => {
-  
+export const listJob = (data: any) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.listJob, data)
@@ -465,10 +472,8 @@ export const listJob= (data:any) => {
   });
 };
 
-
 //list User Jobs
-export const listUserJob= (userId:{userId:string}) => {
-  
+export const listUserJob = (userId: { userId: string }) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.listUserJob, userId)
@@ -485,13 +490,10 @@ export const listUserJob= (userId:{userId:string}) => {
 };
 
 //apply-job
-export const applyJob= ({formData}:any) => {
-  
+export const applyJob = ({ formData }: any) => {
   return new Promise((resolve, reject) => {
-
-    
     try {
-      apiCall("post", jobUrls.addJobApplication,formData)
+      apiCall("post", jobUrls.addJobApplication, formData)
         .then((response) => {
           resolve(response);
         })
@@ -505,11 +507,14 @@ export const applyJob= ({formData}:any) => {
 };
 
 //Update  applicationStatus
-export const updateApplicationStatus= (applcationData:{applicationId:string,status:string,userId:string}) => {
-  
+export const updateApplicationStatus = (applcationData: {
+  applicationId: string;
+  status: string;
+  userId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", jobUrls.updateApplicationStatus,applcationData)
+      apiCall("post", jobUrls.updateApplicationStatus, applcationData)
         .then((response) => {
           resolve(response);
         })
@@ -522,9 +527,10 @@ export const updateApplicationStatus= (applcationData:{applicationId:string,stat
   });
 };
 
-//get all applications of a user 
-export const getemployeeApplications= (applicantId:{applicantId:string}) => {
-  
+//get all applications of a user
+export const getemployeeApplications = (applicantId: {
+  applicantId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.employeeApplications, applicantId)
@@ -540,12 +546,11 @@ export const getemployeeApplications= (applicantId:{applicantId:string}) => {
   });
 };
 
-//get all applications of a user 
-export const getemployerApplications= (userId:{userId:string}) => {
-  
+//get all applications of a user
+export const getemployerApplications = (userId: { userId: string }) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", jobUrls.employerApplications,userId)
+      apiCall("post", jobUrls.employerApplications, userId)
         .then((response) => {
           resolve(response);
         })
@@ -558,13 +563,11 @@ export const getemployerApplications= (userId:{userId:string}) => {
   });
 };
 
-
-//get all applications of a user 
-export const getAllJobDetails= (data:any) => {
-  
+//get all applications of a user
+export const getAllJobDetails = (data: any) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", jobUrls.getAllJobDetails,data)
+      apiCall("post", jobUrls.getAllJobDetails, data)
         .then((response) => {
           resolve(response);
         })
@@ -577,14 +580,11 @@ export const getAllJobDetails= (data:any) => {
   });
 };
 
-
-
-//get all applications of a user 
-export const cancelApplication= (data:any) => {
-  
+//get all applications of a user
+export const cancelApplication = (data: any) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", jobUrls.cancelApplication,data)
+      apiCall("post", jobUrls.cancelApplication, data)
         .then((response) => {
           resolve(response);
         })
@@ -596,29 +596,12 @@ export const cancelApplication= (data:any) => {
     }
   });
 };
-  //@dec      Add New Message
-  //method    post
-  export const getAllTransactions = (userId: {userId:string}) => {
-    return new Promise((resolve, reject) => {
-      try {
-        apiCall("post", userUrls.allTransactions, userId)
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      } catch (error) {
-        resolve({ status: 500, message: "Somethings wrong." });
-      }
-    });
-  };
-
-
-export const getJobDetails = ( jobId:{jobId: string|undefined}) => {
+//@dec      Add New Message
+//method    post
+export const getAllTransactions = (userId: { userId: string }) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", jobUrls.getJobDetails,jobId)
+      apiCall("post", userUrls.allTransactions, userId)
         .then((response) => {
           resolve(response);
         })
@@ -631,25 +614,48 @@ export const getJobDetails = ( jobId:{jobId: string|undefined}) => {
   });
 };
 
-export const reportPost = (reportData: {userId: string,postId: string,cause : string}) => {
-  return new Promise((resolve,reject)=>{
-    try{
-      apiCall("post",postUrls.reportPost , reportData)
-       .then((response)=>{
-        resolve(response)
-       })
-       .catch((err)=>{
-        reject(err)
-       })
-    }catch(error){
-      resolve({status : 500, message: "Somethings wrong"})
+export const getJobDetails = (jobId: { jobId: string | undefined }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", jobUrls.getJobDetails, jobId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
     }
-  })
-}
+  });
+};
+
+export const reportPost = (reportData: {
+  userId: string;
+  postId: string;
+  cause: string;
+}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", postUrls.reportPost, reportData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong" });
+    }
+  });
+};
 //@dec      followUser
 //method    POST
 
-export const followUser = (data: { userId: string|undefined ,followingUser:string|undefined}) => {
+export const followUser = (data: {
+  userId: string | undefined;
+  followingUser: string | undefined;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", connectionUrls.follow, data)
@@ -665,7 +671,10 @@ export const followUser = (data: { userId: string|undefined ,followingUser:strin
   });
 };
 
-export const UnFollowUser = (data: { userId: string ,unfollowingUser:string}) => {
+export const UnFollowUser = (data: {
+  userId: string;
+  unfollowingUser: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", connectionUrls.unFollow, data)
@@ -681,14 +690,13 @@ export const UnFollowUser = (data: { userId: string ,unfollowingUser:string}) =>
   });
 };
 
-
 //@dec      Get all follow requested Users
 //method    POST
 export const getRequestedUsers = (userId: { userId: string }) => {
   return new Promise((resolve, reject) => {
     try {
       console.log(userId);
-      
+
       apiCall("post", connectionUrls.requestedUsers, userId)
         .then((response) => {
           resolve(response);
@@ -704,7 +712,10 @@ export const getRequestedUsers = (userId: { userId: string }) => {
 //@dec      accept follow Request
 //method    POST
 
-export const acceptFollowRequest = (data: { userId: string ,requestedUser:string}) => {
+export const acceptFollowRequest = (data: {
+  userId: string;
+  requestedUser: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", connectionUrls.acceptRequest, data)
@@ -723,7 +734,10 @@ export const acceptFollowRequest = (data: { userId: string ,requestedUser:string
 //@dec      reject follow Request
 //method    POST
 
-export const rejectFollowRequest = (data: { userId: string ,requestedUser:string}) => {
+export const rejectFollowRequest = (data: {
+  userId: string;
+  requestedUser: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", connectionUrls.rejectRequest, data)
@@ -739,15 +753,12 @@ export const rejectFollowRequest = (data: { userId: string ,requestedUser:string
   });
 };
 
-
 //@dec      get connections of a user
 //method    POST
 
-export const getUserConnection = (userId: { userId: string|undefined }) => {
+export const getUserConnection = (userId: { userId: string | undefined }) => {
   return new Promise((resolve, reject) => {
     try {
-     
-      
       apiCall("post", connectionUrls.getConnection, userId)
         .then((response) => {
           resolve(response);
@@ -761,11 +772,13 @@ export const getUserConnection = (userId: { userId: string|undefined }) => {
   });
 };
 
-
 //@dec      cancel follow Request
 //method    POST
 
-export const cancelFollowRequest = (data: { userId: string |undefined,cancelingUser:string}) => {
+export const cancelFollowRequest = (data: {
+  userId: string | undefined;
+  cancelingUser: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", connectionUrls.cancelRequest, data)
@@ -803,7 +816,7 @@ export const addConversation = (conversationData: {
 
 //@dec      Get User Conversations
 //method    get
-export const getUserConversations = (userId:string) => {
+export const getUserConversations = (userId: string) => {
   return new Promise((resolve, reject) => {
     try {
       const url = `${chatUrl.getUserConversation}/${userId}`;
@@ -823,7 +836,10 @@ export const getUserConversations = (userId:string) => {
 
 //@dec      Get Conversation Between two users
 //method    get
-export const findConversation = (conversationData :{ firstUser: string,secondUser:string }) => {
+export const findConversation = (conversationData: {
+  firstUser: string;
+  secondUser: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       const url = `${chatUrl.findConversation}/${conversationData.firstUser}/${conversationData.secondUser}`;
@@ -841,11 +857,13 @@ export const findConversation = (conversationData :{ firstUser: string,secondUse
   });
 };
 
-
-
 //@dec      Add New Message
 //method    post
-export const addMessage = (messageData: {conversationId:string,sender:string,text:string}) => {
+export const addMessage = (messageData: {
+  conversationId: string;
+  sender: string;
+  text: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", chatUrl.addMessage, messageData)
@@ -860,12 +878,11 @@ export const addMessage = (messageData: {conversationId:string,sender:string,tex
     }
   });
 };
-//get all applications of a user 
-export const getFormSelectFormData= () => {
-  
+//get all applications of a user
+export const getFormSelectFormData = () => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("get", jobUrls.getFormSelectData,null)
+      apiCall("get", jobUrls.getFormSelectData, null)
         .then((response) => {
           resolve(response);
         })
@@ -878,10 +895,9 @@ export const getFormSelectFormData= () => {
   });
 };
 
-
 //@dec      Get User Conversations
 //method    get
-export const getUserMessages = (conversationId:string) => {
+export const getUserMessages = (conversationId: string) => {
   return new Promise((resolve, reject) => {
     try {
       const url = `${chatUrl.getMessages}/${conversationId}`;
@@ -904,7 +920,7 @@ export const getUserMessages = (conversationId:string) => {
 
 export const getUserSuggestions = (userId: { userId: string }) => {
   return new Promise((resolve, reject) => {
-    try {      
+    try {
       apiCall("post", userUrls.userSuggestions, userId)
         .then((response) => {
           resolve(response);
@@ -920,7 +936,7 @@ export const getUserSuggestions = (userId: { userId: string }) => {
 //@dec      Get User Details
 //method    POST
 
-export const getUserDetails = (  userId: string|undefined) => {
+export const getUserDetails = (userId: string | undefined) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("get", userUrls.getUserDetails + `/${userId}`, null)
@@ -935,10 +951,13 @@ export const getUserDetails = (  userId: string|undefined) => {
     }
   });
 };
- //@dec      Get Unread Messages
+//@dec      Get Unread Messages
 //method    Get
 
-export const getUnreadMessages = (messageData:{conversationId: string,userId:string}) => {
+export const getUnreadMessages = (messageData: {
+  conversationId: string;
+  userId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", chatUrl.getUnreadMessages, messageData)
@@ -955,28 +974,32 @@ export const getUnreadMessages = (messageData:{conversationId: string,userId:str
 };
 //@dec      Block job
 //@method   Get
-export const userJobBlock = (jobId:{jobId:string}) => {
+export const userJobBlock = (jobId: { jobId: string }) => {
   return new Promise((resolve, reject) => {
-      try {
-        apiCall("post",jobUrls.blockJob, jobId).then((response) => {
-              resolve(response);
-            }
-          ).catch((err) => {
-              reject(err);
-          })
-      } catch (error) {
-          reject(error);
-      }
-  })
+    try {
+      apiCall("post", jobUrls.blockJob, jobId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
 
 //@dec      Set Messages Read
 //method    Patch
 
-export const setMessageRead = (messageData:{conversationId: string,userId:string}) => {
+export const setMessageRead = (messageData: {
+  conversationId: string;
+  userId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", chatUrl.setMessageRead, messageData)
+      apiCall("patch", chatUrl.setMessageRead, messageData)
         .then((response) => {
           resolve(response);
         })
@@ -985,16 +1008,18 @@ export const setMessageRead = (messageData:{conversationId: string,userId:string
         });
     } catch (error) {
       resolve({ status: 500, message: "Somethings wrong." });
-    } 
+    }
   });
 };
 
 //cancel  application
-export const cancelJobApplication= (applcationId:{applicationId:string,applicantId:string}) => {
-  
+export const cancelJobApplication = (applcationId: {
+  applicationId: string;
+  applicantId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", jobUrls.cancelApplication,applcationId)
+      apiCall("post", jobUrls.cancelApplication, applcationId)
         .then((response) => {
           resolve(response);
         })
@@ -1010,18 +1035,14 @@ export const cancelJobApplication= (applcationId:{applicationId:string,applicant
 //@dec      add-interview
 //method    POST
 
-export const  addInterview= (
-  interviewData:
-   { 
-    applicationId: string,
-    jury:any[] , 
-    interviewDate: string ,
-    interviewTime: string 
-    }) => {
+export const addInterview = (interviewData: {
+  applicationId: string;
+  jury: any[];
+  interviewDate: string;
+  interviewTime: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
-      
-      
       apiCall("post", jobUrls.addInterview, interviewData)
         .then((response) => {
           resolve(response);
@@ -1038,24 +1059,29 @@ export const  addInterview= (
 //@dec      Login user
 //method    POST
 
-export const setInterviewStatus = (interviewData:{interviewId:string,status:string}) => {
+export const setInterviewStatus = (interviewData: {
+  interviewId: string;
+  status: string;
+}) => {
   return new Promise((resolve, reject) => {
-      try {
-          apiCall("post", jobUrls.setInterviewStatus, interviewData).then((response)=>{
-              resolve(response);
-          }).catch((err)=>{
-              reject(err);
-          })
-      } catch (error) {
-          resolve({ status: 500, message:"Somethings wrong." });
-      }
-  })
-
-}
+    try {
+      apiCall("post", jobUrls.setInterviewStatus, interviewData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 //get interviewe interview
-export const getIntervieweeInterviews= (intervieweeId:{intervieweeId:string}) => {
-  
+export const getIntervieweeInterviews = (intervieweeId: {
+  intervieweeId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.getIntervieweeInterviews, intervieweeId)
@@ -1071,10 +1097,10 @@ export const getIntervieweeInterviews= (intervieweeId:{intervieweeId:string}) =>
   });
 };
 
-
 //get interviewer interview
-export const getInterviewerInterviews= (interviewerId:{interviewerId:string}) => {
-  
+export const getInterviewerInterviews = (interviewerId: {
+  interviewerId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.getInterviewerInterviews, interviewerId)
@@ -1090,17 +1116,15 @@ export const getInterviewerInterviews= (interviewerId:{interviewerId:string}) =>
   });
 };
 
-
 //get job interview
-export const getJobInterviews= (jobId:{jobId:string}) => {
-  
+export const getJobInterviews = (jobId: { jobId: string }) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", jobUrls.getJobInterviews, jobId)
         .then((response) => {
           resolve(response);
         })
-        .catch((err) => { 
+        .catch((err) => {
           reject(err);
         });
     } catch (error) {
@@ -1111,11 +1135,9 @@ export const getJobInterviews= (jobId:{jobId:string}) => {
 //@dec      get notifications
 //method    POST
 
-export const getNotifications= (userId: { userId: string }) => {
+export const getNotifications = (userId: { userId: string }) => {
   return new Promise((resolve, reject) => {
     try {
-      
-      
       apiCall("post", userUrls.getNotifications, userId)
         .then((response) => {
           resolve(response);
@@ -1129,30 +1151,30 @@ export const getNotifications= (userId: { userId: string }) => {
   });
 };
 
-//@dec      initiate checkout 
+//@dec      initiate checkout
 //method    get
-export const initiateCheckout = (userId:{userId:string}) => {
+export const initiateCheckout = (userId: { userId: string }) => {
   return new Promise((resolve, reject) => {
     try {
-     
-       
-      apiCall("post", userUrls.checkout,userId).then((response)=>{
-
-        resolve(response);
-        
-    })   .catch((err) => {
-      reject(err);
-    });
-} catch (error) {
-    resolve({status:500, message: "Somethings wrong."})
-}
-});
+      apiCall("post", userUrls.checkout, userId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
 };
-
 
 //@dec      validate payment
 //method    post
-export const validatePayment = (paymentData: {userId:string,sessionId:string}) => {
+export const validatePayment = (paymentData: {
+  userId: string;
+  sessionId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", userUrls.validate, paymentData)
@@ -1171,10 +1193,10 @@ export const validatePayment = (paymentData: {userId:string,sessionId:string}) =
 //@dec      Get Saved Post
 //method    POST
 
-export const getSavedPost = (userId: string|undefined) => {
+export const getSavedPost = (userId: string | undefined) => {
   return new Promise((resolve, reject) => {
     try {
-      const url:string = `${postUrls.getSavedPosts}/${userId}`
+      const url: string = `${postUrls.getSavedPosts}/${userId}`;
       apiCall("get", url, null)
         .then((response) => {
           resolve(response);
@@ -1191,7 +1213,11 @@ export const getSavedPost = (userId: string|undefined) => {
 //@dec      Like a post
 //method    POST
 
-export const savePost = (postData: { postId: string|null,jobId:string|null, userId: string }) => {
+export const savePost = (postData: {
+  postId: string | null;
+  jobId: string | null;
+  userId: string;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", postUrls.savePost, postData)

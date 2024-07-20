@@ -52,7 +52,8 @@ export const adminUrl = {
     jobList:'/admin/get-jobs',
     reportList:'/admin/get-reports',
     transactionsList:'/admin/get-transactions',
-  
+    dashboardStats:'/admin/dashboard-stats',
+    chartData:'/admin/chart-data',
 }
 
 
@@ -97,4 +98,4 @@ export const jobUrls = {
     getMessages: "/chat/get-messages",
     setMessageRead: "/chat/set-message-read",
     getUnreadMessages:'/chat/get-unread-messages'
-  };  
+  };   

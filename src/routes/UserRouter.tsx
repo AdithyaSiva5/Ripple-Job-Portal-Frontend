@@ -52,6 +52,7 @@ import Notifications from "../components/Notifications";
 import SavedCollections from "../components/SavedCollections";
 import SavedPosts from "../components/SavedPosts";
 import SavedJobs from "../components/SavedJobs";
+import PageNotFound from "../components/errorComponents/ErrorPage";
 
 
 
@@ -345,14 +346,14 @@ const appRouter = createBrowserRouter([
     errorElement: <ErrorPage />
 
   },
-  // {
-  //   path: '*',
-  //   element: <PageNotFound />,
-  // },
-  // {
-  //   path: '/not-authorized',
-  //   element: <NotAuthorized />,
-  // },
+  {
+    path: '*',
+    element: <PageNotFound />,
+  },
+  {
+    path: '/not-authorized',
+    element: <NotAuthorized />,
+  },
   ...adminRoutes,
 ]);
 
