@@ -24,6 +24,7 @@ import {
   addComment,
   replyComment,
   deleteComment,
+  editComment,
 } from "../services/api/user/apiMethods";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +32,7 @@ import { setUsePosts } from "../utils/context/reducers/authSlice";
 
 ("use client");
 
-import {  Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 
@@ -77,11 +78,41 @@ const PostDetails: React.FC<PostProps> = ({
   const [parentCommentId, setParentCommentId] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const commentBoxRef = useRef(null);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editCommentText, setEditCommentText] = useState('');
+
+  const handleEditComment = (commentId : any, currentComment : any) => {
+    setEditingCommentId(commentId);
+    setEditCommentText(currentComment);
+  };
+
+  const submitEditComment = async () => {
+    try {
+      if (!editingCommentId || !editCommentText) {
+        toast.error('Comment ID or text is missing');
+        return;
+      }  
+      const response: any = await editComment(editingCommentId, editCommentText);
+      console.log('Edit comment response:', response);
+  
+      if (response && response.status === 200) {
+        setComments(response.data.comments);
+        toast.success(response.data.message);
+        setEditingCommentId(null);
+        setEditCommentText('');
+      } else {
+        throw new Error('Unexpected response structure');
+      }
+    } catch (error) {
+      console.error('Error editing comment:', error);
+      toast.error('Failed to edit comment');
+    }
+  };
 
   useEffect(() => {
     getPostComments({ postId: post._id })
       .then((response: any) => {
-        const commentData = response.data.comments;
+        const commentData = response.data.comments || [];
         setComments(commentData);
       })
       .catch((error) => {
@@ -266,8 +297,8 @@ const PostDetails: React.FC<PostProps> = ({
       deletePost({ postId, userId })
         .then((response: any) => {
           const postData = response.data;
-         
-          dispatch(setUsePosts({userPost: postData.posts}));
+
+          dispatch(setUsePosts({ userPost: postData.posts }));
           toast.info("Post Deleted");
           setIsOpen(!isOpen);
         })
@@ -305,7 +336,7 @@ const PostDetails: React.FC<PostProps> = ({
     if (commentBoxRef.current) {
       commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
     }
-  }, [comments, replyComments,isComment]);
+  }, [comments, replyComments, isComment]);
 
 
 
@@ -509,34 +540,19 @@ const PostDetails: React.FC<PostProps> = ({
                         <Heart color="gray" strokeWidth={1.5} size={22} />
                       )}
                     </button>
-
-                    
-          {post.hideComment==false&&(
-           
-           <button type="button" onClick={handleIsComment}>
-           <MessageCircle color="gray" strokeWidth={1.5} size={22} />
-         </button>
-
-
-          )}
-              </div>
-
-
-{post.hideLikes==false&&(
-    <button onClick={handleIsLikes}>
-    <span className="text-gray-600 text-sm font-bold">
-      {post.likes.length} Likes
-    </span>
-  </button>
-            
-      
-
-
-    )}
-
-
-              
-                
+                    {post.hideComment == false && (
+                      <button type="button" onClick={handleIsComment}>
+                        <MessageCircle color="gray" strokeWidth={1.5} size={22} />
+                      </button>
+                    )}
+                  </div>
+                  {post.hideLikes == false && (
+                    <button onClick={handleIsLikes}>
+                      <span className="text-gray-600 text-sm font-bold">
+                        {post.likes.length} Likes
+                      </span>
+                    </button>
+                  )}
                 </div>
                 <span className="block ml-2 text-xs text-gray-600">
                   5 minutes
@@ -556,57 +572,91 @@ const PostDetails: React.FC<PostProps> = ({
               </div>
 
               <div className="home-scroll-post">
-                <div ref={commentBoxRef}  className="home-scrollbox-post  ">
-                  {comments.map((comment: any) => (
+                <div ref={commentBoxRef} className="home-scrollbox-post">
+                  {comments && comments.map((comment: any) => (
                     <div key={comment._id}>
-                      <div className="mb-6">
-                        <div className="flex justify-between items-center me-4">
-                          <div className="flex items-center ">
-                            <img
-                              className="h-9 w-9 rounded-full border-2 p-.5 mb-3"
-                              src={comment.userId.profileImageUrl}
-                              alt="Profile"
-                            />
-                            <div className="w-full flex me-2">
-                              <p className=" text-xs mx-3 font-semibold text-black">
-                                {comment.userId.username}
-                              </p>
-                              <p
-                                className="text-xs text-gray-400"
-                                style={{ fontSize: "9px" }}
+                      {editingCommentId === comment._id ? (
+                        <div>
+                          <textarea
+                            value={editCommentText}
+                            onChange={(e) => setEditCommentText(e.target.value)}
+                            className="w-full border rounded p-2 text-xs"
+                          />
+                          <div className="flex justify-end mt-2">
+                            <button
+                              onClick={submitEditComment}
+                              className="text-xs text-green-600 mr-2"
+                            >
+                              Save
+                            </button>
+                            <button
+                              onClick={() => setEditingCommentId(null)}
+                              className="text-xs text-red-600"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="mb-6">
+                          <div className="flex justify-between items-center me-4">
+                            <div className="flex items-center ">
+                              <img
+                                className="h-9 w-9 rounded-full border-2 p-.5 mb-3"
+                                src={comment.userId.profileImageUrl}
+                                alt="Profile"
+                              />
+                              <div className="w-full flex me-2">
+                                <p className=" text-xs mx-3 font-semibold text-black">
+                                  {comment.userId.username}
+                                </p>
+                                <p
+                                  className="text-xs text-gray-400"
+                                  style={{ fontSize: "9px" }}
+                                >
+                                  {formatDistanceToNow(
+                                    new Date(comment.createdAt),
+                                    { addSuffix: true }
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex">
+                              <button
+                                onClick={() => handleReplyComments(comment._id)}
+                                className="text-xs text-green-600 flex"
                               >
-                                {formatDistanceToNow(
-                                  new Date(comment.createdAt),
-                                  { addSuffix: true }
-                                )}
-                              </p>
+                                Reply
+                              </button>
+                              {user._id === comment.userId._id && (
+                                <>
+                                  <button
+                                    onClick={() => handleEditComment(comment._id, comment.comment)}
+                                   
+                                    className="text-xs text-blue-600 ml-2"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setOpenModal(true);
+                                      setParentCommentId(comment._id);
+                                    }}
+                                    className="ms-2"
+                                  >
+                                    <Trash2 color="gray" size={10} />
+                                  </button>
+                                </>
+                              )}
                             </div>
                           </div>
-                          <div className="flex">
-                            <button
-                              onClick={() => handleReplyComments(comment._id)}
-                              style={{ fontSize: "10px" }}
-                              className="text-xs text-green-600 flex"
-                            >
-                              Reply{" "}
-                            </button>
-                            {user.username == comment.userId.username && (
-                              <button
-                                onClick={() => {setOpenModal(true);setParentCommentId(comment._id)}}
-                                className="ms-2"
-                              >
-                                <Trash2 color="gray" size={10} />
-                              </button>
-                            )}
+                          <div>
+                            <p className="text-xs text-gray-800 mx-3">
+                              {comment.comment}
+                            </p>
                           </div>
                         </div>
-                        <div>
-                          <p className="text-xs text-gray-800 mx-3">
-                            {comment.comment}
-                          </p>
-                        </div>
-                      </div>
-
+                      )}
                       {comment.replyComments.map((reply: any) => (
                         <div key={reply._id} className="ms-10 reply-commment">
                           <div className="flex justify-between items-center me-4">
@@ -639,14 +689,14 @@ const PostDetails: React.FC<PostProps> = ({
                           </div>
                         </div>
                       ))}
-                      
+
                     </div>
-                    
-                  
+
+
                   ))}
                 </div>
 
-             
+
               </div>
               {replyComments && (
                 <Formik
@@ -730,7 +780,7 @@ const PostDetails: React.FC<PostProps> = ({
 
               <div className="home-scroll-post">
                 <div className="home-scrollbox-post">
-                  {post.likes.map((like) => (
+                  {post.likes && post.likes.map((like) => (
                     <div className="flex items-center me-2 my-2" key={like._id}>
                       <img
                         className="h-7 w-7 rounded-full border-2 p-.5 mb-3"
@@ -751,39 +801,39 @@ const PostDetails: React.FC<PostProps> = ({
         </div>
       </div>
       <Modal
-                  show={openModal}
-                  size="md"
-                  onClose={() => setOpenModal(false)}
-                  popup
-                >
-                  <Modal.Header />
-                  <Modal.Body>
-                    <div className="text-center">
-                      <HiOutlineExclamationCircle className="mx-auto text-xs  mb-4 h-10 w-10 text-gray-400 dark:text-gray-200" />
-                      <h3 className="mb-5 text-xs font-normal text-gray-500 dark:text-gray-400">
-                        Are you sure you want to delete this this comment?
-                      </h3>
-                      <div className="flex justify-center gap-4 ">
-                        <button
-                          className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600"
-                          onClick={() => {
-                            setOpenModal(false);
-                            handleDeleteComments(parentCommentId);
-                            setParentCommentId("")
-                          }}
-                        >
-                          Yes, I'm sure
-                        </button>{" "}
-                        <button
-                          className="text-xs border px-4 py-1 rounded-md border-gray-600"
-                          onClick={() => setOpenModal(false)}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  </Modal.Body>
-                </Modal>
+        show={openModal}
+        size="md"
+        onClose={() => setOpenModal(false)}
+        popup
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto text-xs  mb-4 h-10 w-10 text-gray-400 dark:text-gray-200" />
+            <h3 className="mb-5 text-xs font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this this comment?
+            </h3>
+            <div className="flex justify-center gap-4 ">
+              <button
+                className="text-xs flex gap-1 text-green-600 font-semibold border px-2 py-1 rounded-md border-green-600"
+                onClick={() => {
+                  setOpenModal(false);
+                  handleDeleteComments(parentCommentId);
+                  setParentCommentId("")
+                }}
+              >
+                Yes, I'm sure
+              </button>{" "}
+              <button
+                className="text-xs border px-4 py-1 rounded-md border-gray-600"
+                onClick={() => setOpenModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

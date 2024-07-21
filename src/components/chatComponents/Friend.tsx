@@ -18,14 +18,12 @@ function Friend({ conversation, CurrentUser, onlineUsers }: any) {
   const userId = CurrentUser._id;
   const [unReadMessages, setUnreadMessages] = useState([]);
   useEffect(() => {
-
-
     getUnreadMessages({ conversationId, userId }).then((response: any) => {
       console.log(response.data);
       setUnreadMessages(response.data);
     });
   }, []);
-  useEffect(() => {
+  useEffect(() => { 
     if (conversation) {
       const friend = conversation.members.find((m: any) => m._id !== CurrentUser._id);
       setUser(friend);

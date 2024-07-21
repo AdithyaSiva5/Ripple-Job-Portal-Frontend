@@ -12,7 +12,7 @@ function ChatingUser() {
         <div className="ml-4 mr-auto text-lg font-medium">Info</div>
 
       </div>
-      <div>
+      <div> 
         <div className="flex justify-center mb-4 ">
           <button type="button" className="content-center block w-32 h-32 p-1 overflow-hidden text-center rounded-full focus:outline-none">
             <img className="content-center object-cover w-full h-full border-2 border-gray-200 rounded-full" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=50" alt="" />

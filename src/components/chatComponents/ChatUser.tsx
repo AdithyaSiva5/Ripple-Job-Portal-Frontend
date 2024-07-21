@@ -16,7 +16,7 @@ function ChatUsers({conversations,user,setCurrentChat,  onlineUsers  ,setConvers
     const userData = useSelector(selectUser);
         
     const userId = userData._id;
-    const [userlist, setUserlist] = useState<any>(null);
+    const [userlist, setUserlist] = useState<any>(null); 
     const [loading, setLoading] = useState(true);
    
     

@@ -31,7 +31,8 @@ export const postUrls = {
     likePost:'/post/like-post',
     getAllPostComments:'/post/get-post-comments',
     addComment:'/post/add-comment',
-    replyComment:'/post/reply-comment',
+    editComment: '/post/edit-comment',
+    replyComment:'/post/reply-comment', 
     deleteComment:'/post/delete-post-comment',
     reportPost: '/post/report-post',
     savePost: "post/save-post",
@@ -87,7 +88,7 @@ export const jobUrls = {
     rejectRequest:'/connection/reject-request',
     requestedUsers:'/connection//get-requested-users',
     getConnection:'/connection/get-connection',
-    cancelRequest:'/connection/cancel-request'
+    cancelRequest:'/connection/cancel-request' 
   }
 
   export const chatUrl = {

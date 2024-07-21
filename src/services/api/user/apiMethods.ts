@@ -325,6 +325,34 @@ export const addComment = (commentData: {
   });
 };
 
+//@dec      Edit a comment
+//method    POST
+
+export const editComment = (
+  commentId: string,
+  comment: string
+) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const commentData = {
+        comment: comment
+      };
+      
+      apiCall("put", `${postUrls.editComment}/${commentId}`, commentData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          console.error('Error in editComment:', err);
+          reject(err);
+        });
+    } catch (error) {
+      console.error('Unexpected error in editComment:', error);
+      reject({ status: 500, message: "Something's wrong." });
+    }
+  });
+};
+
 //@dec      Add a reply comment
 //method    POST
 
@@ -999,7 +1027,7 @@ export const setMessageRead = (messageData: {
 }) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("patch", chatUrl.setMessageRead, messageData)
+      apiCall("post", chatUrl.setMessageRead, messageData)
         .then((response) => {
           resolve(response);
         })
