@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../utils/context/reducers/authSlice";
 import { click, darkMode } from "../utils/context/reducers/darkmodeSlice";
 import { BsFillMoonStarsFill, BsSun } from "react-icons/bs";
+import { toast } from "sonner";
 
 
 
@@ -30,6 +31,7 @@ const Header: React.FC<HeaderProps> = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
@@ -61,6 +63,22 @@ const Header: React.FC<HeaderProps> = () => {
 
   const activeLinkStyle = "text-green-600 "; 
   const inactiveLinkStyle = "text-gray-700 dark:text-white";
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (searchQuery.trim() === "") {
+
+      toast.error("Please enter a search term.");
+    }
+    else {
+      navigate(`/search/posts?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+
   return (
     <nav className="border z-10 bg-primary dark:border-none lg:px-6 py-2.5 h-16 sticky top-0" >
       
@@ -111,7 +129,7 @@ const Header: React.FC<HeaderProps> = () => {
             </li>
           </ul>
 
-          <form className="relative w-80 ms-52 me-6">
+          <form className="relative w-80 ms-52 me-6" onSubmit={handleSearchSubmit}>
             <div className="relative">
               <input
                 type="search"
@@ -121,6 +139,8 @@ const Header: React.FC<HeaderProps> = () => {
                 style={{
                   position: "relative",
                 }}
+                value={searchQuery}
+                onChange={handleSearchChange}
               />
               <button
                 type="submit"
@@ -170,7 +190,7 @@ const Header: React.FC<HeaderProps> = () => {
             <li>
 
                 <div className="flex items-center lg:order-2 ms-1">
-                   <div className='p-[5px] rounded-full border-black dark:border-white border-2 cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white transition-all ease-in-out duration-300' onClick={() => {
+                   <div className='p-[5px] rounded-full border-black dark:border-white border-2 cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white transition-all ease-in-out duration-300 ' onClick={() => {
                   darkDispatch(click())
     
                   if (dark) {
@@ -213,15 +233,15 @@ const Header: React.FC<HeaderProps> = () => {
                 <ul className="py-2">
                   <li>
                     <a
-                      href="#"
+                      onClick={()=>navigate('/profile/user-posts')}
                       className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
                     >
-                      Dashboard
+                      Posts
                     </a>
                   </li>
                   <li>
                     <a
-                      href="#"
+                      onClick={()=>navigate('/profile/settings')}
                       className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
                     >
                       Settings
@@ -230,7 +250,7 @@ const Header: React.FC<HeaderProps> = () => {
                   <li>
                     <a
                        onClick={()=>navigate('/premium/plans')} 
-                      className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                      className="block px-4 py-2 text-xs text-black bg-yellow-300 hover:bg-yellow-500 rounded-full"
                     >
                    Ripple Premium
                     </a>

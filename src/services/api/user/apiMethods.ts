@@ -1260,3 +1260,25 @@ export const savePost = (postData: {
     }
   });
 };
+
+
+//@dec      Search 
+//method    GET
+
+export const search = (searchQuery: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+        
+      const url:string = `${userUrls.search}?searchQuery=${searchQuery}`
+      apiCall("get", url, null)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};

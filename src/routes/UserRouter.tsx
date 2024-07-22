@@ -53,6 +53,10 @@ import SavedCollections from "../components/SavedCollections";
 import SavedPosts from "../components/SavedPosts";
 import SavedJobs from "../components/SavedJobs";
 import PageNotFound from "../components/errorComponents/ErrorPage";
+import SearchPage from "../pages/user/search/SearchPage";
+import SearchPost from "../components/SearchPost";
+import SearchPeople from "../components/SearchPeople";
+import SearchJobs from "../components/SearchJobs";
 
 
 
@@ -229,6 +233,39 @@ const appRouter = createBrowserRouter([
         ]
       }
     ]
+  }, {
+    path: '/search',
+    element: (
+      <Protect>
+        <App />
+      </Protect>
+    )
+    ,
+    errorElement: <ErrorPage />
+    ,
+    children: [
+      {
+        path: "/search",
+        element: <SearchPage />,
+        children: [
+          {
+            path: "/search/posts",
+            element: <SearchPost />
+          },
+          {
+            path: "/search/people",
+            element: <SearchPeople />
+          },
+          {
+            path: "/search/jobs",
+            element: <SearchJobs />
+          },
+        ]
+      },
+
+    ]
+
+
   },
   {
     path: "/profile",

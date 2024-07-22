@@ -5,7 +5,7 @@ export const userUrls ={
     googleAuth:'/google-auth',
     login:'/login',
     forgotPassword:'/forgot-password',
-    forgotOtp:'/forgot-otp', 
+    forgotOtp:'/forgot-otp',  
     resetPassword:'/reset-password',
     setPreferences: '/set-preferences',
     setBasicInformation:'/set-basic-information',
@@ -15,6 +15,7 @@ export const userUrls ={
     validate:'/validate-payment',
     allTransactions:'/get-transactions',
     getNotifications:'/get-notifications',
+    search:'/search'
 }
 
 export const authUrl = {

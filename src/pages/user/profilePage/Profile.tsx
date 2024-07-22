@@ -7,9 +7,9 @@ function Profile() {
   const location = useLocation();
 
   return (
-    <div className="wrapper">
+    <div className="wrapper dark:bg-fill">
       <Header />
-      <div className="profile-wrapper px-48 mt-10" style={{ backgroundColor: "rgb(234, 233, 233)" }}>
+      <div className="profile-wrapper px-48 mt-10 dark:bg-fill" >
         <div className="border profile-nav flex items-center justify-center gap-52 bg-white rounded-md">
           <button
             onClick={() => { navigate('/profile/bio') }}

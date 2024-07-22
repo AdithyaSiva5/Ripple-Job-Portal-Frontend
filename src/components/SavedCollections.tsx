@@ -32,7 +32,7 @@ function SavedCollections() {
                         Saved Jobs
                     </button>
 
-                </div>
+                </div> 
 
                 <div className="saved-post-scroll">
                     <div className="saved-post-scrollbox">
