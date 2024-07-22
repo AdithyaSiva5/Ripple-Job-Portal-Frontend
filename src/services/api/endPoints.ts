@@ -9,13 +9,16 @@ export const userUrls ={
     resetPassword:'/reset-password',
     setPreferences: '/set-preferences',
     setBasicInformation:'/set-basic-information',
+    setUserRole:'/set-user-role',
     userSuggestions:'/user-suggestions',
     getUserDetails:'/user-details',
     checkout:'/checkout-user',
     validate:'/validate-payment',
     allTransactions:'/get-transactions',
     getNotifications:'/get-notifications',
-    search:'/search'
+    search:'/search',
+    getSettings: '/get-settings',
+    updateSettings: '/update-settings'
 }
 
 export const authUrl = {

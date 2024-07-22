@@ -1282,3 +1282,55 @@ export const search = (searchQuery: string) => {
     }
   });
 };
+
+//@dec      set UserType
+//method    POST
+export const setUserRole = (userData: {userId:string,isHiring:boolean}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("put", userUrls.setUserRole,userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    } 
+  });
+};
+
+// Get user settings
+export const getSettings = (userId: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", userUrls.getSettings, { userId })
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Something's wrong." });
+    }
+  });
+};
+
+// Update user settings
+export const updateSettings = (userData: { userId: string, [key: string]: any }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("post", userUrls.updateSettings, userData)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Something's wrong." });
+    }
+  });
+};
