@@ -1,6 +1,6 @@
 // SettingsComponent.tsx
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Tabs } from 'flowbite-react';
 import { Edit, X } from 'lucide-react';
 import EditBio from './EditBio';
@@ -8,8 +8,11 @@ import SetUserType from './SetUserType';
 import ExperienceSection from './ExperienceSection';
 import SkillsSection from './SkillsSection';
 import QualificationsSection from './QualificationsSection';
+import { getSettings , updateSettings } from '../services/api/user/apiMethods';
+
 
 function SettingsComponent() {
+  const dispatch = useDispatch();
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
   const [isEdit, setIsEdit] = useState(false);
@@ -27,30 +30,33 @@ function SettingsComponent() {
   return (
     <div>
       <h1>Settings</h1>
-      
-      {/* Basic user info */}
+      <div className="user-role bg-white w-full rounded-md p-4 mb-4">
+        <h2>User Role</h2>
+        <div className="flex gap-4">
+          <button onClick={()=>setIsSetUserType(true)} className="text-xs flex   text-green-600 border px-2 py-1 rounded-md border-green-600" >Open to</button>
+        </div>
+      </div>
+
       <div className="bio bg-white w-full rounded-md p-4 mb-4">
         <div className="flex justify-between mb-4">
           <p>{user.profile?.fullname || user.companyProfile?.companyName}</p>
-          <button onClick={handleEditButtonClick}><Edit size={15}/></button>
+          <button onClick={handleEditButtonClick}><Edit size={15} /></button>
         </div>
         <p>{user.email}</p>
         <p>{user.phone}</p>
       </div>
 
-      {/* Separate sections for experience, skills, and qualifications */}
       <ExperienceSection user={user} />
       <SkillsSection user={user} />
       <QualificationsSection user={user} />
 
-      {/* Edit modal */}
       {isEdit && (
         <EditBio onCancelEdit={handleCancelEdit} />
       )}
 
       {/* Set user type modal */}
       {isSetUserType && (
-        <SetUserType setOpenModal={setIsSetUserType}/>
+        <SetUserType setOpenModal={setIsSetUserType} />
       )}
 
       {/* Add section modal */}
@@ -62,16 +68,13 @@ function SettingsComponent() {
               <X size={18} color='gray' />
             </button>
           </div>
-          
+
           <Tabs className="addsection text-xs" aria-label="Settings tabs">
             <Tabs.Item title="Experience">
-              {/* Experience content */}
             </Tabs.Item>
             <Tabs.Item title="Skills">
-              {/* Skills content */}
             </Tabs.Item>
             <Tabs.Item title="Qualifications">
-              {/* Qualifications content */}
             </Tabs.Item>
           </Tabs>
         </Modal.Body>

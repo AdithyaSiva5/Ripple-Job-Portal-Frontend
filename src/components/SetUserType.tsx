@@ -1,9 +1,9 @@
-import  { useState } from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'flowbite-react';
-import { BriefcaseBusiness, UserRoundPlus, X } from 'lucide-react';
+import { BriefcaseBusiness, UserRoundPlus, User, Users, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUser} from '../utils/context/reducers/authSlice';
+import { updateUser } from '../utils/context/reducers/authSlice';
 import { setUserRole } from '../services/api/user/apiMethods';
 
 function SetUserType({ setOpenModal }: any) {
@@ -11,21 +11,24 @@ function SetUserType({ setOpenModal }: any) {
   const user = useSelector(selectUser) || '';
   const userId = user._id || '';
   const dispatch = useDispatch();
-  const [isHiring, setisHiring] = useState(user.isHiring);
- 
+  const [isHiring, setIsHiring] = useState(user.isHiring);
+  const [userType, setUserType] = useState(user.userType || '');
+
   const handleStatusSelection = (status: boolean) => {
-    setisHiring(status);
+    setIsHiring(status);
+  };
+
+  const handleTypeSelection = (type: string) => {
+    setUserType(type);
   };
 
   const handleSave = () => {
-    if (isHiring !== '') { 
+    if (isHiring !== '' && userType !== '') {
       setOpenModal(false);
-      setUserRole({ userId: userId, isHiring: isHiring }).then((response: any) => {
+      setUserRole({ userId: userId, isHiring: isHiring, userType: userType }).then((response: any) => {
         const data = response.data;
         if (response.status === 200) {
-            console.log(data);
-            
-            dispatch(updateUser({ user: data }));
+          dispatch(updateUser({ user: data }));
           toast.success(data.message);
         } else {
           toast.error(data.message);
@@ -35,7 +38,7 @@ function SetUserType({ setOpenModal }: any) {
         toast.error('An error occurred. Please try again.');
       });
     } else {
-      toast.error('Please select an option before saving.');
+      toast.error('Please select both options before saving.');
     }
   };
 
@@ -53,6 +56,27 @@ function SetUserType({ setOpenModal }: any) {
 
         <Modal.Footer className="flex flex-col items-start">
           <div className="space-y-6">
+            <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+              Are you an individual person or representing a company/organization?
+              <div className="flex gap-14 mt-4 mb-8">
+                <button
+                  className={`border rounded-md w-28 h-28 ${userType === 'individual' ? 'bg-green-200' : ''}`}
+                  onClick={() => handleTypeSelection('individual')}
+                >
+                  <div className="flex flex-col gap-2 items-center ">
+                    <User color="black" size={18} /> Individual
+                  </div>
+                </button>
+                <button
+                  className={`border rounded-md w-28 h-28 ${userType === 'organization' ? 'bg-green-200' : ''}`}
+                  onClick={() => handleTypeSelection('organization')}
+                >
+                  <div className="flex flex-col gap-2 items-center ">
+                    <Users color="black" size={18} /> Organization
+                  </div>
+                </button>
+              </div>
+            </p>
             <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
               Are you looking for a job or planning to hire an individual?
               <div className="flex gap-14 mt-4 mb-8">

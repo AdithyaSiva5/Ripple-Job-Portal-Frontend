@@ -328,26 +328,23 @@ export const addComment = (commentData: {
 //@dec      Edit a comment
 //method    POST
 
-export const editComment = (
-  commentId: string,
-  comment: string
-) => {
+export const editComment = (commentId: string, comment: string) => {
   return new Promise((resolve, reject) => {
     try {
       const commentData = {
-        comment: comment
+        comment: comment,
       };
-      
+
       apiCall("put", `${postUrls.editComment}/${commentId}`, commentData)
         .then((response) => {
           resolve(response);
         })
         .catch((err) => {
-          console.error('Error in editComment:', err);
+          console.error("Error in editComment:", err);
           reject(err);
         });
     } catch (error) {
-      console.error('Unexpected error in editComment:', error);
+      console.error("Unexpected error in editComment:", error);
       reject({ status: 500, message: "Something's wrong." });
     }
   });
@@ -1261,15 +1258,13 @@ export const savePost = (postData: {
   });
 };
 
-
-//@dec      Search 
+//@dec      Search
 //method    GET
 
 export const search = (searchQuery: string) => {
   return new Promise((resolve, reject) => {
     try {
-        
-      const url:string = `${userUrls.search}?searchQuery=${searchQuery}`
+      const url: string = `${userUrls.search}?searchQuery=${searchQuery}`;
       apiCall("get", url, null)
         .then((response) => {
           resolve(response);
@@ -1285,10 +1280,13 @@ export const search = (searchQuery: string) => {
 
 //@dec      set UserType
 //method    POST
-export const setUserRole = (userData: {userId:string,isHiring:boolean}) => {
+export const setUserRole = (userData: {
+  userId: string;
+  isHiring: boolean;
+}) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("put", userUrls.setUserRole,userData)
+      apiCall("post", userUrls.setUserRole, userData)
         .then((response) => {
           resolve(response);
         })
@@ -1297,7 +1295,7 @@ export const setUserRole = (userData: {userId:string,isHiring:boolean}) => {
         });
     } catch (error) {
       resolve({ status: 500, message: "Somethings wrong." });
-    } 
+    }
   });
 };
 
@@ -1319,7 +1317,10 @@ export const getSettings = (userId: string) => {
 };
 
 // Update user settings
-export const updateSettings = (userData: { userId: string, [key: string]: any }) => {
+export const updateSettings = (userData: {
+  userId: string;
+  [key: string]: any;
+}) => {
   return new Promise((resolve, reject) => {
     try {
       apiCall("post", userUrls.updateSettings, userData)

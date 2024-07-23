@@ -2,19 +2,19 @@ import { useRef, useState } from "react";
 import { Modal } from "flowbite-react";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess } from "../utils/context/reducers/authSlice";
+import { loginSuccess, updateUser } from "../utils/context/reducers/authSlice";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
-import {basicFormValidationSchema,basicFormCompanyValidationSchema } from "../utils/validation/basicInformationValidation";
+import { basicFormValidationSchema, basicFormCompanyValidationSchema } from "../utils/validation/basicInformationValidation";
 import ProfilePreviewImage from "./ProfilePreviewImage";
 import axios from "axios";
 import { setBasicInformation } from "../services/api/user/apiMethods";
 
-function EditBio({ onCancelEdit }:any) {
+function EditBio({ onCancelEdit }: any) {
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
   const userId = user._id || "";
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const [loading, setLoading] = useState(false);
 
 
@@ -22,33 +22,33 @@ function EditBio({ onCancelEdit }:any) {
 
   const basicFormInitialValues = {
     image: "",
-    fullname:user.profile?.fullname,
+    fullname: user.profile?.fullname,
     location: user.profile?.location,
-    designation:user.profile?.designation,
-    dateOfBirth:user.profile?.dateOfBirth ? new Date(user.profile.dateOfBirth).toISOString().slice(0, 10) : "",
+    designation: user.profile?.designation,
+    dateOfBirth: user.profile?.dateOfBirth ? new Date(user.profile.dateOfBirth).toISOString().slice(0, 10) : "",
     phone: user.phone,
     gender: user.profile?.gender,
     about: user.profile?.about,
   };
 
 
-  
 
-const basicFormCompanyInitialValues = {
+
+  const basicFormCompanyInitialValues = {
     image: "",
     fullname: user.companyProfile?.companyName,
     location: user.companyProfile?.companyLocation,
-    establishedOn: user.companyProfile?.establishedOn?new Date(user.companyProfile.establishedOn).toISOString().slice(0, 10) : "",
+    establishedOn: user.companyProfile?.establishedOn ? new Date(user.companyProfile.establishedOn).toISOString().slice(0, 10) : "",
     phone: user.phone,
     noOfEmployees: user.companyProfile?.noOfEmployees,
     about: user.companyProfile?.aboutCompany,
-    companyType:user.companyProfile?.companyType
+    companyType: user.companyProfile?.companyType
   };
 
 
   const BasicFormHandleSubmit = async (values: any) => {
     setLoading(true);
-    const { image,fullname,designation,location,dateOfBirth,phone,gender,about} = values;
+    const { image, fullname, designation, location, dateOfBirth, phone, gender, about } = values;
 
     try {
       if (image) {
@@ -56,9 +56,6 @@ const basicFormCompanyInitialValues = {
         formData.append("file", image);
         formData.append("upload_preset", import.meta.env.VITE_UPLOADPRESET);
         formData.append("api_key", import.meta.env.VITE_CLOUDAPIKEY);
-        
-        const timestamp = Math.round((new Date()).getTime() / 1000);
-        formData.append("timestamp", timestamp.toString());
 
         const uploadRes = await axios.post(
           `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`,
@@ -68,8 +65,9 @@ const basicFormCompanyInitialValues = {
         if (uploadRes.status === 200) {
           const imageUrl = uploadRes.data.secure_url;
 
-          await setBasicInformation({ userId, imageUrl,fullname,designation,location,dateOfBirth,phone,gender,about })
+          await setBasicInformation({ userId, imageUrl, fullname, designation, location, dateOfBirth, phone, gender, about })
             .then((response: any) => {
+              onCancelEdit(false)
               const data = response.data;
               if (response.status === 200) {
                 dispatch(loginSuccess({ user: data }));
@@ -89,12 +87,13 @@ const basicFormCompanyInitialValues = {
           throw new Error("Failed to upload image.");
         }
       } else {
-        await setBasicInformation({ userId,fullname,designation,location,dateOfBirth,phone,gender,about })
+        await setBasicInformation({ userId, fullname, designation, location, dateOfBirth, phone, gender, about })
           .then((response: any) => {
+            onCancelEdit(false)
             const data = response.data;
             if (response.status === 200) {
               toast.success(data.message);
-              dispatch(loginSuccess({ user: data }));
+              dispatch(updateUser({ user: data }));
             } else {
               console.log(response.message);
               toast.error(data.message);
@@ -116,31 +115,29 @@ const basicFormCompanyInitialValues = {
 
   const BasicFormCompanyHandleSubmit = async (values: any) => {
     setLoading(true);
-    const { image,fullname,companyType,location,noOfEmployees,phone,establishedOn,about} = values;
+    const { image, fullname, companyType, location, noOfEmployees, phone, establishedOn, about } = values;
 
     try {
       if (image) {
         const formData = new FormData();
-          formData.append("file", image);
-          formData.append("upload_preset", import.meta.env.VITE_UPLOADPRESET);
-          formData.append("api_key", import.meta.env.VITE_CLOUDAPIKEY);
-          
-          const timestamp = Math.round((new Date()).getTime() / 1000);
-          formData.append("timestamp", timestamp.toString());
+        formData.append("file", image);
+        formData.append("upload_preset", import.meta.env.VITE_UPLOADPRESET);
+        formData.append("api_key", import.meta.env.VITE_CLOUDAPIKEY);
 
-          const uploadRes = await axios.post(
-            `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`,
-            formData
-          );
+        const uploadRes = await axios.post(
+          `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`,
+          formData
+        );
 
         if (uploadRes.status === 200) {
           const imageUrl = uploadRes.data.secure_url;
 
-          await setBasicInformation({ userId, imageUrl,fullname,companyType,location,noOfEmployees,phone,establishedOn,about })
+          await setBasicInformation({ userId, imageUrl, fullname, companyType, location, noOfEmployees, phone, establishedOn, about })
             .then((response: any) => {
+              onCancelEdit(false)
               const data = response.data;
               if (response.status === 200) {
-                dispatch(loginSuccess({user:data}));
+                dispatch(updateUser({ user: data }));
                 toast.success(data.message);
               } else {
                 console.log(response.message);
@@ -157,12 +154,13 @@ const basicFormCompanyInitialValues = {
           throw new Error("Failed to upload image.");
         }
       } else {
-        await setBasicInformation({ userId,fullname,companyType,location,noOfEmployees,phone,establishedOn,about })
+        await setBasicInformation({ userId, fullname, companyType, location, noOfEmployees, phone, establishedOn, about })
           .then((response: any) => {
+            onCancelEdit(false)
             const data = response.data;
             if (response.status === 200) {
               toast.success(data.message);
-              dispatch(loginSuccess({ user: data }));
+              dispatch(updateUser({ user: data }));
             } else {
               console.log(response.message);
               toast.error(data.message);
@@ -336,12 +334,12 @@ const basicFormCompanyInitialValues = {
                       <ErrorMessage name="about" component={TextError} />
                     </div>
                     <div className="w-full flex justify-end mt-4">
-                    <div
-                    onClick={onCancelEdit}
-                    className="text-xs rounded btn border border-gray-300 px-4 py-2  cursor-pointer text-gray-500 ml-auto  hover:bg-red-600  hover:text-white "
-                  >
-                    Cancel
-                  </div>
+                      <div
+                        onClick={onCancelEdit}
+                        className="text-xs rounded btn border border-gray-300 px-4 py-2  cursor-pointer text-gray-500 ml-auto  hover:bg-red-600  hover:text-white "
+                      >
+                        Cancel
+                      </div>
                       <button
                         type="submit"
                         className=" text-xs rounded btn border w-24 px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600"
@@ -356,7 +354,7 @@ const basicFormCompanyInitialValues = {
           </Modal.Footer>
         )}
         {user.userType == "organization" && (
-            <Modal.Footer className="flex items-start">
+          <Modal.Footer className="flex items-start">
             <Formik
               initialValues={basicFormCompanyInitialValues}
               validationSchema={basicFormCompanyValidationSchema}
@@ -439,7 +437,7 @@ const basicFormCompanyInitialValues = {
                     </div>
 
                     <div className="flex gap-2">
-                    <div className="w-full">
+                      <div className="w-full">
                         <Field
                           type="text"
                           id="companyType"
@@ -492,7 +490,7 @@ const basicFormCompanyInitialValues = {
                         />
                         <ErrorMessage name="phone" component={TextError} />
                       </div>
-                
+
                     </div>
                     <div className="w-full">
                       <Field
@@ -505,23 +503,23 @@ const basicFormCompanyInitialValues = {
                       <ErrorMessage name="about" component={TextError} />
                     </div>
                     <div>
-                    
-             
-                 
-                    <div className="w-full flex justify-end mt-4">
-                    <div
-                    onClick={onCancelEdit}
-                    className="text-xs rounded btn border border-gray-300 px-4 py-2  cursor-pointer text-gray-500 ml-auto  hover:bg-red-600  hover:text-white "
-                  >
-                    Cancel
-                  </div>
-                      <button
-                        type="submit"
-                        className=" text-xs rounded btn border w-24 px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600"
-                      >
-                        Save
-                      </button>
-                    </div>
+
+
+
+                      <div className="w-full flex justify-end mt-4">
+                        <div
+                          onClick={onCancelEdit}
+                          className="text-xs rounded btn border border-gray-300 px-4 py-2  cursor-pointer text-gray-500 ml-auto  hover:bg-red-600  hover:text-white "
+                        >
+                          Cancel
+                        </div>
+                        <button
+                          type="submit"
+                          className=" text-xs rounded btn border w-24 px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600"
+                        >
+                          Save
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </Form>

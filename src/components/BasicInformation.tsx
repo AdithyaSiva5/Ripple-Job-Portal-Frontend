@@ -38,7 +38,7 @@ function BasicInformation() {
           `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`,
           formData
         );
-
+ 
         if (uploadRes.status === 200) {
           const imageUrl = uploadRes.data.secure_url;
 
