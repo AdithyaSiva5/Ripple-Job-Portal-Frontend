@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-function SkillsSection({ skills, onUpdate }) {
+function SkillsSection({ skills, jobCategories = [], onUpdate }) {
   const [localSkills, setLocalSkills] = useState([]);
-  const jobCategories = ['MERN', 'Python', 'Java', 'DevOps', 'AI/ML'];
 
   useEffect(() => {
     console.log("SkillsSection - Initial skills:", skills);
@@ -23,20 +22,25 @@ function SkillsSection({ skills, onUpdate }) {
   };
 
   console.log("SkillsSection - Rendering with skills:", localSkills);
+  console.log("SkillsSection - Job categories:", jobCategories);
 
   return (
     <div className="skills-section bg-white w-full rounded-md p-4 mb-4">
       <h2>Skills</h2>
       <div className="skill-buttons">
-        {jobCategories.map((category, index) => (
-          <button
-            key={index}
-            onClick={() => toggleSkill(category)}
-            className={`m-1 p-2 rounded ${localSkills.includes(category) ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
-          >
-            {category}
-          </button>
-        ))}
+        {jobCategories && jobCategories.length > 0 ? (
+          jobCategories.map((category, index) => (
+            <button
+              key={index}
+              onClick={() => toggleSkill(category.name)}
+              className={`m-1 p-2 rounded ${localSkills.includes(category.name) ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+            >
+              {category.name}
+            </button>
+          ))
+        ) : (
+          <p>No job categories available</p>
+        )}
       </div>
     </div>
   );

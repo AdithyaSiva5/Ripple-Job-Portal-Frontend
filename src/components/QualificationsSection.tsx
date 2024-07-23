@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
 function QualificationsSection({ qualifications, onUpdate }) {
+  console.log("QualificationsSection - Initial qualifications prop:", qualifications);
+
   const [localQualifications, setLocalQualifications] = useState(qualifications || []);
 
   useEffect(() => {
+    console.log("QualificationsSection - useEffect triggered with qualifications:", qualifications);
     setLocalQualifications(qualifications || []);
   }, [qualifications]);
 
   const addQualification = () => {
+    console.log("QualificationsSection - Adding new qualification");
     const newQualifications = [...localQualifications, { course: '', institution: '', yearOfCompletion: '' }];
     setLocalQualifications(newQualifications);
     onUpdate(newQualifications);
   };
 
   const updateQualification = (index, field, value) => {
+    console.log(`QualificationsSection - Updating qualification at index ${index}, field: ${field}, value: ${value}`);
     const updatedQualifications = localQualifications.map((qual, i) => 
       i === index ? { ...qual, [field]: value } : qual
     );
@@ -22,10 +27,13 @@ function QualificationsSection({ qualifications, onUpdate }) {
   };
 
   const removeQualification = (index) => {
+    console.log(`QualificationsSection - Removing qualification at index ${index}`);
     const updatedQualifications = localQualifications.filter((_, i) => i !== index);
     setLocalQualifications(updatedQualifications);
     onUpdate(updatedQualifications);
   };
+
+  console.log("QualificationsSection - Rendering with localQualifications:", localQualifications);
 
   return (
     <div className="qualifications-section bg-white w-full rounded-md p-4 mb-4">
