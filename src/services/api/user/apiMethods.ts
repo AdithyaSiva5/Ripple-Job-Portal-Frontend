@@ -1303,7 +1303,7 @@ export const setUserRole = (userData: {
 export const getSettings = (userId: string) => {
   return new Promise((resolve, reject) => {
     try {
-      apiCall("post", userUrls.getSettings, { userId })
+      apiCall("get", userUrls.getSettings, { userId })
         .then((response) => {
           resolve(response);
         })

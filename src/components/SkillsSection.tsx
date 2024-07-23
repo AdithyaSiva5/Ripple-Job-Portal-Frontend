@@ -1,17 +1,28 @@
-// SkillsSection.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function SkillsSection({ user }) {
-  const [skills, setSkills] = useState(user.profile?.skills || []);
+function SkillsSection({ skills, onUpdate }) {
+  const [localSkills, setLocalSkills] = useState([]);
   const jobCategories = ['MERN', 'Python', 'Java', 'DevOps', 'AI/ML'];
 
+  useEffect(() => {
+    console.log("SkillsSection - Initial skills:", skills);
+    setLocalSkills(skills || []);
+  }, [skills]);
+
   const toggleSkill = (skill) => {
-    if (skills.includes(skill)) {
-      setSkills(skills.filter(s => s !== skill));
+    console.log(`SkillsSection - Toggling skill: ${skill}`);
+    let updatedSkills;
+    if (localSkills.includes(skill)) {
+      updatedSkills = localSkills.filter(s => s !== skill);
     } else {
-      setSkills([...skills, skill]);
+      updatedSkills = [...localSkills, skill];
     }
+    console.log("SkillsSection - Updated skills:", updatedSkills);
+    setLocalSkills(updatedSkills);
+    onUpdate(updatedSkills);
   };
+
+  console.log("SkillsSection - Rendering with skills:", localSkills);
 
   return (
     <div className="skills-section bg-white w-full rounded-md p-4 mb-4">
@@ -21,13 +32,12 @@ function SkillsSection({ user }) {
           <button
             key={index}
             onClick={() => toggleSkill(category)}
-            className={`m-1 p-2 rounded ${skills.includes(category) ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+            className={`m-1 p-2 rounded ${localSkills.includes(category) ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
           >
             {category}
           </button>
         ))}
       </div>
-      {/* Add button to save skills */}
     </div>
   );
 }
