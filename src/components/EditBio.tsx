@@ -182,7 +182,7 @@ function EditBio({ onCancelEdit }: any) {
     <div>
       <Modal show={true}>
         <Modal.Body>
-          <p className="text-sm font-semibold">Company Information</p>
+          <p className="text-sm font-semibold dark:text-white"> Information</p>
         </Modal.Body>
 
         {user.userType == "individual" && (

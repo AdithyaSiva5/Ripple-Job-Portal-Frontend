@@ -20,8 +20,6 @@ function QualificationsSection({ qualifications, onUpdate }) {
       i === index ? { ...qual, [field]: value } : qual
     );
     setLocalQualifications(updatedQualifications);
-
-    // Update errors
     const newErrors = [...errors];
     if (field === 'yearOfCompletion') {
       const yearValue = parseInt(value, 10);
@@ -55,27 +53,27 @@ function QualificationsSection({ qualifications, onUpdate }) {
   };
 
   return (
-    <div>
-      <h2>Qualifications</h2>
+    <div className='skills-section dark:text-black daa w-full rounded-md p-4 mb-4'>
+      <h2 className='dark:text-white'>Qualifications</h2>
       {localQualifications.map((qual, index) => (
         <div key={index} className="mb-4">
           <input
             type="text"
             value={qual.course}
             onChange={(e) => updateQualification(index, 'course', e.target.value)}
-            className={`mr-2 p-1 border rounded ${errors[index]?.course ? 'border-red-500' : ''}`}
+            className={`mr-2 p-1 border rounded ${errors[index]?.course ? 'border-red-500 dark:text-white ' : ''}`}
             placeholder="Course"
           />
-          {errors[index]?.course && <span className="text-red-500 text-sm">Course is required</span>}
+          {errors[index]?.course && <span className="text-red-500 text-sm dark:text-white ">Course is required</span>}
           
           <input
             type="text"
             value={qual.institution}
             onChange={(e) => updateQualification(index, 'institution', e.target.value)}
-            className={`mr-2 p-1 border rounded ${errors[index]?.institution ? 'border-red-500' : ''}`}
+            className={`mr-2 p-1 border rounded ${errors[index]?.institution ? 'border-red-500 dark:text-white ' : ''}`}
             placeholder="Institution"
           />
-          {errors[index]?.institution && <span className="text-red-500 text-sm">Institution is required</span>}
+          {errors[index]?.institution && <span className="text-red-500 text-sm dark:text-white ">Institution is required</span>}
           
           <input
             type="number"
@@ -86,7 +84,7 @@ function QualificationsSection({ qualifications, onUpdate }) {
             min="1900"
             max={new Date().getFullYear()}
           />
-          {errors[index]?.yearOfCompletion && <span className="text-red-500 text-sm">Enter a valid year</span>}
+          {errors[index]?.yearOfCompletion && <span className="text-red-500 text-sm dark:text-white ">Enter a valid year</span>}
           
           <button onClick={() => removeQualification(index)} className="ml-2 p-1 bg-red-500 text-white rounded">
             Remove

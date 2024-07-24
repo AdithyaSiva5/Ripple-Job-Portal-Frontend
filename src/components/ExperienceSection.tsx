@@ -1,3 +1,4 @@
+import { X } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 
 function ExperienceSection({ experiences, onUpdate }) {
@@ -55,8 +56,8 @@ function ExperienceSection({ experiences, onUpdate }) {
   };
 
   return (
-    <div className="experience-section bg-white w-full rounded-md p-4 mb-4">
-      <h2>Experience</h2>
+    <div className="experience-section  w-full rounded-md p-4 mb-4">
+      <h2 className='text-white'>Experience</h2>
       {localExperiences.map((exp, index) => (
         <div key={index} className="mb-4">
           <input
@@ -89,7 +90,7 @@ function ExperienceSection({ experiences, onUpdate }) {
           {errors[index]?.yearOfJoining && <span className="text-red-500 text-sm">Enter a valid year</span>}
           
           <button onClick={() => removeExperience(index)} className="ml-2 p-1 bg-red-500 text-white rounded">
-            Remove
+            <X/>
           </button>
         </div>
       ))}

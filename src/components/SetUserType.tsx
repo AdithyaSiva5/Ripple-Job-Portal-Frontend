@@ -47,7 +47,7 @@ function SetUserType({ setOpenModal }: any) {
       <Modal show={true}>
         <Modal.Body>
           <div className='flex justify-between items-center'>
-            <p className='text-sm font-semibold'>User Preferences</p>
+            <p className='text-sm font-semibold dark:text-white'>User Preferences</p>
             <button onClick={() => setOpenModal(false)}>
               <X size={18} color='gray' />
             </button>
