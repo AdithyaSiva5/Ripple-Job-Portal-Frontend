@@ -1,70 +1,101 @@
 import React, { useState, useEffect } from 'react';
 
 function QualificationsSection({ qualifications, onUpdate }) {
-  console.log("QualificationsSection - Initial qualifications prop:", qualifications);
-
   const [localQualifications, setLocalQualifications] = useState(qualifications || []);
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    console.log("QualificationsSection - useEffect triggered with qualifications:", qualifications);
     setLocalQualifications(qualifications || []);
+    setErrors(Array(qualifications?.length || 0).fill({}));
   }, [qualifications]);
 
   const addQualification = () => {
-    console.log("QualificationsSection - Adding new qualification");
-    const newQualifications = [...localQualifications, { course: '', institution: '', yearOfCompletion: '' }];
-    setLocalQualifications(newQualifications);
-    onUpdate(newQualifications);
+    const newQualification = { course: '', institution: '', yearOfCompletion: '' };
+    setLocalQualifications([...localQualifications, newQualification]);
+    setErrors([...errors, {}]);
   };
 
   const updateQualification = (index, field, value) => {
-    console.log(`QualificationsSection - Updating qualification at index ${index}, field: ${field}, value: ${value}`);
     const updatedQualifications = localQualifications.map((qual, i) => 
       i === index ? { ...qual, [field]: value } : qual
     );
     setLocalQualifications(updatedQualifications);
-    onUpdate(updatedQualifications.filter(q => q.course || q.institution || q.yearOfCompletion));
+
+    // Update errors
+    const newErrors = [...errors];
+    if (field === 'yearOfCompletion') {
+      const yearValue = parseInt(value, 10);
+      newErrors[index] = { 
+        ...newErrors[index], 
+        [field]: isNaN(yearValue) || yearValue < 1900 || yearValue > new Date().getFullYear()
+      };
+    } else {
+      newErrors[index] = { ...newErrors[index], [field]: value.trim() === '' };
+    }
+    setErrors(newErrors);
+
+    onUpdate(filterEmptyFields(updatedQualifications));
   };
 
   const removeQualification = (index) => {
-    console.log(`QualificationsSection - Removing qualification at index ${index}`);
     const updatedQualifications = localQualifications.filter((_, i) => i !== index);
+    const updatedErrors = errors.filter((_, i) => i !== index);
     setLocalQualifications(updatedQualifications);
-    onUpdate(updatedQualifications);
+    setErrors(updatedErrors);
+    onUpdate(filterEmptyFields(updatedQualifications));
   };
 
-  console.log("QualificationsSection - Rendering with localQualifications:", localQualifications);
+  const filterEmptyFields = (qualifications) => {
+    return qualifications.filter(q => q.course || q.institution || q.yearOfCompletion)
+      .map(q => ({
+        ...(q.course && { course: q.course }),
+        ...(q.institution && { institution: q.institution }),
+        ...(q.yearOfCompletion && { yearOfCompletion: parseInt(q.yearOfCompletion, 10) })
+      }));
+  };
 
   return (
-    <div className="qualifications-section bg-white w-full rounded-md p-4 mb-4">
+    <div>
       <h2>Qualifications</h2>
       {localQualifications.map((qual, index) => (
-        <div key={index} className="mb-2">
+        <div key={index} className="mb-4">
           <input
             type="text"
-            placeholder="Course"
-            value={qual.course || ''}
+            value={qual.course}
             onChange={(e) => updateQualification(index, 'course', e.target.value)}
-            className="mr-2 p-1 border rounded"
+            className={`mr-2 p-1 border rounded ${errors[index]?.course ? 'border-red-500' : ''}`}
+            placeholder="Course"
           />
+          {errors[index]?.course && <span className="text-red-500 text-sm">Course is required</span>}
+          
           <input
             type="text"
-            placeholder="Institution"
-            value={qual.institution || ''}
+            value={qual.institution}
             onChange={(e) => updateQualification(index, 'institution', e.target.value)}
-            className="mr-2 p-1 border rounded"
+            className={`mr-2 p-1 border rounded ${errors[index]?.institution ? 'border-red-500' : ''}`}
+            placeholder="Institution"
           />
+          {errors[index]?.institution && <span className="text-red-500 text-sm">Institution is required</span>}
+          
           <input
             type="number"
-            placeholder="Year of Completion"
-            value={qual.yearOfCompletion || ''}
+            value={qual.yearOfCompletion}
             onChange={(e) => updateQualification(index, 'yearOfCompletion', e.target.value)}
-            className="p-1 border rounded"
+            className={`p-1 border rounded ${errors[index]?.yearOfCompletion ? 'border-red-500' : ''}`}
+            placeholder="Year of Completion"
+            min="1900"
+            max={new Date().getFullYear()}
           />
-          <button onClick={() => removeQualification(index)} className="ml-2 p-1 bg-red-500 text-white rounded">Remove</button>
+          {errors[index]?.yearOfCompletion && <span className="text-red-500 text-sm">Enter a valid year</span>}
+          
+          <button onClick={() => removeQualification(index)} className="ml-2 p-1 bg-red-500 text-white rounded">
+            Remove
+          </button>
         </div>
       ))}
-      <button onClick={addQualification} className="mt-2 p-2 bg-green-500 text-white rounded">Add Qualification</button>
+      <button onClick={addQualification} className="p-1 bg-blue-500 text-white rounded">
+        Add Qualification
+      </button>
     </div>
   );
 }

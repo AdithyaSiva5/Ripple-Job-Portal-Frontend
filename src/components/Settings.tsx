@@ -26,17 +26,16 @@ function SettingsComponent() {
   });
   const [jobCategories, setJobCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const isOrganization = user.userType === 'organization';
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await getSettings();
-        console.log("Fetched data:", response);
+        const response:any = await getSettings();
 
         setJobCategories(response.data.jobCategories || []);
         setLocalUser(response.data.user || {});
-
+        setGender(response.data.user?.profile?.gender)
         dispatch({ type: "UPDATE_USER", payload: response.user });
         setIsLoading(false);
       } catch (err) {
@@ -55,8 +54,7 @@ function SettingsComponent() {
   const handleCancelEdit = () => {
     setIsEdit(false);
   };
-  const handleUpdate = async (section, data) => {
-    console.log(`SettingsComponent - Updating ${section} with:`, data);
+  const handleUpdate = async (section: any, data: any) => {
     const updatedUser = {
       ...localUser,
       profile: {
@@ -68,7 +66,6 @@ function SettingsComponent() {
 
     try {
       await updateSettings(updatedUser);
-      console.log("Settings updated successfully");
     } catch (error) {
       console.error("Error updating settings:", error);
     }
@@ -79,7 +76,6 @@ function SettingsComponent() {
     handleUpdate("gender", e.target.value);
   };
 
-  console.log("SettingsComponent - Rendering with user data:", localUser);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -112,19 +108,28 @@ function SettingsComponent() {
         <p>{user.phone}</p>
       </div>
 
-      <QualificationsSection
-        qualifications={localUser.profile?.qualification || []}
-        onUpdate={(data) => handleUpdate('qualification', data)}
-      />
-      <SkillsSection
-        skills={localUser.profile?.skills || []}
-        jobCategories={jobCategories}
-        onUpdate={(data) => handleUpdate('skills', data)}
-      />
-      <ExperienceSection
-        experiences={localUser.profile?.experience || []}
-        onUpdate={(data) => handleUpdate('experience', data)}
-      />
+      {isOrganization ? (
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
+          <p className="font-bold">Company Account</p>
+          <p>To add personal details like qualifications, skills, and experience, please change to an individual account.</p>
+        </div>
+      ) : (
+        <>
+          <QualificationsSection
+            qualifications={localUser.profile?.qualification || []}
+            onUpdate={(data: any) => handleUpdate('qualification', data)}
+          />
+          <SkillsSection
+            skills={localUser.profile?.skills || []}
+            jobCategories={jobCategories}
+            onUpdate={(data: any) => handleUpdate('skills', data)}
+          />
+          <ExperienceSection
+            experiences={localUser.profile?.experience || []}
+            onUpdate={(data: any) => handleUpdate('experience', data)}
+          />
+        </>
+      )}
       <div className="gender-section bg-white w-full rounded-md p-4 mb-4">
         <h2>Gender</h2>
         <select
@@ -140,8 +145,6 @@ function SettingsComponent() {
       </div>
 
       {isEdit && <EditBio onCancelEdit={handleCancelEdit} />}
-
-      {/* Set user type modal */}
       {isSetUserType && <SetUserType setOpenModal={setIsSetUserType} />}
 
       <Modal show={openModal} onClose={() => setOpenModal(false)}>

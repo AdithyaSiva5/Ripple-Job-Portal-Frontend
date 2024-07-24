@@ -4,25 +4,20 @@ function SkillsSection({ skills, jobCategories = [], onUpdate }) {
   const [localSkills, setLocalSkills] = useState([]);
 
   useEffect(() => {
-    console.log("SkillsSection - Initial skills:", skills);
     setLocalSkills(skills || []);
   }, [skills]);
 
   const toggleSkill = (skill) => {
-    console.log(`SkillsSection - Toggling skill: ${skill}`);
     let updatedSkills;
     if (localSkills.includes(skill)) {
       updatedSkills = localSkills.filter(s => s !== skill);
     } else {
       updatedSkills = [...localSkills, skill];
     }
-    console.log("SkillsSection - Updated skills:", updatedSkills);
     setLocalSkills(updatedSkills);
     onUpdate(updatedSkills);
   };
 
-  console.log("SkillsSection - Rendering with skills:", localSkills);
-  console.log("SkillsSection - Job categories:", jobCategories);
 
   return (
     <div className="skills-section bg-white w-full rounded-md p-4 mb-4">
