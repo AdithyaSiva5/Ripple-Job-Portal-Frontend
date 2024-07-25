@@ -24,6 +24,7 @@ export default {
         black75: 'hsla(0, 0%, 0%, 75%)', 
         darkColor: '#141519',
         fill : 'rgb(27,31,36)',
+        backgroundgray: 'rgb(234,233,233)',
 
         purewhite: 'rgba(var(--purewhite))',
         primary: 'rgba(var(--primary))',       // Bright blue for primary actions

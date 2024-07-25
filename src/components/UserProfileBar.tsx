@@ -7,6 +7,8 @@ function UserProfileBar() {
   const userId = user._id || "";
   const navigate = useNavigate()
 
+  
+
   return (
     <>
       <div className="home-profile-card border border-green bg-secondary flex flex-col justify-around items-center  pt-6 px-6 ">
@@ -42,23 +44,24 @@ function UserProfileBar() {
           </div>
         </div>
 
-        <div className="mt-4" >
-          <p className="text-sm font-bold dark:font-mono dark:text-white">Connect & Amount</p>
-          <p className="text-xs text-green-600" >18 connections</p>
-          <p className="text-xs text-green-600">4 connection request</p>
-
-        </div>
         <div className="mt-4">
           <p className="text-sm font-bold dark:text-white">Skills</p>
-          <div className="mt-1 flex flex-wrap">
-            <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">React</p>
-            <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">Node</p>
-            <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">MongoDB</p>
-            <p className="text-xs bg-gray-200 p-2 m-0.5 rounded-sm flex-basis-1/2">Express</p>
-          </div>
+          {user.profile?.skills && user.profile.skills.length > 0 ? (
+            <div className="mt-1 flex flex-wrap">
+              {user.profile.skills.map((skill, index) => (
+                <p key={index} className="text-xs bg-gray-200 dark:bg-gray-700 dark:text-white p-2 m-0.5 rounded-sm">
+                  {skill}
+                </p>
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+              No skills added yet. Add skills to showcase your expertise!
+            </p>
+          )}
         </div>
 
-        <button type="submit" className=" mt-4 w-full text-xs font-bold bg-black text-white p-3 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 dark:hover:bg-green-600">Edit Profile</button>
+        <button type="submit" onClick={()=>{navigate("/profile/settings")}} className=" mt-4 w-full text-xs font-bold bg-black text-white p-3 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 dark:hover:bg-green-600">Edit Profile</button>
 
       </div>
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bookmark } from "lucide-react";
+import { Bookmark, Lock } from "lucide-react";
 import { listJob, savePost } from "../services/api/user/apiMethods";
 import { useDispatch, useSelector } from "react-redux";
 import ApplyJobForm from "./ApplyJobForm";
@@ -98,7 +98,7 @@ const Jobs = () => {
       console.log(error.message);
     }
   };
-
+  console.log(user)
   return (
     <>
       {jobs.map((job) => (
@@ -160,7 +160,7 @@ const Jobs = () => {
               </div>
             </div>
           </div>
-
+          {user.dailyJobsApplied < 3 || user.isPremium?(
           <div className="w-full flex justify-end mt-10">
             <button
               onClick={() => handleApplyJob(job)}
@@ -169,6 +169,15 @@ const Jobs = () => {
               Apply
             </button>
           </div>
+          ): (
+            <div className="w-full flex justify-end mt-10">
+            <button
+              className="text-xs rounded btn border w-24 px-4 py-1 cursor-pointer text-white ml-2 bg-red-600 flex"
+            >
+              Need Premium <Lock className="flex"/>
+            </button>
+            </div>
+          ) }
 
           {isApply && selectedjob._id === job._id && <ApplyJobForm job={selectedjob} cancelApplyJob={cancelApplyJob} />}
         </div>

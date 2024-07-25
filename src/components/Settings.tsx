@@ -8,6 +8,7 @@ import ExperienceSection from "./ExperienceSection";
 import SkillsSection from "./SkillsSection";
 import QualificationsSection from "./QualificationsSection";
 import { getSettings, updateSettings } from "../services/api/user/apiMethods";
+import { updateUser } from "../utils/context/reducers/authSlice";
 
 function SettingsComponent() {
   const dispatch = useDispatch();
@@ -35,7 +36,6 @@ function SettingsComponent() {
         setJobCategories(response.data.jobCategories || []);
         setLocalUser(response.data.user || {});
         setGender(response.data.user?.profile?.gender);
-        dispatch({ type: "UPDATE_USER", payload: response.user });
         setIsLoading(false);
       } catch (err) {
         console.error("Error fetching settings:", err);
@@ -64,7 +64,10 @@ function SettingsComponent() {
     setLocalUser(updatedUser);
 
     try {
-      await updateSettings(updatedUser);
+      const response = await updateSettings(updatedUser);
+      if (response.success) {
+        dispatch(updateUser(updatedUser));
+      }
     } catch (error) {
       console.error("Error updating settings:", error);
     }
@@ -74,9 +77,10 @@ function SettingsComponent() {
     setGender(e.target.value);
     handleUpdate("gender", e.target.value);
   };
+  console.log()
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="dark:text-white text-black">Loading...</div>;
   }
 
   return (
@@ -135,8 +139,8 @@ function SettingsComponent() {
             />
           </>
         )}
-        <div className="gender-section bg-white w-full rounded-md p-4 mb-4">
-          <h2>Gender</h2>
+        <div className="gender-section w-full rounded-md p-4 mb-4">
+          <h2 className="dark:text-white">Gender</h2>
           <select
             value={gender}
             onChange={handleGenderChange}

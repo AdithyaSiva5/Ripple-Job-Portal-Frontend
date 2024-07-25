@@ -18,7 +18,6 @@ function SkillsSection({ skills, jobCategories = [], onUpdate }) {
     onUpdate(updatedSkills);
   };
 
-
   return (
     <div className="skills-section  w-full rounded-md p-4 mb-4">
       <h2 className='dark:text-white'>Skills</h2>
@@ -28,7 +27,7 @@ function SkillsSection({ skills, jobCategories = [], onUpdate }) {
             <button
               key={index}
               onClick={() => toggleSkill(category.name)}
-              className={`m-1 p-2 rounded ${localSkills.includes(category.name) ? 'bg-green text-white' : 'bg-gray-200'}`}
+              className={`m-1 p-2 rounded ${localSkills.includes(category.name) ? 'bg-green-600 text-black text-base' : 'bg-gray-200 text-base'}`}
             >
               {category.name}
             </button>
