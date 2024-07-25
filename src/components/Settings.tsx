@@ -8,7 +8,8 @@ import ExperienceSection from "./ExperienceSection";
 import SkillsSection from "./SkillsSection";
 import QualificationsSection from "./QualificationsSection";
 import { getSettings, updateSettings } from "../services/api/user/apiMethods";
-import { updateUser } from "../utils/context/reducers/authSlice";
+import { updateUserSettings } from "../utils/context/reducers/authSlice";
+import { toast } from "sonner";
 
 function SettingsComponent() {
   const dispatch = useDispatch();
@@ -62,17 +63,19 @@ function SettingsComponent() {
       },
     };
     setLocalUser(updatedUser);
-
+  
     try {
-      const response = await updateSettings(updatedUser);
-      if (response.success) {
-        dispatch(updateUser(updatedUser));
+      const response:any = await updateSettings(updatedUser);
+      if (response.status === 200) {
+        dispatch(updateUserSettings({ profile: { [section]: data } }));
+      } else {
+        toast.error("Failed to update settings");
       }
     } catch (error) {
       console.error("Error updating settings:", error);
+      toast.error("An error occurred while updating settings");
     }
   };
-
   const handleGenderChange = (e) => {
     setGender(e.target.value);
     handleUpdate("gender", e.target.value);

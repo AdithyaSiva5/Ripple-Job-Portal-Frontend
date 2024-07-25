@@ -36,7 +36,7 @@ function UserProfileBar() {
             {!user.isHiring ? (
               <p className="text-xs bg-green-600 text-white py-1 mt-1 w-32 rounded-full text-center">Available for work</p>
 
-            ) : (<p className="text-xs bg-green-600 text-white py-1 mt-1 w-32 rounded-full text-center">Recruiting </p>)}
+            ) : (<p className="text-xs bg-[#65a30d] text-white py-1 mt-1 w-32 rounded-full text-center">Recruiting </p>)}
             {user.userType === 'individual' ? (
               <p className="text-xs bg-purple-700 text-white  py-1 mt-1 w-32 rounded-full text-center">Individual</p>
 

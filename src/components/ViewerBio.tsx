@@ -118,7 +118,7 @@ function ViewerBio() {
                   Available for work
                 </p>
               ) : (
-                <p className="text-xs bg-blue-600 text-white py-1 px-4 mt-1 rounded-full text-center">
+                <p className="text-xs bg-[#65a30d] text-white py-1 px-4 mt-1 rounded-full text-center">
                   Recruiting
                 </p>
               )}
@@ -174,6 +174,20 @@ function ViewerBio() {
                         <p className="text-xs text-gray-600 dark:text-gray-400">Completed in {qual.yearOfCompletion}</p>
                       </div>
                     ))
+                  ) : (
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Not added</p>
+                  )}
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold dark:text-white mb-2">Skills</h3>
+                  {user.profile?.skills && user.profile.skills.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {user.profile.skills.map((skill, index) => (
+                        <span key={index} className="text-sm bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded-full">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   ) : (
                     <p className="text-sm text-gray-600 dark:text-gray-400">Not added</p>
                   )}
