@@ -4,7 +4,7 @@ import { BriefcaseBusiness, User, UserRoundPlus, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import { setPreferences } from '../services/api/user/apiMethods';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSuccess } from '../utils/context/reducers/authSlice';
+import { loginSuccess, updateUser } from '../utils/context/reducers/authSlice';
 
 function Preferences() {
     
@@ -28,7 +28,7 @@ function Preferences() {
       setPreferences({userId:userId,userType:userType,isHiring:isHiring}) .then((response: any) => {
         const data = response.data;
         if (response.status === 200) {
-          dispatch(loginSuccess({ user: data }));
+          dispatch(updateUser({ user: data }));
           toast.success(data.message);
         } else {
           toast.error(data.message);

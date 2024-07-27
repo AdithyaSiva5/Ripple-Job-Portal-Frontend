@@ -1,64 +1,69 @@
-import { Formik,Form,Field ,ErrorMessage} from 'formik';
-import './signup.css'
-import { Link } from 'react-router-dom';
-import TextError from '../../../components/TextError';
-import {initialValues,validationSchema} from '../../../utils/validation/signupValidation'
-import { postRegister } from '../../../services/api/user/apiMethods';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-import { useSelector } from 'react-redux';
-import { darkMode } from '../../../utils/context/reducers/darkmodeSlice';
-import { useEffect } from 'react';
-
-
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import "./signup.css";
+import { Link } from "react-router-dom";
+import TextError from "../../../components/TextError";
+import {
+  initialValues,
+  validationSchema,
+} from "../../../utils/validation/signupValidation";
+import { postRegister } from "../../../services/api/user/apiMethods";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import { darkMode } from "../../../utils/context/reducers/darkmodeSlice";
+import { useEffect } from "react";
 
 function Signup() {
-  const dark = useSelector(darkMode)
+  const dark = useSelector(darkMode);
 
   useEffect(() => {
     if (!dark) {
-      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.remove("dark");
     } else {
-      document.documentElement.classList.add('dark')
+      document.documentElement.classList.add("dark");
     }
-  }, [dark])
+  }, [dark]);
   const navigate = useNavigate();
-  localStorage.removeItem('otpTimer')
+  localStorage.removeItem("otpTimer");
 
- const submit = (values: any) => {
-  
-    postRegister(values).then((response:any) => {
-      const data = response.data
-      if(response.status === 200) {
-       toast.success(data.message)
-        navigate(`/otp?email=${data.email}`);
-      } else {
-        console.log(response.message);
-        toast.error(data.message)
-      }
-    }).catch((error) => {
-      console.log(error?.message)
-    })
+  const submit = async (values: any) => {
+    postRegister(values)
+      .then((response: any) => {
+        const data = response.data;
+        if (response.status === 200) {
+          toast.success(data.message);
+          navigate(`/otp?email=${data.email}`);
+        } else {
+          console.log(response.message);
+          toast.error(data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error?.message);
+        toast.error(error?.message);
+      });
   };
-  
-  
+
   return (
-
-
-   
     <div className="flex h-screen">
-      <div id='signup' className="hidden lg:flex items-center justify-center flex-1 bg-white text-black" >
-
-
-      </div>
+      <div
+        id="signup"
+        className="hidden lg:flex items-center justify-center flex-1 bg-white text-black"
+      ></div>
 
       <div className="w-full  lg:w-1/2 flex items-center justify-center ">
-        <div className='logo'>   <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" /></div>
-        
-        <div className="max-w-md w-full p-6" >
-          <p className="title text-4xl font-black  mb-2 text-black ">Register with us.</p>
-          <h1 className="text-sm  mb-6 text-gray-500 ">Explore open career opportunities </h1>
+        <div className="logo">
+          {" "}
+          <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" />
+        </div>
+
+        <div className="max-w-md w-full p-6">
+          <p className="title text-4xl font-black  mb-2 text-black ">
+            Register with us.
+          </p>
+          <h1 className="text-sm  mb-6 text-gray-500 ">
+            Explore open career opportunities{" "}
+          </h1>
           {/* <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
             <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
               <button type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-1  focus:ring-green-600 transition-colors duration-300">
@@ -77,42 +82,81 @@ function Signup() {
           <div className="mt-4 text-xs text-gray-600 text-center">
             <p>or with email</p>
           </div> */}
-    <Formik   initialValues={initialValues} validationSchema={validationSchema} onSubmit={submit} >
-          <Form>
-          <div>
-              <Field type="text" id="username" name="username" placeholder='Username'   className=" border-gray-300  my-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />          
-              <ErrorMessage name="username" component={TextError} />
-            </div>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={submit}
+          >
+            <Form>
+              <div>
+                <Field
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Username"
+                  className=" border-gray-300  my-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
+                />
+                <ErrorMessage name="username" component={TextError} />
+              </div>
 
-            <div>        
-              <Field type="text" id="email"  name="email" placeholder='Email'  className=" border-gray-300 my-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
-              <ErrorMessage name="email" component={TextError} />
-            </div>
+              <div>
+                <Field
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  className=" border-gray-300 my-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
+                />
+                <ErrorMessage name="email" component={TextError} />
+              </div>
 
-            <div>
-              <Field type="password" placeholder='Password'  name="password" id="password"  className=" border-gray-300 my-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />
-              <ErrorMessage name="password"  component={TextError}/>
-            </div>
+              <div>
+                <Field
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  id="password"
+                  className=" border-gray-300 my-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
+                />
+                <ErrorMessage name="password" component={TextError} />
+              </div>
 
-            <div>
-          <Field type="password" placeholder='confirm Password'  name="confirmPassword" id="confirmPassword"  className=" border-gray-300 my-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" />        
-          <ErrorMessage name="confirmPassword" component={TextError} />
-        </div>
+              <div>
+                <Field
+                  type="password"
+                  placeholder="confirm Password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  className=" border-gray-300 my-1 text-xs p-3 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
+                />
+                <ErrorMessage name="confirmPassword" component={TextError} />
+              </div>
 
-            <div>
-              <button type="submit" className="w-full text-sm bg-green-600 text-white p-3 mt-6 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
-            </div>
-          </Form>
+              <div>
+                <button
+                  type="submit"
+                  className="w-full text-sm bg-green-600 text-white p-3 mt-6 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </Form>
           </Formik>
           <div className="mt-4 text-xs text-gray-600 text-center">
-            <p>Already have an account?  <Link className="font-semibold text-green-600 hover:underline" to="/login">Login here</Link> </p>
-
+            <p>
+              Already have an account?{" "}
+              <Link
+                className="font-semibold text-green-600 hover:underline"
+                to="/login"
+              >
+                Login here
+              </Link>{" "}
+            </p>
           </div>
         </div>
       </div>
     </div>
-
-  )
+  );
 }
 
-export default Signup
+export default Signup;

@@ -18,19 +18,19 @@ function SavedCollections() {
             <div className="home-section-2 ms-32 ">
                 <div className="border  profile-nav flex items-center justify-around gap-20  bg-white rounded-md mt-5 mx-5" >
                     <button
-                        onClick={() => { navigate('/home/saved/posts') }}
-                        className={`text-xs font-medium text-gray-400 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${location.pathname === '/home/saved/posts' ? 'bg-black text-white' : ''
+                        onClick={() => { navigate('/saved/posts') }}
+                        className={`text-xs font-medium text-gray-400 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${location.pathname === '/saved/posts' ? 'bg-black text-white' : ''
                             }`}
                     >
                         Saved Posts
                     </button>
                     <button
-                        onClick={() => { navigate('/home/saved/jobs') }}
-                        className={`text-xs font-medium text-gray-400 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${location.pathname === '/home/saved/jobs' ? 'bg-black text-white' : ''
+                        onClick={() => { navigate('/saved/jobs') }}
+                        className={`text-xs font-medium text-gray-400 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${location.pathname === '/saved/jobs' ? 'bg-black text-white' : ''
                             }`}
                     >
                         Saved Jobs
-                    </button>
+                    </button> 
 
                 </div> 
 

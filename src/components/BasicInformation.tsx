@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Modal } from "flowbite-react";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess } from "../utils/context/reducers/authSlice";
+import { loginSuccess, updateUser } from "../utils/context/reducers/authSlice";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
 import { basicFormInitialValues,basicFormValidationSchema,basicFormCompanyInitialValues,basicFormCompanyValidationSchema } from "../utils/validation/basicInformationValidation";
@@ -46,7 +46,7 @@ function BasicInformation() {
             .then((response: any) => {
               const data = response.data;
               if (response.status === 200) {
-                dispatch(loginSuccess({ user: data }));
+                dispatch(updateUser({ user: data }));
                 toast.success(data.message);
               } else {
                 console.log(response.message);
@@ -68,7 +68,7 @@ function BasicInformation() {
             const data = response.data;
             if (response.status === 200) {
               toast.success(data.message);
-              dispatch(loginSuccess({ user: data }));
+              dispatch(updateUser({ user: data }));
             } else {
               console.log(response.message);
               toast.error(data.message);
@@ -114,7 +114,7 @@ function BasicInformation() {
             .then((response: any) => {
               const data = response.data;
               if (response.status === 200) {
-                dispatch(loginSuccess({user:data}));
+                dispatch(updateUser({ user: data }));
                 toast.success(data.message);
               } else {
                 console.log(response.message);

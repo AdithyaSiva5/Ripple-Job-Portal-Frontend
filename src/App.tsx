@@ -40,18 +40,18 @@ function App() {
     <>
 
       <FilterProvider>
-      <div >
+        <div >
 
-        <Header />
+          <Header />
 
-        <div className="home-main ">
-          <div className="hidden lg:block home-section-1" id="mobile-menu-2">
-            <UserProfileBar />
+          <div className="home-main ">
+            <div className="hidden lg:block home-section-1" id="mobile-menu-2">
+              <UserProfileBar />
+            </div>
+
+            <Outlet />
           </div>
-
-          <Outlet />
         </div>
-      </div>
       </FilterProvider>
     </>
   )

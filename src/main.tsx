@@ -27,7 +27,7 @@ import { Provider } from 'react-redux';
     }}
   />
       <PersistGate loading={null} persistor={persistor}>
-      <RouterProvider router={appRouter} >
+      <RouterProvider  router={appRouter} >
         <App />
         </RouterProvider>
       </PersistGate>

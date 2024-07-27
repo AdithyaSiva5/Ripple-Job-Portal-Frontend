@@ -33,27 +33,39 @@ function PeopleRequested() {
           })
           
           .catch((error) => {
+            setLoading(false)
             console.log(error.message);
           });
         } catch (error) {
+          setLoading(false)
           console.log(error);
         }
       }, []);
     
 
   
-     
+      if (loading) {
+        return (
+          <div className="">
+            <div className="flex flex-row flex-wrap gap-x-8 gap-y-0 dark:text-white">
+              Loading ...
+    
+            </div>
+    
+          </div>
+        )
+      }
     
     return (
     
       <div>
 
-      {loading ? (
+      {requested.length === 0 ? (
        <div className="">
-       <div className="flex flex-row flex-wrap gap-x-8 gap-y-0 ">
-   
-      
-      </div>
+       <div className="flex flex-row flex-wrap gap-x-8 gap-y-0 mt-10 text-red-600">
+            No Requested Found
+
+          </div>
          
        </div>
      ) : (

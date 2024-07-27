@@ -12,11 +12,13 @@ import { FormValues } from "../../../utils/validation/signupValidation";
 //method    POST
 
 export const postRegister = (userData: FormValues) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve , reject) => {
     try {
       apiCall("post", userUrls.register, userData).then((response) => {
         resolve(response);
-        console.log("apiMethods" + response);
+      })
+      .catch((err) => {
+        reject(err);
       });
     } catch (error) {
       resolve({ status: 500, message: "Somethings wrong." });
@@ -28,11 +30,14 @@ export const postRegister = (userData: FormValues) => {
 //method    POST
 
 export const postOTP = (otp: { otp: string }) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve ,reject) => {
     try {
       apiCall("post", userUrls.registerOtp, otp).then((response) => {
         resolve(response);
         console.log("apiMethods" + response);
+      })
+      .catch((err) => {
+        reject(err);
       });
     } catch (error) {
       resolve({ status: 500, message: "Somethings wrong." });
@@ -44,12 +49,14 @@ export const postOTP = (otp: { otp: string }) => {
 //method    POST
 
 export const postResendOTP = (email: { email: string }) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     try {
       console.log(email);
       apiCall("post", userUrls.resendOtp, email).then((response) => {
         resolve(response);
         console.log("apiMethods" + response);
+      }).catch((err) => {
+        reject(err);
       });
     } catch (error) {
       resolve({ status: 500, message: "Somethings wrong." });
@@ -103,12 +110,14 @@ export const googleAuthenticate = (userData: {
 //method    POST
 
 export const forgotPassword = (email: { email: string }) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve ,reject) => {
     try {
       console.log(email);
       apiCall("post", userUrls.forgotPassword, email).then((response) => {
         resolve(response);
         console.log("apiMethods" + response);
+      }).catch((err) => {
+        reject(err);
       });
     } catch (error) {
       resolve({ status: 500, message: "Somethings wrong." });
@@ -120,12 +129,14 @@ export const forgotPassword = (email: { email: string }) => {
 //method    POST
 
 export const forgotOTP = (otp: { otp: string }) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve,reject) => {
     try {
       console.log(otp);
       apiCall("post", userUrls.forgotOtp, otp).then((response) => {
         resolve(response);
         console.log("apiMethods" + response);
+      }).catch((err) => {
+        reject(err);
       });
     } catch (error) {
       resolve({ status: 500, message: "Somethings wrong." });

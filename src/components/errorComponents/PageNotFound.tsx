@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'; // Assuming you are using React Router for navigation
+import { Link } from 'react-router-dom'; 
 import { click, darkMode } from '../../utils/context/reducers/darkmodeSlice';
 import { BsFillMoonStarsFill, BsSun } from 'react-icons/bs';
 

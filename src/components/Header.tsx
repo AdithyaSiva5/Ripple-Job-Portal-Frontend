@@ -171,10 +171,10 @@ const Header: React.FC<HeaderProps> = () => {
           </form>
 
           <ul className="flex justify-between items-center gap-6">
-            <li  onClick={() => navigate('/home/notifications')}>
+            <li  onClick={() => navigate('/notifications')}>
               <Bell color="gray" strokeWidth={1.5} size={20} />
             </li>
-            <li onClick={() => navigate('/home/saved/posts')}>
+            <li onClick={() => navigate('/saved/posts')}>
               <Bookmark color="gray" strokeWidth={1.5} size={20} />
             </li>
             <a

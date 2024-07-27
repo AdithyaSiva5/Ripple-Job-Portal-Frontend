@@ -72,30 +72,38 @@ const appRouter = createBrowserRouter([
       {
         path: "/home",
         element: <UserHome />,
-      },
+      }
+    ],
+  },
+  {
+    path: "/notifications",
+    element: <Protect><App /></Protect>,
+    children: [
       {
-        path: "/home/notifications",
-        element: (
-
-          <Notifications />
-        )
-      },
+        path: "/notifications",
+        element: <Notifications />
+      }
+    ]
+  },
+  {
+    path: "/saved",
+    element: <Protect><App /></Protect>,
+    children: [
       {
-        path: "/home/saved",
+        path: "/saved",
         element: <SavedCollections />,
         children: [
           {
-            path: "/home/saved/posts",
+            path: "/saved/posts",
             element: <SavedPosts />
           },
           {
-            path: "/home/saved/jobs",
+            path: "/saved/jobs",
             element: <SavedJobs />
-
           }
         ]
       }
-    ],
+    ]
   },
   {
     path: "/people",
@@ -104,8 +112,7 @@ const appRouter = createBrowserRouter([
         <App />
       </Protect>
     )
-    ,
-    errorElement: <ErrorPage />
+
     ,
     children: [
       {

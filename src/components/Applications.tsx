@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from "react";
-import { Bookmark } from "lucide-react";
 
 import { useSelector } from "react-redux";
 import ApplyJobForm from "./ApplyJobForm";
@@ -55,7 +54,7 @@ const Applications = () => {
   }, []);
 
   const handleCancelApplication = (applicationId: string) => {
-    cancelJobApplication({applicationId:applicationId,applicantId:userId}).then((response: any) => {
+    cancelJobApplication({ applicationId: applicationId, applicantId: userId }).then((response: any) => {
       const applicationsData = response.data.applications;
       setApplications(applicationsData);
       toast.error(response.data.message)

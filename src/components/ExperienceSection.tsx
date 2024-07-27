@@ -54,7 +54,7 @@ function ExperienceSection({ experiences, onUpdate }) {
       i === index ? { ...exp, [field]: value } : exp
     );
     setLocalExperiences(updatedExperiences);
-
+  
     try {
       await experienceSchema.validateAt(field, updatedExperiences[index]);
       const newErrors = [...errors];
@@ -65,27 +65,34 @@ function ExperienceSection({ experiences, onUpdate }) {
       newErrors[index] = { ...newErrors[index], [field]: error.message };
       setErrors(newErrors);
     }
-
-    onUpdate(filterEmptyFields(updatedExperiences));
+  
+    // Only update if there are no errors for this experience
+    const updatedErrors = [...errors];
+    updatedErrors[index] = { ...updatedErrors[index], [field]: undefined };
+    if (Object.values(updatedErrors[index]).every(err => err === undefined)) {
+      onUpdate(filterEmptyFields(updatedExperiences, updatedErrors));
+    }
   };
 
-  const removeExperience = (index) => {
-    const updatedExperiences = localExperiences.filter((_, i) => i !== index);
-    const updatedErrors = errors.filter((_, i) => i !== index);
-    setLocalExperiences(updatedExperiences);
-    setErrors(updatedErrors);
-    onUpdate(filterEmptyFields(updatedExperiences));
+
+  const filterEmptyFields = (experiences, currentErrors) => {
+    return experiences.filter((exp, index) => {
+      const hasContent = exp.jobPosition || exp.companyName || exp.yearOfJoining;
+      const hasNoErrors = Object.values(currentErrors[index]).every(err => err === undefined);
+      return hasContent && hasNoErrors;
+    }).map(exp => ({
+      ...(exp.jobPosition && { jobPosition: exp.jobPosition }),
+      ...(exp.companyName && { companyName: exp.companyName }),
+      ...(exp.yearOfJoining && { yearOfJoining: parseInt(exp.yearOfJoining, 10) }),
+      ...(exp._id && { _id: exp._id }) 
+    }));
   };
 
-  const filterEmptyFields = (experiences) => {
-    return experiences.filter(exp => exp.jobPosition || exp.companyName || exp.yearOfJoining)
-      .map(exp => ({
-        ...(exp.jobPosition && { jobPosition: exp.jobPosition }),
-        ...(exp.companyName && { companyName: exp.companyName }),
-        ...(exp.yearOfJoining && { yearOfJoining: parseInt(exp.yearOfJoining, 10) }),
-        ...(exp._id && { _id: exp._id }) // Preserve the _id if it exists
-      }));
-  };
+const removeExperience = (index) => {
+  const updatedExperiences = localExperiences.filter((_, i) => i !== index);
+  setLocalExperiences(updatedExperiences);
+  validateAndUpdate(updatedExperiences);
+};
 
   const isFormValid = () => errors.every(error => Object.keys(error).length === 0);
 

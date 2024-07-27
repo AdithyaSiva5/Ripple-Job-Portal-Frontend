@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "sonner";
 import { BASE_URL } from "../constants/baseUrls";
-
+ 
 function ApplyJobForm({ job, cancelApplyJob }: any) {
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";

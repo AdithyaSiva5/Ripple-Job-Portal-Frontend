@@ -248,7 +248,11 @@ function ViewerBio() {
             </div>
           </div>
         </div>
+        
       </div>
+      <div className=" w-full bg-primary  mt-1 flex flex-col px-10 py-6">
+
+        </div>
     </div>
   );
 }
