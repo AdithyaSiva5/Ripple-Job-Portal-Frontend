@@ -1186,6 +1186,24 @@ export const getNotifications = (userId: { userId: string }) => {
     }
   });
 };
+//@dec      get notifications
+//method    POST
+
+export const clearNotifications = (userId: { userId: string }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      apiCall("delete", userUrls.clearNotifications, userId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      resolve({ status: 500, message: "Somethings wrong." });
+    }
+  });
+};
 
 //@dec      initiate checkout
 //method    get

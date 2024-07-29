@@ -16,6 +16,7 @@ export const userUrls = {
   validate: "/validate-payment",
   allTransactions: "/get-transactions",
   getNotifications: "/get-notifications",
+  clearNotifications: "/clear-notifications",
   search: "/search",
   getSettings: "/get-settings",
   updateSettings: "/update-settings",

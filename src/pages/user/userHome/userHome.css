@@ -107,6 +107,12 @@
    overflow: auto;
 
 }
+.home-scroll2{
+    width: 100%;
+    height: 80%;
+    overflow: auto;
+ 
+ }
 .home-scrollbox{
     width: 100%;
     height: 100%;

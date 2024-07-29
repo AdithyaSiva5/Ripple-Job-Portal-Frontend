@@ -96,7 +96,7 @@ function SettingsComponent() {
             className="text-xs flex  hover:bg-green-600 hover:text-black text-green-600 border px-2 py-2 rounded-md border-green-600"
           >
             Open to
-          </button>
+          </button> 
         </div>
 
         <div className="bio  h-full md:h-auto mt-2 text-gray-400 border border-red-600 text-base bg-veryDarkBlue w-full rounded-md p-4 mb-4">

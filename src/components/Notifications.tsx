@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useSelector } from "react-redux";
-import { BellRing } from "lucide-react";
-import { getNotifications } from "../services/api/user/apiMethods";
+import { BellRing, Trash2 } from "lucide-react";
+import { clearNotifications, getNotifications } from "../services/api/user/apiMethods";
+import { toast } from "sonner";
 
 function Notifications() {
   const selectUser = (state: any) => state.auth.user;
@@ -34,6 +35,17 @@ function Notifications() {
       console.log(error);
     }
   }, []);
+  const handleClearNotifications = () => {
+    clearNotifications({ userId: userId })
+      .then(() => {
+        setNotifications([]);
+        toast.success("Cleared")
+      })
+      .catch((error) => {
+        toast.error(error)
+        console.log(error);
+      });
+  };
 
 
   if (notifications.length === 0 && !loading) {
@@ -43,6 +55,7 @@ function Notifications() {
           <p className="text-xs flex gap-2 text-gray-500">
             Notifications <BellRing color="gray" size={15} />
           </p>
+          
         </div>
         <div className="dark:text-white pt-1 mr-1 pr-20 ">No notifications</div>
       </div>
@@ -52,13 +65,20 @@ function Notifications() {
   return (
     <div>
       <div className="home-notification-section-2">
-        <div className="border profile-nav flex items-center justify-start ps-6 bg-white rounded-md mt-5 mx-5">
+        <div className="border profile-nav flex items-center justify-between ps-6 bg-white rounded-md mt-5 mx-5">
           <p className="text-xs flex gap-2 text-gray-500">
             Notifications <BellRing color="gray" size={15} />
           </p>
+          <button
+          onClick={handleClearNotifications}
+          className="text-xs text-gray-500  hover:text-red-500 transition-colors duration-200 pr-10"
+        >
+          <Trash2 size={15} />
+        </button>
         </div>
+        
 
-        <div className="home-scroll">
+        <div className="home-scroll2">
           <div className="home-scrollbox">
             {notifications?.map((notification: any) => (
               <div
