@@ -44,6 +44,12 @@ const Interviews = () => {
     });
   };
 
+  if(interviews.length === 0) {
+    return(
+      <div className="text-red-600 mt-10"> No Interviews Found</div>
+    )
+  }
+
   return (
     <>
       {interviews?.map((interview) => (

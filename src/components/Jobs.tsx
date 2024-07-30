@@ -84,12 +84,12 @@ const Jobs = () => {
   }, []);
   const handleSave = (jobId: string, userId: string) => {
     try {
-      savePost({ postId:null, userId,jobId})
+      savePost({ postId: null, userId, jobId })
         .then((response: any) => {
           const userData = response.data;
-      
+
           dispatch(updateUser({ user: userData }));
-     
+
         })
         .catch((error) => {
           toast.error(error.message);
@@ -160,24 +160,24 @@ const Jobs = () => {
               </div>
             </div>
           </div>
-          {user.dailyJobsApplied < 3 || user.isPremium?(
-          <div className="w-full flex justify-end mt-10">
-            <button
-              onClick={() => handleApplyJob(job)}
-              className="text-xs rounded btn border w-24 px-4 py-2 cursor-pointer text-white ml-2 bg-green-600"
-            >
-              Apply
-            </button>
-          </div>
-          ): (
+          {(user.dailyJobsApplied ?? 0) < 3 || user.isPremium ? (
             <div className="w-full flex justify-end mt-10">
-            <button
-              className="text-xs rounded btn border w-24 px-4 py-1 cursor-pointer text-white ml-2 bg-red-600 flex"
-            >
-              Need Premium <Lock className="flex"/>
-            </button>
+              <button
+                onClick={() => handleApplyJob(job)}
+                className="text-xs rounded btn border w-24 px-4 py-2 cursor-pointer text-white ml-2 bg-green-600"
+              >
+                Apply {3 - (user.dailyJobsApplied ?? 0)} left
+              </button>
             </div>
-          ) }
+          ) : (
+            <div className="w-full flex justify-end mt-10">
+              <button
+                className="text-xs rounded btn border w-24 px-4 py-1 cursor-pointer text-white ml-2 bg-red-600 flex"
+              >
+                Need Premium <Lock className="flex" />
+              </button>
+            </div>
+          )}
 
           {isApply && selectedjob._id === job._id && <ApplyJobForm job={selectedjob} cancelApplyJob={cancelApplyJob} />}
         </div>

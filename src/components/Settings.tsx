@@ -73,7 +73,6 @@ function SettingsComponent() {
       }
     } catch (error) {
       console.error("Error updating settings:", error);
-      toast.error("An error occurred while updating settings");
     }
   };
   const handleGenderChange = (e) => {
@@ -99,7 +98,7 @@ function SettingsComponent() {
           </button> 
         </div>
 
-        <div className="bio  h-full md:h-auto mt-2 text-gray-400 border border-red-600 text-base bg-veryDarkBlue w-full rounded-md p-4 mb-4">
+        <div className="bio  h-full md:h-auto mt-2 text-gray-400 border border-red-600 text-base bg-primary w-full rounded-md p-4 mb-4">
             <h1 className="text-center">Basic Information</h1>
           <div className="flex justify-between  ">
             <p>Name : {user.profile?.fullname}</p>

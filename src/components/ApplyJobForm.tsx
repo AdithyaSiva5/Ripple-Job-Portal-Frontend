@@ -3,17 +3,18 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "sonner";
 import { BASE_URL } from "../constants/baseUrls";
- 
+import { updateUser } from "../utils/context/reducers/authSlice";
+
 function ApplyJobForm({ job, cancelApplyJob }: any) {
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
   const userId = user._id || "";
   const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const validationSchema = Yup.object({
     resume: Yup.mixed().required('Resume is required').test('fileSize', 'File too large', (value: any) => value && value.size <= 5000000).test('fileType', 'Invalid file type', (value: any) => value && value.type === 'application/pdf'),
     coverLetter: Yup.string().required('Cover letter is required'),
@@ -40,15 +41,24 @@ function ApplyJobForm({ job, cancelApplyJob }: any) {
 
 
 
-      if (response.data.success) {
+      if(response.status==201){
         toast.success(response.data.message)
-        resetForm();
-        cancelApplyJob()
-      } else {
-        toast.error(response.data.message || 'An error occurred while applying for the job')
+      
+        console.log(response.data);
+        const data = response.data;
+        dispatch(updateUser( {user:data}));
+      
+      
+        
+      
+      }else{
+        toast.error(response.data.message)
       }
+      
+      resetForm();
+      cancelApplyJob()
 
-    } catch (error : any) {
+    } catch (error: any) {
       console.error('Error applying for job:', error);
       if (error.response) {
         toast.error(error.response.data.message || 'An error occurred while applying for the job');

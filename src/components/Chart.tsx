@@ -3,117 +3,122 @@ import ReactApexChart from "react-apexcharts";
 import { chartData } from "../services/api/admin/apiMethods";
 
 const ApexChart: React.FC = () => {
-  const [userData, setUserData] = useState<any[]>([]);
-  const [postData, setPostData] = useState<any[]>([]);
-  const [jobData, setJobData] = useState<any[]>([]);
-
-  const [options] = useState<any>({
+  const [series, setSeries] = useState<any[]>([]);
+  const [options, setOptions] = useState<any>({
     chart: {
       height: 350,
-      type: "line",
+      type: "area",
+      zoom: {
+        enabled: false
+      }
+    },
+    dataLabels: {
+      enabled: false
     },
     stroke: {
-      width: 5,
-      curve: "smooth",
+      width: 3,
+      curve: "smooth"
     },
     xaxis: {
       type: "datetime",
       labels: {
-        formatter: function (value: any, timestamp: any, opts: any) {
-          return opts.dateFormatter(new Date(value), "MMM yyyy");
-        },
+        format: 'MMM yyyy',
+        datetimeUTC: false,
       },
+      tickAmount: 4, // This will show approximately 4 ticks on the x-axis
+    },
+    yaxis: {
+      title: {
+        text: 'Count'
+      },
+      min: 0
     },
     title: {
-      text: "User Growth and Post Creation",
+      text: "User Growth, Post and Job Creation",
       align: "left",
       style: {
-        fontSize: "16px",
-        color: "#666",
-      },
+        fontSize: "18px",
+        fontWeight: "bold",
+        color: "#263238"
+      }
     },
+    legend: {
+      position: 'top'
+    },
+    colors: ['#008FFB', '#00E396', '#FEB019'],
     fill: {
       type: "gradient",
       gradient: {
-        shade: "dark",
-        gradientToColors: ["#7E3AF2", "#3BA55D"], 
         shadeIntensity: 1,
-        type: "horizontal",
-        opacityFrom: 1,
-        opacityTo: 1,
-        stops: [0, 100, 100, 100],
-      },
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+        stops: [0, 90, 100]
+      }
     },
-    yaxis: {
-      min: 0,
-    },
+    tooltip: {
+      x: {
+        format: 'dd MMM yyyy'
+      }
+    }
   });
 
   useEffect(() => {
     chartData()
       .then((response: any) => {
         const { userJoinStats, postCreationStats, jobCreationStats } = response.data;
-  
- 
-        setUserData(userJoinStats.map((item: any) => ({
-          month: new Date(item._id).toISOString(),
-          userCount: item.userCount,
-        })));
-  
-      
-        setPostData(postCreationStats.map((item: any) => ({
-          month: new Date(item._id).toISOString(),
-          postCount: item.postCount,
-        })));
-  
-      
-        setJobData(jobCreationStats.map((item: any) => ({
-          month: new Date(item._id).toISOString(),
-          jobCount: item.jobCount,
-        })));
-  
-        console.log(userJoinStats);
-        console.log(postCreationStats);
-        console.log(jobCreationStats);
+
+        // Combine all dates and sort them
+        const allDates = [...new Set([
+          ...userJoinStats.map((item: any) => item._id),
+          ...postCreationStats.map((item: any) => item._id),
+          ...jobCreationStats.map((item: any) => item._id)
+        ])].sort();
+
+        // Create a map for each stat type
+        const userMap = new Map(userJoinStats.map((item: any) => [item._id, item.userCount]));
+        const postMap = new Map(postCreationStats.map((item: any) => [item._id, item.postCount]));
+        const jobMap = new Map(jobCreationStats.map((item: any) => [item._id, item.jobCount]));
+
+        // Generate series data
+        const userData = allDates.map(date => [new Date(date).getTime(), userMap.get(date) || 0]);
+        const postData = allDates.map(date => [new Date(date).getTime(), postMap.get(date) || 0]);
+        const jobData = allDates.map(date => [new Date(date).getTime(), jobMap.get(date) || 0]);
+
+        setSeries([
+          { name: "Users Joined", data: userData },
+          { name: "Posts Created", data: postData },
+          { name: "Jobs Created", data: jobData }
+        ]);
+
+        // Update options to set y-axis max
+        const maxValue = Math.max(
+          ...userData.map(d => d[1]),
+          ...postData.map(d => d[1]),
+          ...jobData.map(d => d[1])
+        );
+        setOptions(prevOptions => ({
+          ...prevOptions,
+          yaxis: {
+            ...prevOptions.yaxis,
+            max: Math.ceil(maxValue * 1.1) // Set max to 110% of the highest value
+          }
+        }));
+
       })
       .catch((error: any) => {
         console.error("Error fetching chart data:", error);
       });
   }, []);
 
-  const userSeries = [
-    {
-      name: "Users Joined",
-      data: userData.map((data) => [new Date(data.month).getTime(), data.userCount]),
-    },
-  ];
-  
-  const postSeries = [
-    {
-      name: "Posts Created",
-      data: postData.map((data) => [new Date(data.month).getTime(), data.postCount]),
-    },
-  ];
-  
-  const jobSeries = [
-    {
-      name: "Jobs Created",
-      data: jobData.map((data) => [new Date(data.month).getTime(), data.jobCount]),
-    },
-  ];
-
   return (
-    <>
-      <div id="chart" className="ms-20 mt-5 items-center p-10 border rounded-lg   bg-white" style={{width:"1130px"}}>
-        <ReactApexChart
-          options={options}
-          series={userSeries.concat(postSeries).concat(jobSeries)}
-          type="line"
-          height={350}
-        />
-      </div>
-      <div id="html-dist"></div>
-    </>
+    <div id="chart" className="ms-20 mt-5 items-center p-10 border rounded-lg bg-white" style={{width:"1130px"}}>
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="area"
+        height={350}
+      />
+    </div>
   );
 };
 

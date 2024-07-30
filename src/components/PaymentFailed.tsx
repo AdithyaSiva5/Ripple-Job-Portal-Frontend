@@ -39,7 +39,7 @@ function PaymentFailed() {
   const userId = user._id || "";
   const [loading, setLoading] = useState(false);
   const makePayment = async () => {
-    const stripe = await loadStripe("pk_test_51PdDVhRsmrCuGQOsjPFLxoigC8qf6ANl7aKunPE2DlQJ681OAmMKrogOCiDhv9TaTivvkT85QyYy1UFC4qfeo15200mHQYuHNy")
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPEKEY)
 
     try {
       setLoading(true);

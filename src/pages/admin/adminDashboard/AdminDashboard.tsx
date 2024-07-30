@@ -7,26 +7,26 @@ import { useSelector } from 'react-redux';
 
 
 function AdminDashboard() {
-  const selectUser = (state:any)=>state.adminAuth.admin;
+  const selectUser = (state: any) => state.adminAuth.admin;
   const admin = useSelector(selectUser);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
-    if (!admin ) {
+    if (!admin) {
       navigate("/admin/login");
     }
-  },[admin,  navigate]);
+  }, [admin, navigate]);
   return (
     <div className='main bg-gray-100 '>
-<AdminHeader/>
-<div className='flex'>
-<AdminSideNav/>
- <Outlet/>
+      <AdminHeader />
+      <div className='flex bg-gray-100'>
+        <AdminSideNav />
+        <Outlet />
 
-</div>
+      </div>
 
 
-</div>
+    </div>
   )
 }
 

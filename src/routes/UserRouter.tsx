@@ -359,7 +359,8 @@ const appRouter = createBrowserRouter([
     ),
     errorElement: <ErrorPage />
 
-  }, {
+  },
+   {
     path: "/premium",
     element: (
       <Protect>

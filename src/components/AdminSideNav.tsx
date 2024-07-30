@@ -4,7 +4,7 @@ function AdminSideNav() {
 
     const navigate = useNavigate()
     return (
-        <div className="sidebar-menu w-64   p-4 z-50  bg-white ms-6 mt-5 rounded-lg">
+        <div className="sidebar-menu w-64   p-4 z-50  bg-white ms-6 mt-5 rounded-lg ">
 
             <ul className="mt-4  flex-col ">
                 <span className="text-green-600  font-bold flex  pb-8 px-4  ">Overview</span>

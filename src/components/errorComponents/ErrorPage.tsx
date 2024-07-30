@@ -16,7 +16,7 @@ const PageNotFound = () => {
     }
   }, [dark]);
   return (
-    <div className="dark:bg-fill min-h-screen " id="home">
+    <div className="dark:bg-fill min-h-screen overflow-hidden" id="home">
       <nav className=" z-10 bg-primary border dark:border-none px-4 lg:px-6 py-2.5 ">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl ">
           <a href="" className="flex items-center">

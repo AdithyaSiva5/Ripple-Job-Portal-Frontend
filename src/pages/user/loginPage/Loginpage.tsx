@@ -25,11 +25,11 @@ function Login() {
 
   useEffect(() => {
     if (!dark) {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove('dark')
     } else {
-      document.documentElement.classList.add("dark");
+      document.documentElement.classList.add('dark')
     }
-  }, [dark]);
+  }, [dark])
 
   const selectUser = (state: any) => state.auth.user;
   const user = useSelector(selectUser);
@@ -120,10 +120,10 @@ function Login() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-primary overflow-hidden">
       <div
         id="login"
-        className="hidden login lg:flex items-center justify-center flex-1 bg-white  text-black"
+        className="hidden login lg:flex items-center justify-center flex-1   text-black"
       ></div>
 
       <div className="w-full  lg:w-1/2 flex items-center justify-center ">
@@ -133,7 +133,7 @@ function Login() {
         </div>
 
         <div className="max-w-md w-full p-6">
-          <p className="title text-4xl font-black  mb-2 text-black ">
+          <p className="title text-4xl font-black  mb-2 text-black dark:text-white">
             Login to your account.
           </p>
           <h1 className="text-sm  mb-6 text-gray-500 ">

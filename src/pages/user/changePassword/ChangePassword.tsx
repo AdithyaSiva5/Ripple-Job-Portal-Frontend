@@ -9,6 +9,9 @@ import {
 } from "../../../utils/validation/changePasswordValidation";
 import { useNavigate } from "react-router-dom";
 import { renewPassword } from "../../../services/api/user/apiMethods";
+import { useSelector } from 'react-redux';
+import { darkMode } from '../../../utils/context/reducers/darkmodeSlice';
+import { useEffect } from 'react';
 
 
 function ChangePassword() {
@@ -23,14 +26,22 @@ function ChangePassword() {
       toast.error(error.message);
     })
   }
+  const dark = useSelector(darkMode)
 
+  useEffect(() => {
+    if (!dark) {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+  }, [dark])
 
 
   return (
      
    
     <div className="flex h-screen">
-      <div id='login' className="hidden login lg:flex items-center justify-center flex-1 bg-white text-black" >
+      <div id='login' className="hidden login lg:flex items-center justify-center flex-1 dark:bg-[#1B1F24] text-black" >
 
 
       </div>
@@ -39,7 +50,7 @@ function ChangePassword() {
         <div className='logo'>   <img src="https://i.postimg.cc/wvvhmZhZ/ripple-logo.png" alt="" /></div>
         
         <div className="max-w-md w-full p-6" >
-          <p className="title text-4xl font-black  mb-2 text-black ">Set new password.</p>
+          <p className="title text-4xl font-black  mb-2 text-black dark:text-white">Set new password.</p>
           <h1 className="text-sm  mb-6 text-gray-500 ">Please use a strong password</h1>
            <Formik
             initialValues={initialValues}

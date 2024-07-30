@@ -16,9 +16,9 @@ function InterviewCall() {
   const username = user.username;
 
   const handleLeaveRoom = () => {
- 
+
     navigate(location.state?.from || "/");
-  }; 
+  };
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -29,7 +29,7 @@ function InterviewCall() {
         console.error("Invalid Zegocloud configuration");
         return;
       }
-      
+
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appId,
         serverSecret,
@@ -37,7 +37,7 @@ function InterviewCall() {
         Date.now().toString(),
         username
       );
-      const zc = ZegoUIKitPrebuilt.create(kitToken);  
+      const zc = ZegoUIKitPrebuilt.create(kitToken);
       zc.joinRoom({
         container: containerRef.current,
         scenario: {
@@ -45,13 +45,13 @@ function InterviewCall() {
         },
         showPreJoinView: true,
         preJoinViewConfig: {
-          title: "Interview Meeting"  
+          title: "Interview Meeting"
         },
         branding: {
           logoURL: "https://i.postimg.cc/wvvhmZhZ/ripple-logo.png"
         },
         showScreenSharingButton: true,
-        showRoomTimer:true,
+        showRoomTimer: true,
         turnOnCameraWhenJoining: true,
         turnOnMicrophoneWhenJoining: false,
         showLeaveRoomConfirmDialog: false,
@@ -59,10 +59,10 @@ function InterviewCall() {
       });
     };
     myMeeting();
-  },[roomId,userId,username,navigate]);
+  }, [roomId, userId, username, navigate]);
   return (
     <div>
-      <div ref={containerRef} style={{height:'100vh',width:'100vw'}}/>
+      <div ref={containerRef} style={{ height: '100vh', width: '100vw' }} />
     </div>
   );
 }

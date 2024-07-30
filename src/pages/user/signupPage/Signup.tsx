@@ -45,7 +45,7 @@ function Signup() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-primary">
       <div
         id="signup"
         className="hidden lg:flex items-center justify-center flex-1 bg-white text-black"
@@ -58,7 +58,7 @@ function Signup() {
         </div>
 
         <div className="max-w-md w-full p-6">
-          <p className="title text-4xl font-black  mb-2 text-black ">
+          <p className="title text-4xl font-black  mb-2 text-black dark:text-white">
             Register with us.
           </p>
           <h1 className="text-sm  mb-6 text-gray-500 ">

@@ -48,7 +48,7 @@ function UserPost() {
   return (
     <>
       {posts.length === 0 && (
-        <div className="dark:text-white">No Posts</div>
+        <div className="text-red-600">No Posts</div>
       )}
       
       {posts.length > 0 && !loading && (

@@ -47,9 +47,11 @@ const Applications = () => {
         })
         .catch((error) => {
           console.log(error.message);
+          setApplications([]);
         });
     } catch (error) {
       console.log(error);
+      setApplications([]);
     }
   }, []);
 
@@ -61,7 +63,9 @@ const Applications = () => {
 
     })
   };
-
+  if (!applications || applications.length === 0) {
+    return <div className='text-red-600 mt-10'>No applications found</div>;
+  }
 
   return (
     <>
@@ -117,7 +121,7 @@ const Applications = () => {
 
             <div className=" flex justify-end mt-10">
 
-              {application.applicationStatus == "Pending" && (
+              {/* {application.applicationStatus == "Pending" && (
                 <button
                   onClick={() => { handleCancelApplication(application._id) }}
                   className="text-xs rounded btn border px-4 py-2 cursor-pointer text-red-600 ml-2 bg-white"
@@ -125,8 +129,8 @@ const Applications = () => {
                   Cancel Application
                 </button>
 
-              )}
-              {application.applicationStatus !== "Pending" && (
+              )} */}
+              {/* {application.applicationStatus !== "Pending" && (
                 <button
 
                   className="text-xs rounded btn border px-4 py-2 cursor-pointer text-green-600 ml-2 bg-white"
@@ -134,7 +138,7 @@ const Applications = () => {
                   View Application
                 </button>
 
-              )}
+              )} */}
 
             </div>
           </div>
