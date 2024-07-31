@@ -20,6 +20,8 @@ export const userUrls = {
   search: "/search",
   getSettings: "/get-settings",
   updateSettings: "/update-settings",
+  refreshToken: '/refresh-token',
+  logout: '/logout',
 };
 
 export const authUrl = {

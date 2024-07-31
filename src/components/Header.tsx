@@ -6,8 +6,9 @@ import { logout } from "../utils/context/reducers/authSlice";
 import { click, darkMode } from "../utils/context/reducers/darkmodeSlice";
 import { BsFillMoonStarsFill, BsSun } from "react-icons/bs";
 import { toast } from "sonner";
+import { logoutUser } from "../services/api/user/apiMethods";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const Header: React.FC<HeaderProps> = () => {
   const dark = useSelector(darkMode);
@@ -27,6 +28,7 @@ const Header: React.FC<HeaderProps> = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState<string>("");
+
 
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
@@ -51,9 +53,26 @@ const Header: React.FC<HeaderProps> = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem("email");
-    navigate("/login");
+    navigate("/")
+    logoutUser()
+      .then(() => {
+        console.log("Logout successful");
+        dispatch(logout());
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Logout failed:", error);
+        if (error.response) {
+          console.error("Error response:", error.response.data);
+          console.error("Error status:", error.response.status);
+        } else if (error.request) {
+          console.error("No response received:", error.request);
+        } else {
+          console.error("Error setting up request:", error.message);
+        }
+        dispatch(logout());
+        navigate("/login", { replace: true });
+      });
   };
 
   const activeLinkStyle = "text-green-600 ";
@@ -92,11 +111,10 @@ const Header: React.FC<HeaderProps> = () => {
             <li>
               <a
                 onClick={() => navigate("/home")}
-                className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b  border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${
-                  location.pathname.startsWith("/home")
+                className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b  border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname.startsWith("/home")
                     ? activeLinkStyle
                     : inactiveLinkStyle
-                }`}
+                  }`}
               >
                 Home
               </a>
@@ -104,11 +122,10 @@ const Header: React.FC<HeaderProps> = () => {
             <li>
               <a
                 onClick={() => navigate("/people/discover")}
-                className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${
-                  location.pathname.startsWith("/people")
+                className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname.startsWith("/people")
                     ? activeLinkStyle
                     : inactiveLinkStyle
-                }`}
+                  }`}
               >
                 People
               </a>
@@ -116,11 +133,10 @@ const Header: React.FC<HeaderProps> = () => {
             <li>
               <a
                 onClick={() => navigate("/jobs/open-to-work/job-list")}
-                className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${
-                  location.pathname.startsWith("/jobs")
+                className={`text-xs font-bold block py-2 pr-4 pl-3 text-accent border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:p-0  lg:dark:hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname.startsWith("/jobs")
                     ? activeLinkStyle
                     : inactiveLinkStyle
-                }`}
+                  }`}
               >
                 Jobs
               </a>
@@ -224,9 +240,8 @@ const Header: React.FC<HeaderProps> = () => {
 
               <div
                 ref={dropdownRef}
-                className={`absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-lg ${
-                  isUserMenuOpen ? "block" : "hidden"
-                }`}
+                className={`absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-lg ${isUserMenuOpen ? "block" : "hidden"
+                  }`}
               >
                 <div className="px-4 py-4">
                   <span className="block text-xs font-semibold text-gray-900">

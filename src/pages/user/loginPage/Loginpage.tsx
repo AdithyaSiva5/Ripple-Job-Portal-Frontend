@@ -42,7 +42,7 @@ function Login() {
         const data = response.data;
         if (response.status === 200) {
           toast.success(data.message);
-          dispatch(loginSuccess({ user: data }));
+          dispatch(loginSuccess({ user: { user: data.user, token: data.accessToken } }));
           navigate("/home");
         } else {
           console.log(response.message);
@@ -54,7 +54,6 @@ function Login() {
         toast.error(error?.message);
       });
   };
-
   const googleSubmit = () => {
     signInWithPopup(auth, provider).then((data: any) => {
       console.log(data);
@@ -70,7 +69,7 @@ function Login() {
           const data = response.data;
           if (response.status === 200) {
             toast.success(data.message);
-            dispatch(loginSuccess({ user: data }));
+            dispatch(loginSuccess({ user: { user: data.user, token: data.accessToken } }));
             navigate("/home");
           } else {
             console.log(response.message);
@@ -90,34 +89,7 @@ function Login() {
     }
   }, [user, navigate]);
 
-  const facebookSubmit = () => {
-    signInWithPopup(auth, fbProvider).then((data: any) => {
-      console.log(data);
 
-      const userData = {
-        username: data.user.displayName,
-        email: data.user.email,
-        imageUrl: data.user.photoURL,
-      };
-
-      googleAuthenticate(userData)
-        .then((response: any) => {
-          const data = response.data;
-          if (response.status === 200) {
-            toast.success(data.message);
-            dispatch(loginSuccess({ user: data }));
-            navigate("/home");
-          } else {
-            console.log(response.message);
-            toast.error(data.message);
-          }
-        })
-        .catch((error) => {
-          console.log(error?.message);
-          toast.error(error?.message);
-        });
-    });
-  };
 
   return (
     <div className="flex h-screen bg-primary overflow-hidden">

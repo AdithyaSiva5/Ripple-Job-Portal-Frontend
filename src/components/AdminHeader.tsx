@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Bell, Bookmark, Mail } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AdminLogout } from "../utils/context/reducers/adminAuthSlice";

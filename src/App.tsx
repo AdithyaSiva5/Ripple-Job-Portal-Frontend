@@ -5,7 +5,7 @@ import { removeDarkMode, setDarkMode } from "./utils/context/reducers/darkmodeSl
 import Header from "./components/Header";
 import UserProfileBar from "./components/UserProfileBar";
 import FilterProvider from "./utils/context/jobfilterData/FilterProvider";
-
+import './services/api/user/apiCalls';
 
 function App() {
   const selectUser = (state: any) => state.auth.user;
