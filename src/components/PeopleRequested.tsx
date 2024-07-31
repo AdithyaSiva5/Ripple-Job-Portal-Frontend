@@ -60,7 +60,7 @@ function PeopleRequested() {
     
       <div>
 
-      {requested.length === 0 ? (
+      {!requested || requested.length === 0 ? (
        <div className="">
        <div className="flex flex-row flex-wrap gap-x-8 gap-y-0 mt-10 text-red-600">
             No Requested Found

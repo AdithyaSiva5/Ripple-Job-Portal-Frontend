@@ -55,7 +55,7 @@ function PeopleConnections() {
   return (
     <div >
 
-      {connections.length === 0 ? (
+      {!connections || connections.length === 0 ? (
         <div >
           <div className="flex flex-row flex-wrap gap-x-8 gap-y-0 mt-10 text-red-600">
             No Connections Available

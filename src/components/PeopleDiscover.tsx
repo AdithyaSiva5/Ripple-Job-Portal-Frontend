@@ -44,6 +44,14 @@ function PeopleDiscover() {
     <div>Loading ...</div>;
   }
 
+  if(!users || users.length === 0 ){
+    return (
+      <div className="text-red-600 mt-10">
+        No People to discover
+
+      </div>
+    )
+  }
   return (
     <div>
       {loading ? (
