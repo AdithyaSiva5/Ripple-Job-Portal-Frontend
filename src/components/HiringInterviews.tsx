@@ -60,8 +60,8 @@ const HiringInterviews = () => {
                 {interview?.jobId?.jobRole?.slice(0, 1)}
               </div>
               <div className="mx-5">
-                <p className="text-sm">{interview.jobId.companyName}</p>
-                <p className="text-sm font-bold">{interview.jobId.jobRole}</p>
+                <p className="text-sm">{interview.jobId?.companyName}</p>
+                <p className="text-sm font-bold">{interview.jobId?.jobRole}</p>
               </div>
             </div>
           </div>

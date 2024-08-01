@@ -44,7 +44,7 @@ const Interviews = () => {
     });
   };
 
-  if(interviews.length === 0) {
+  if(!interviews ||interviews.length === 0) {
     return(
       <div className="text-red-600 mt-10"> No Interviews Found</div>
     )
@@ -60,8 +60,8 @@ const Interviews = () => {
                 {interview?.jobId?.jobRole?.slice(0, 1)}
               </div>
               <div className="mx-5">
-                <p className="text-sm">{interview.jobId.companyName}</p>
-                <p className="text-sm font-bold">{interview.jobId.jobRole}</p>
+                <p className="text-sm">{interview.jobId?.companyName}</p>
+                <p className="text-sm font-bold">{interview.jobId?.jobRole}</p>
               </div>
             </div>
           </div>
