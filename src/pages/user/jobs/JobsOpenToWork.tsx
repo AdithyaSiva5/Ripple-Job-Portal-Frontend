@@ -38,7 +38,7 @@ function JobsOpenToWork() {
 
     <div>
       <div className="home-section-2 ">
-      <div className="border  profile-nav flex items-center justify-center gap-20  bg-white rounded-md mt-5 mx-5" >
+      <div className="border  profile-nav flex items-center justify-center gap-20  bg-secondary dark:border dark:border-green  rounded-md mt-5 mx-5" >
       <button
             onClick={() => { navigate('/jobs/open-to-work/job-list') }}
             className={`text-xs font-medium text-gray-400 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${

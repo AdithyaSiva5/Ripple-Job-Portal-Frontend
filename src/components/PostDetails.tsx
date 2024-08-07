@@ -81,7 +81,7 @@ const PostDetails: React.FC<PostProps> = ({
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editCommentText, setEditCommentText] = useState('');
 
-  const handleEditComment = (commentId : any, currentComment : any) => {
+  const handleEditComment = (commentId: any, currentComment: any) => {
     setEditingCommentId(commentId);
     setEditCommentText(currentComment);
   };
@@ -91,10 +91,10 @@ const PostDetails: React.FC<PostProps> = ({
       if (!editingCommentId || !editCommentText) {
         toast.error('Comment ID or text is missing');
         return;
-      }  
+      }
       const response: any = await editComment(editingCommentId, editCommentText);
       console.log('Edit comment response:', response);
-  
+
       if (response && response.status === 200) {
         setComments(response.data.comments);
         toast.success(response.data.message);
@@ -632,7 +632,7 @@ const PostDetails: React.FC<PostProps> = ({
                                 <>
                                   <button
                                     onClick={() => handleEditComment(comment._id, comment.comment)}
-                                   
+
                                     className="text-xs text-blue-600 ml-2"
                                   >
                                     Edit

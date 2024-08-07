@@ -8,9 +8,9 @@ function People() {
   return (
     <div>
       <div className="people-section-3 mx-5 ">
-        <div className="people-scroll">
-          <div className="people-scrollbox">
-            <div className="border  people-profile-nav flex items-center justify-center gap-20 bg-white rounded-lg ">
+        <div className="people-scroll ">
+          <div className="people-scrollbox ">
+            <div className="border  people-profile-nav flex items-center justify-center gap-20 bg-secondary rounded-lg  dark:border dark:border-green ">
               <button
                 onClick={() => {
                   navigate("/people/discover");

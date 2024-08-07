@@ -65,13 +65,13 @@ function Notifications() {
   return (
     <div>
       <div className="home-notification-section-2">
-        <div className="border profile-nav flex items-center justify-between ps-6 bg-white rounded-md mt-5 mx-5">
-          <p className="text-xs flex gap-2 text-gray-500">
+        <div className="border profile-nav flex items-center justify-between ps-6 bg-secondary dark:border dark:border-green rounded-md mt-5 mx-5">
+          <p className="text-xs flex gap-2 text-gray-500 dark:text-white">
             Notifications <BellRing color="gray" size={15} />
           </p>
           <button
           onClick={handleClearNotifications}
-          className="text-xs text-gray-500  hover:text-red-500 transition-colors duration-200 pr-10"
+          className="text-xs text-gray-500 dark:text-red-400  hover:text-red-500 transition-colors duration-200 pr-10 "
         >
           <Trash2 size={15} />
         </button>

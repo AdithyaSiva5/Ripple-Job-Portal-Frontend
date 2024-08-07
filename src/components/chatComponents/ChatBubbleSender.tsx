@@ -1,9 +1,9 @@
 
 
-const ChatBubbleSender = ({message}:any) => {
-    return ( 
-      <div className="w-full flex justify-end items-start gap-2.5 " >
-  
+const ChatBubbleSender = ({ message }: any) => {
+  return (
+    <div className="w-full flex justify-end items-start gap-2.5 " >
+
       <div className="flex flex-col gap-1 w-full  max-w-[320px]">
         <div className="flex items-center space-x-2 rtl:space-x-reverse">
           <span className="text-xs font-semibold text-gray-900 dark:text-white ">
@@ -19,7 +19,7 @@ const ChatBubbleSender = ({message}:any) => {
           </p>
         </div>
         <span className="text-xs font-normal text-gray-500 dark:text-gray-400">
-          Delivered
+          {new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>
       </div>
       <div
@@ -55,8 +55,7 @@ const ChatBubbleSender = ({message}:any) => {
         </ul>
       </div>
     </div>
-    );
-  };
-  
-  export default ChatBubbleSender;
-  
+  );
+};
+
+export default ChatBubbleSender;

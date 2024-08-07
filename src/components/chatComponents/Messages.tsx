@@ -9,6 +9,8 @@ import {
 } from "../../services/api/user/apiMethods";
 import ChatBubbleReciver from "./ChatBubbleReciever";
 import ChatBubbleSender from "./ChatBubbleSender";
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 
 function Messages({ user, currentChat, socket, onlineUsers }) {
   const [newMessage, setNewMessage] = useState("");
@@ -19,6 +21,12 @@ function Messages({ user, currentChat, socket, onlineUsers }) {
   const navigate = useNavigate();
   const location = useLocation();
   const scrollRef = useRef(null);
+
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const handleEmojiSelect = (emoji) => {
+    setNewMessage(prevMessage => prevMessage + emoji.native);
+  };
 
   useEffect(() => {
     const friendUser = currentChat?.members?.find((m) => m._id !== user._id);
@@ -144,7 +152,12 @@ function Messages({ user, currentChat, socket, onlineUsers }) {
             placeholder="Type your message..."
             className="w-full h-10 pl-10 pr-10 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-600"
           />
-          <Smile size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+           <button
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          >
+            <Smile size={18} />
+          </button>
           <button
             onClick={handleSubmit}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-600 hover:text-green-700"
@@ -152,6 +165,11 @@ function Messages({ user, currentChat, socket, onlineUsers }) {
             <SendHorizonal size={18} />
           </button>
         </div>
+        {showEmojiPicker && (
+          <div className="absolute bottom-16 ">
+            <Picker data={data} onEmojiSelect={handleEmojiSelect} />
+          </div>
+        )}
       </div>
     </div>
   );

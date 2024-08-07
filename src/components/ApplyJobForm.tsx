@@ -41,20 +41,20 @@ function ApplyJobForm({ job, cancelApplyJob }: any) {
 
 
 
-      if(response.status==201){
+      if (response.status == 201) {
         toast.success(response.data.message)
-      
+
         console.log(response.data);
         const data = response.data;
-        dispatch(updateUser( {user:data}));
-      
-      
-        
-      
-      }else{
+        dispatch(updateUser({ user: data }));
+
+
+
+
+      } else {
         toast.error(response.data.message)
       }
-      
+
       resetForm();
       cancelApplyJob()
 

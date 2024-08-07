@@ -95,13 +95,13 @@ function OtpPage() {
 
     if (timer === 0) {
       setResend(true);
-      toast.info("OTP has expired Please resent");
+      toast.error("OTP has expired Please resent");
       return;
     }
 
     const otp: string = otp1 + otp2 + otp3 + otp4 || "";
     if (otp.trim().length !== 4) {
-      toast.error("Enter a Valid OTP");
+      toast.info("Enter a Valid OTP");
       return;
     }
 
@@ -120,6 +120,8 @@ function OtpPage() {
       })
       .catch((error) => {
         console.log(error?.message);
+        toast.error(error.message);
+
       });
   };
 

@@ -12,25 +12,25 @@ import { darkMode } from "../../../utils/context/reducers/darkmodeSlice";
 function Chat() {
   const selectUser = (state: any) => state.auth.user;
   const user = useSelector(selectUser);
-  const userId = user._id; 
+  const userId = user._id;
   const [conversations, setConversations] = useState<any[]>([]);
   const [currentChat, setCurrentChat] = useState('');
-  const socket = useRef<any>() 
+  const socket = useRef<any>()
   const [onlineUsers, setOnlineUsers] = useState([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const messageUserId = queryParams.get("userId");
-  
+
   useEffect(() => {
     socket.current = io(BASE_URL);
 
-    if(messageUserId){
+    if (messageUserId) {
       addConversation({ senderId: userId, receiverId: messageUserId }).then(
-        (response:any) => {
+        (response: any) => {
           const userData = response.data;
-          const existChat = conversations.filter((con:any)=>con._id===userData._id);
-          if(!existChat.length){
-              setConversations((prev) => [...prev, userData]);
+          const existChat = conversations.filter((con: any) => con._id === userData._id);
+          if (!existChat.length) {
+            setConversations((prev) => [...prev, userData]);
           }
           setCurrentChat(userData);
         }
@@ -42,7 +42,7 @@ function Chat() {
   }, []);
   useEffect(() => {
     socket?.current?.emit("addUser", user._id);
-    socket?.current?.on("getUsers", (users:any) => {
+    socket?.current?.on("getUsers", (users: any) => {
       setOnlineUsers(users);
     });
   }, [user]);
@@ -51,7 +51,7 @@ function Chat() {
 
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setCurrentChat(''); 
+        setCurrentChat('');
       }
     };
 
@@ -61,7 +61,7 @@ function Chat() {
       document.removeEventListener('keydown', handleKeyPress);
     };
   }, []);
-   const dark = useSelector(darkMode)
+  const dark = useSelector(darkMode)
 
   useEffect(() => {
     if (!dark) {
@@ -72,12 +72,12 @@ function Chat() {
   }, [dark])
 
   return (
-    <div > 
+    <div >
       <div className="relative flex w-full  overflow-hidden antialiased bg-gray-200 dark:bg-fill" style={{ height: "100vh" }}>
 
-        <ChatUsers conversations={conversations}  onlineUsers={onlineUsers}   user={user}  setCurrentChat={setCurrentChat} setConversations={setConversations} />
+        <ChatUsers conversations={conversations} onlineUsers={onlineUsers} user={user} setCurrentChat={setCurrentChat} setConversations={setConversations} />
 
-        {currentChat ? <Messages user={user}   onlineUsers={onlineUsers} socket={socket} currentChat={currentChat} /> : <NochatScreen/>}
+        {currentChat ? <Messages user={user} onlineUsers={onlineUsers} socket={socket} currentChat={currentChat} /> : <NochatScreen />}
 
       </div>
     </div>

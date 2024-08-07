@@ -27,7 +27,7 @@ function RegisterSucces() {
         </div>
         
         <div className="max-w-md w-full p-6">
-          <p className="title text-4xl font-black mb-2 text-black">Registration successful.</p>
+          <p className="title text-4xl font-black mb-2 text-black dark:text-white">Registration successful.</p>
           <h1 className="text-sm mb-6 text-gray-500">Congratulations! Your registration was successful.</h1>
           
           <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">

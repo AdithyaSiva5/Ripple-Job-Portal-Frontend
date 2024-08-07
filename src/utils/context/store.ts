@@ -1,15 +1,14 @@
 // src/app/store.ts
 
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import rootReducer from './reducers/rootReducers';
-
+import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import rootReducer from "./reducers/rootReducers";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  whitelist : ['auth' , 'adminAuth', 'darkMode']
+  whitelist: ["auth", "adminAuth", "darkMode"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

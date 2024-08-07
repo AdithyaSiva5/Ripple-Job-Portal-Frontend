@@ -57,6 +57,9 @@ import SearchPage from "../pages/user/search/SearchPage";
 import SearchPost from "../components/SearchPost";
 import SearchPeople from "../components/SearchPeople";
 import SearchJobs from "../components/SearchJobs";
+import ContactUs from "../pages/user/contactus/ContactUs";
+import Features from "../pages/user/Features/Features";
+import AboutUs from "../pages/user/aboutus/AboutUs";
 
 
 
@@ -360,7 +363,7 @@ const appRouter = createBrowserRouter([
     errorElement: <ErrorPage />
 
   },
-   {
+  {
     path: "/premium",
     element: (
       <Protect>
@@ -394,6 +397,18 @@ const appRouter = createBrowserRouter([
   {
     path: '*',
     element: <PageNotFound />,
+  }, {
+    path: '/contact-us',
+    element: <ContactUs />
+  }
+  ,
+  {
+    path: '/features',
+    element: <Features />
+  },
+  {
+    path: '/about-us',
+    element: <AboutUs />
   },
   {
     path: '/not-authorized',

@@ -171,16 +171,16 @@ function JobFilterForm({ onReset }: any) {
                     <Accordion.Content>
                         <div className="flex justify-between">
                             <p className="text-xs text-gray-500">0</p>
-                            <p className="text-xs text-gray-500">1000k</p>
-                            <p className="text-xs text-gray-500">2000k</p>
-                            <p className="text-xs text-gray-500">3000k</p>
-                            <p className="text-xs text-gray-500">4000k</p>
+                            <p className="text-xs text-gray-500">10K</p>
+                            <p className="text-xs text-gray-500">20K</p>
+                            <p className="text-xs text-gray-500">30K</p>
+                            <p className="text-xs text-gray-500">40K</p>
 
-                            <p className="text-xs text-gray-500">5000k</p>
+                            <p className="text-xs text-gray-500">50k</p>
                         </div>
                         <Slider
                             min={0}
-                            max={5000000}
+                            max={50000}
                             defaultValue={selectedSalaryRange}
                             onChange={handleSalaryRangeChange}
                         />

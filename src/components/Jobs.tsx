@@ -166,7 +166,7 @@ const Jobs = () => {
                 onClick={() => handleApplyJob(job)}
                 className="text-xs rounded btn border w-24 px-4 py-2 cursor-pointer text-white ml-2 bg-green-600"
               >
-                Apply {3 - (user.dailyJobsApplied ?? 0)} left
+                Apply {user.isPremium ? "" : `${3 - (user.dailyJobsApplied ?? 0)} left`}
               </button>
             </div>
           ) : (

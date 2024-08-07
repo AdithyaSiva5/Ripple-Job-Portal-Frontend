@@ -16,7 +16,7 @@ function SavedCollections() {
 
 
             <div className="home-section-2 ms-32 ">
-                <div className="border  profile-nav flex items-center justify-around gap-20  bg-white rounded-md mt-5 mx-5" >
+                <div className="border  profile-nav flex items-center justify-around gap-20  bg-secondary dark:border dark:border-green rounded-md mt-5 mx-5" >
                     <button
                         onClick={() => { navigate('/saved/posts') }}
                         className={`text-xs font-medium text-gray-400 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${location.pathname === '/saved/posts' ? 'bg-black text-white' : ''

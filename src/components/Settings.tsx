@@ -63,9 +63,9 @@ function SettingsComponent() {
       },
     };
     setLocalUser(updatedUser);
-  
+
     try {
-      const response:any = await updateSettings(updatedUser);
+      const response: any = await updateSettings(updatedUser);
       if (response.status === 200) {
         dispatch(updateUserSettings({ profile: { [section]: data } }));
       } else {
@@ -95,11 +95,11 @@ function SettingsComponent() {
             className="text-xs flex  hover:bg-green-600 hover:text-black text-green-600 border px-2 py-2 rounded-md border-green-600"
           >
             Open to
-          </button> 
+          </button>
         </div>
 
         <div className="bio  h-full md:h-auto mt-2 text-gray-400 border border-red-600 text-base bg-primary w-full rounded-md p-4 mb-4">
-            <h1 className="text-center">Basic Information</h1>
+          <h1 className="text-center">Basic Information</h1>
           <div className="flex justify-between  ">
             <p>Name : {user.profile?.fullname}</p>
             <button className="text-red-600" onClick={handleEditButtonClick}>

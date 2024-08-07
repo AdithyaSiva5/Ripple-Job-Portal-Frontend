@@ -24,7 +24,7 @@ const ChatBubbleReciver = ({ message }: any) => {
           </p>
         </div>
         <span className="text-xs font-normal text-gray-500 dark:text-gray-400">
-          Delivered
+          {new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>
       </div>
       <div

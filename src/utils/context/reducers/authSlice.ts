@@ -1,34 +1,32 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
   user: UserData | null;
   token: string | null;
-  userPost:any[]
+  userPost: any[];
 }
 
-
 interface UserData {
-  token:string;
-  user:any
+  token: string;
+  user: any;
 }
 
 const UserInitialState: AuthState = {
   user: null,
   token: null,
-  userPost:[]
+  userPost: [],
 };
 
 const authSlice = createSlice({
-  name: 'auth',
-  initialState:UserInitialState,
+  name: "auth",
+  initialState: UserInitialState,
   reducers: {
     loginSuccess: (state, action: PayloadAction<{ user: UserData }>) => {
       state.user = action.payload.user.user;
-      state.token=action.payload.user.token
-    }, 
-    updateUser:(state,action:PayloadAction<{user:UserData}>)=>{
-      state.user=action.payload.user.user
-
+      state.token = action.payload.user.token;
+    },
+    updateUser: (state, action: PayloadAction<{ user: UserData }>) => {
+      state.user = action.payload.user.user;
     },
     updateUserSettings: (state, action: PayloadAction<{ profile: any }>) => {
       if (state.user) {
@@ -36,19 +34,19 @@ const authSlice = createSlice({
           ...state.user,
           profile: {
             ...state.user.profile,
-            ...action.payload.profile
-          }
+            ...action.payload.profile,
+          },
         };
       }
     },
-    logout: (state:any) => {
+    logout: (state: any) => {
       state.user = null;
       state.token = null;
-      state.userPost=[]
+      state.userPost = [];
     },
-    
-    setUsePosts:(state,action:PayloadAction<{userPost:any[]}>)=>{
-     state.userPost=action.payload.userPost
+
+    setUsePosts: (state, action: PayloadAction<{ userPost: any[] }>) => {
+      state.userPost = action.payload.userPost;
     },
     refreshToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
@@ -56,5 +54,12 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess, logout,setUsePosts,updateUser ,updateUserSettings , refreshToken} = authSlice.actions;
+export const {
+  loginSuccess,
+  logout,
+  setUsePosts,
+  updateUser,
+  updateUserSettings,
+  refreshToken,
+} = authSlice.actions;
 export default authSlice.reducer;

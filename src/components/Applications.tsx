@@ -70,29 +70,29 @@ const Applications = () => {
   return (
     <>
       {applications?.map((application) => (
-        <div key={application._id} className="home-post-section bg-white p-4 " style={{ height: "165px" }}>
+        <div key={application._id} className="home-post-section bg-secondary dark:border dark:border-green p-4 " style={{ height: "165px" }}>
           <div className="w-full flex justify-between ">
             <div className="flex">
-              <div className="w-14 h-14 rounded-md bg-green-600 flex items-center justify-center font-bold text-white text-2xl">
+              <div className="w-14 h-14 rounded-md bg-green-600 flex items-center justify-center font-bold text-white text-2xl dark:text-white">
                 {application.jobId?.jobRole?.slice(0, 1)}
               </div>               <div className="mx-5">
-                <p className="text-sm">{application.jobId?.companyName}</p>
-                <p className="text-sm font-bold">{application.jobId?.jobRole}</p>
+                <p className="text-sm dark:text-white">{application.jobId?.companyName}</p>
+                <p className="text-sm font-bold dark:text-white">{application.jobId?.jobRole}</p>
               </div>
             </div>
             <div className="flex text-xs gap-1">
 
-              <p className="font-semibold">Status :</p>
+              <p className="font-semibold dark:text-white">Status :</p>
               {application.applicationStatus === 'Rejected' && (
-                <p className="text-red-600">{application.applicationStatus}</p>
+                <p className="text-red-600 dark:text-white">{application.applicationStatus}</p>
 
               )}
               {application.applicationStatus === 'Pending' && (
-                <p className="text-gray-500">{application.applicationStatus}</p>
+                <p className="text-gray-500 dark:text-white">{application.applicationStatus}</p>
 
               )}
               {application.applicationStatus === 'Accepted' && (
-                <p className="text-green-600">{application.applicationStatus}</p>
+                <p className="text-green-600 dark:text-white">{application.applicationStatus}</p>
 
               )}
 
@@ -106,16 +106,16 @@ const Applications = () => {
           <div className="flex items-end justify-between">
             <div className="flex flex-col  items-start">
               <div className="flex gap-2" >
-                <p className="text-xs font-semibold">Location :</p>
-                <p className="text-xs">{application.jobId?.jobLocation}</p>
+                <p className="text-xs font-semibold dark:text-white">Location :</p>
+                <p className="text-xs dark:text-white">{application.jobId?.jobLocation}</p>
               </div>
               <div className="flex gap-2">
-                <p className="text-xs font-semibold">Salary :</p>
-                <p className="text-xs">{application.jobId?.salary}</p>
+                <p className="text-xs font-semibold dark:text-white">Salary :</p>
+                <p className="text-xs dark:text-white">{application.jobId?.salary}</p>
               </div>
               <div className="flex gap-2">
-                <p className="text-xs font-semibold">Job Type :</p>
-                <p className="text-xs">{application.jobId?.jobRole}</p>
+                <p className="text-xs font-semibold dark:text-white">Job Type :</p>
+                <p className="text-xs dark:text-white">{application.jobId?.jobRole}</p>
               </div>
             </div>
 

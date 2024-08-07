@@ -22,4 +22,4 @@ function NochatScreen() {
   )
 }
 
-export default NochatScreen
+export default NochatScreen 

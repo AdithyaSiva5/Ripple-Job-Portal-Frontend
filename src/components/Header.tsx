@@ -93,7 +93,7 @@ const Header: React.FC<HeaderProps> = () => {
   };
 
   return (
-    <nav className="border z-10 bg-primary dark:border-none lg:px-6 py-2.5 h-16 sticky top-0">
+    <nav className="border z-10 bg-primary dark:border-none lg:px-6 py-2.5 h-16 sticky top-0 ">
       <div className="flex flex-wrap justify-between">
         <a href="/" className="flex items-center">
           <img
@@ -149,7 +149,7 @@ const Header: React.FC<HeaderProps> = () => {
           >
             <div className="relative">
               <input
-                type="search"
+                type="text"
                 name="search"
                 placeholder="Search"
                 className="search-input text-xs bg-white h-8 px-5 w-full pr-10 rounded-full  focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600  border border-gray-300"

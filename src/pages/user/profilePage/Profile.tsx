@@ -10,7 +10,7 @@ function Profile() {
     <div className="wrapper dark:bg-fill">
       <Header />
       <div className="profile-wrapper px-48 mt-10 dark:bg-fill bg-backgroundgray" >
-        <div className="border profile-nav flex items-center justify-center gap-52 bg-white rounded-md">
+        <div className="border profile-nav flex items-center justify-center gap-52 bg-secondary rounded-md dark:border dark:border-green">
           <button
             onClick={() => { navigate('/profile/bio') }}
             className={`text-xs font-medium text-gray-400 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${

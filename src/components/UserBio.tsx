@@ -11,7 +11,6 @@ function UserBio() {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   };
-  console.log(user)
   return (
     <div className={`user-bio ${user.isPremium ? 'premium-user' : ''}`}>
       <div>
@@ -164,7 +163,6 @@ function UserBio() {
           </div>
         </div>
         <div className=" w-full  mt-1 flex flex-col px-10 py-6">
-
         </div>
       </div>
     </div>

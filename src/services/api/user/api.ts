@@ -1,19 +1,22 @@
 import axios from "axios";
 import { BASE_URL } from "../../../constants/baseUrls";
 import { store } from "../../../utils/context/store";
-import { refreshToken, logout } from "../../../utils/context/reducers/authSlice";
+import {
+  refreshToken,
+  logout,
+} from "../../../utils/context/reducers/authSlice";
 
 export const api = axios.create({
   baseURL: `${BASE_URL}/api`,
-  headers: {'Content-Type': 'application/json'},
+  headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
 
 let isRefreshing = false;
-let failedQueue : any = [];
+let failedQueue: any = [];
 
 const processQueue = (error, token = null) => {
-  failedQueue.forEach(prom => {
+  failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
     } else {
@@ -29,7 +32,7 @@ api.interceptors.request.use(
     const authToken = state.auth.token;
 
     if (authToken) {
-      config.headers['Authorization'] = `Bearer ${authToken}`;
+      config.headers["Authorization"] = `Bearer ${authToken}`;
     }
     return config;
   },
@@ -47,22 +50,24 @@ api.interceptors.response.use(
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        }).then(token => {
-          originalRequest.headers['Authorization'] = 'Bearer ' + token;
-          return api(originalRequest);
-        }).catch(err => {
-          return Promise.reject(err);
-        });
+        })
+          .then((token) => {
+            originalRequest.headers["Authorization"] = "Bearer " + token;
+            return api(originalRequest);
+          })
+          .catch((err) => {
+            return Promise.reject(err);
+          });
       }
 
       originalRequest._retry = true;
       isRefreshing = true;
 
       try {
-        const { data } = await api.post('/refresh-token');
+        const { data } = await api.post("/refresh-token");
         const { accessToken } = data;
         store.dispatch(refreshToken(accessToken));
-        api.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+        api.defaults.headers.common["Authorization"] = "Bearer " + accessToken;
         processQueue(null, accessToken);
         return api(originalRequest);
       } catch (refreshError) {

@@ -53,15 +53,15 @@ const Interviews = () => {
   return (
     <>
       {interviews?.map((interview) => (
-        <div key={interview._id} className="home-post-section bg-white p-4">
+        <div key={interview._id} className="home-post-section bg-secondary dark:border dark:border-green p-4">
           <div className="w-full flex justify-between">
             <div className="flex">
               <div className="w-14 h-14 rounded-md bg-green-600 flex items-center justify-center font-bold text-white text-2xl">
                 {interview?.jobId?.jobRole?.slice(0, 1)}
               </div>
               <div className="mx-5">
-                <p className="text-sm">{interview.jobId?.companyName}</p>
-                <p className="text-sm font-bold">{interview.jobId?.jobRole}</p>
+                <p className="text-sm dark:text-white">{interview.jobId?.companyName}</p>
+                <p className="text-sm font-bold dark:text-white">{interview.jobId?.jobRole}</p>
               </div>
             </div>
           </div>
@@ -70,12 +70,12 @@ const Interviews = () => {
             <div className="flex flex-col items-start mt-4">
               <div>
                 <div className="flex text-xs gap-1">
-                  <p className="font-semibold">Interview Date :</p>
-                  <p className="text-xs">{formatDate(interview.interviewDate)}</p>
+                  <p className="font-semibold dark:text-white">Interview Date :</p>
+                  <p className="text-xs dark:text-white">{formatDate(interview.interviewDate)}</p>
                 </div>
                 <div className="flex text-xs gap-1">
-                  <p className="font-semibold">Interview Time :</p>
-                  <p className="text-xs">{interview.interviewTime}</p>
+                  <p className="font-semibold dark:text-white">Interview Time :</p>
+                  <p className="text-xs dark:text-white">{interview.interviewTime}</p>
                 </div>
               </div>
             </div>
@@ -85,9 +85,9 @@ const Interviews = () => {
 
             <div className="flex  w-full justify-end mt-4">
 
-              <button className="interview text-xs rounded btn border px-4 py-2 cursor-pointer text-green-600 ml-2 bg-white" >
+              {/* <button className="interview text-xs rounded btn border px-4 py-2 cursor-pointer text-green-600 ml-2 bg-white" >
                 <View size={15} />
-              </button>
+              </button> */}
               {interview.status === "Pending" ? (
                 <button
                   onClick={() => {

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess, updateUser } from "../utils/context/reducers/authSlice";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
-import { basicFormInitialValues,basicFormValidationSchema,basicFormCompanyInitialValues,basicFormCompanyValidationSchema } from "../utils/validation/basicInformationValidation";
+import { basicFormInitialValues, basicFormValidationSchema, basicFormCompanyInitialValues, basicFormCompanyValidationSchema } from "../utils/validation/basicInformationValidation";
 import ProfilePreviewImage from "./ProfilePreviewImage";
 import axios from "axios";
 import { setBasicInformation } from "../services/api/user/apiMethods";
@@ -13,7 +13,7 @@ import { setBasicInformation } from "../services/api/user/apiMethods";
 function BasicInformation() {
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
-  const userId = user._id || ""; 
+  const userId = user._id || "";
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +22,7 @@ function BasicInformation() {
 
   const BasicFormHandleSubmit = async (values: any) => {
     setLoading(true);
-    const { image,fullname,designation,location,dateOfBirth,phone,gender,about} = values;
+    const { image, fullname, designation, location, dateOfBirth, phone, gender, about } = values;
 
     try {
       if (image) {
@@ -30,7 +30,7 @@ function BasicInformation() {
         formData.append("file", image);
         formData.append("upload_preset", import.meta.env.VITE_UPLOADPRESET);
         formData.append("api_key", import.meta.env.VITE_CLOUDAPIKEY);
-        
+
         const timestamp = Math.round((new Date()).getTime() / 1000);
         formData.append("timestamp", timestamp.toString());
 
@@ -38,11 +38,11 @@ function BasicInformation() {
           `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`,
           formData
         );
- 
+
         if (uploadRes.status === 200) {
           const imageUrl = uploadRes.data.secure_url;
 
-          await setBasicInformation({ userId, imageUrl,fullname,designation,location,dateOfBirth,phone,gender,about })
+          await setBasicInformation({ userId, imageUrl, fullname, designation, location, dateOfBirth, phone, gender, about })
             .then((response: any) => {
               const data = response.data;
               if (response.status === 200) {
@@ -63,7 +63,7 @@ function BasicInformation() {
           throw new Error("Failed to upload image.");
         }
       } else {
-        await setBasicInformation({ userId,fullname,designation,location,dateOfBirth,phone,gender,about })
+        await setBasicInformation({ userId, fullname, designation, location, dateOfBirth, phone, gender, about })
           .then((response: any) => {
             const data = response.data;
             if (response.status === 200) {
@@ -90,27 +90,27 @@ function BasicInformation() {
 
   const BasicFormCompanyHandleSubmit = async (values: any) => {
     setLoading(true);
-    const { image,fullname,companyType,location,noOfEmployees,phone,establishedOn,about} = values;
+    const { image, fullname, companyType, location, noOfEmployees, phone, establishedOn, about } = values;
 
     try {
       if (image) {
         const formData = new FormData();
-          formData.append("file", image);
-          formData.append("upload_preset", import.meta.env.VITE_UPLOADPRESET);
-          formData.append("api_key", import.meta.env.VITE_CLOUDAPIKEY);
-          
-          const timestamp = Math.round((new Date()).getTime() / 1000);
-          formData.append("timestamp", timestamp.toString());
+        formData.append("file", image);
+        formData.append("upload_preset", import.meta.env.VITE_UPLOADPRESET);
+        formData.append("api_key", import.meta.env.VITE_CLOUDAPIKEY);
 
-          const uploadRes = await axios.post(
-            `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`,
-            formData
-          );
+        const timestamp = Math.round((new Date()).getTime() / 1000);
+        formData.append("timestamp", timestamp.toString());
+
+        const uploadRes = await axios.post(
+          `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`,
+          formData
+        );
 
         if (uploadRes.status === 200) {
           const imageUrl = uploadRes.data.secure_url;
 
-          await setBasicInformation({ userId, imageUrl,fullname,companyType,location,noOfEmployees,phone,establishedOn,about })
+          await setBasicInformation({ userId, imageUrl, fullname, companyType, location, noOfEmployees, phone, establishedOn, about })
             .then((response: any) => {
               const data = response.data;
               if (response.status === 200) {
@@ -131,7 +131,7 @@ function BasicInformation() {
           throw new Error("Failed to upload image.");
         }
       } else {
-        await setBasicInformation({ userId,fullname,companyType,location,noOfEmployees,phone,establishedOn,about })
+        await setBasicInformation({ userId, fullname, companyType, location, noOfEmployees, phone, establishedOn, about })
           .then((response: any) => {
             const data = response.data;
             if (response.status === 200) {
@@ -324,7 +324,7 @@ function BasicInformation() {
           </Modal.Footer>
         )}
         {user.userType == "organization" && (
-            <Modal.Footer className="flex items-start">
+          <Modal.Footer className="flex items-start">
             <Formik
               initialValues={basicFormCompanyInitialValues}
               validationSchema={basicFormCompanyValidationSchema}
@@ -407,7 +407,7 @@ function BasicInformation() {
                     </div>
 
                     <div className="flex gap-2">
-                    <div className="w-full">
+                      <div className="w-full">
                         <Field
                           type="text"
                           id="companyType"
@@ -460,7 +460,7 @@ function BasicInformation() {
                         />
                         <ErrorMessage name="phone" component={TextError} />
                       </div>
-                
+
                     </div>
                     <div className="w-full">
                       <Field
