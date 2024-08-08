@@ -1,2 +1,2 @@
-export const BASE_URL = "http://localhost:3000";
-export const DOMIAN_URL="http://localhost:5173";
+export const BASE_URL = "http://ripplejobportal.in";
+export const DOMIAN_URL="http://ripplejobportal.in";
