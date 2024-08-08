@@ -79,9 +79,10 @@ const Post: React.FC<PostProps> = ({ post }) => {
             setLikeCount((prev) => prev - 1);
             post.likes.pop();
           } else {
-
+            console.log(user.username)
+            console.log(user.profileImageUrl)
             setLikeCount((prev) => prev + 1);
-            post.likes.push({ _id: userId, username: user.name, profileImageUrl: user.profileImg })
+            post.likes.push({ _id: userId, username: user.username, profileImageUrl: user.profileImageUrl })
           }
 
         })

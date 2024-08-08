@@ -301,6 +301,7 @@ const PostDetails: React.FC<PostProps> = ({
           dispatch(setUsePosts({ userPost: postData.posts }));
           toast.info("Post Deleted");
           setIsOpen(!isOpen);
+          window.location.reload()
         })
         .catch((error) => {
           toast.error(error.message);

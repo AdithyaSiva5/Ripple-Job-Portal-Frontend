@@ -42,6 +42,11 @@ function UserHome() {
         setTimeout(() => {
           const newPosts = response.data.posts;
           setPosts(prevPosts => [...prevPosts, ...newPosts]);
+          // if (page === 1) {
+          //   dispatch(updatePosts({ posts: newPosts }));
+          // } else {
+          //   dispatch(updatePosts({ posts: newPosts, append: true }));
+          // }
           setHasMore(response.data.hasMore);
           setPage(prevPage => prevPage + 1);
           setLoading(false);

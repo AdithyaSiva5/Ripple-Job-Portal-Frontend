@@ -8,13 +8,14 @@ import rootReducer from "./reducers/rootReducers";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "adminAuth", "darkMode"],
+  whitelist: ["auth", "adminAuth", "darkMode" ,"posts"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+
 });
 
 export const persistor = persistStore(store);

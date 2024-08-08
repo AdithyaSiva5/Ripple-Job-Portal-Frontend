@@ -72,7 +72,7 @@ function JobsHiring() {
             >
               Applicants
             </button>
-            <button
+            {/* <button
               onClick={() => {
                 navigate("/jobs/hiring/interviews");
               }}
@@ -84,7 +84,7 @@ function JobsHiring() {
               type="submit"
             >
               Interviews
-            </button>
+            </button> */}
           </div>
           <button
             onClick={() => navigate("/jobs/hiring/add-job")}

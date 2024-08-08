@@ -70,7 +70,7 @@ const ContactUs = () => {
                   guidance.
                 </p>
                 <div className="mt-12">
-                  <h2 className="text-xs">Email</h2>
+                  <h2 className="text-xs dark:text-white">Email</h2>
                   <ul className="mt-3">
                     <li className="flex items-center">
                       <div className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
@@ -99,7 +99,7 @@ const ContactUs = () => {
                   </ul>
                 </div>
                 <div className="mt-12">
-                  <p className="green text-xs">Socials</p>
+                  <p className="green text-xs dark:text-white">Socials</p>
                   <ul className="flex mt-3 space-x-4">
                     <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
                       <a href="javascript:void(0)">

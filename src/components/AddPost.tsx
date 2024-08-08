@@ -27,7 +27,7 @@ function AddPost() {
   const [croppedImage, setCroppedImage] = useState("");
   const [isCroppeSelected, setIsCroppeSelected] = useState(false);
 
-
+  
   const handleHideLikesToggle = () => {
     setHideLikes(!hideLikes);
   };
@@ -110,6 +110,7 @@ function AddPost() {
               console.log(error?.message);
             }).finally(() => {
               setLoading(false);
+              window.location.reload()
             });
         } else {
           console.error("Cloudinary upload failed:", res.statusText);
@@ -164,19 +165,19 @@ function AddPost() {
       </div>
 
       {showModal && (
-        <div className="addpost-popup">
-          <div className="addpost-popup">
-            <div className="addpost-modal rounded-xl bg-white mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
-              <p className="font-semibold mb-2">Create Post</p>
+        <div className="addpost-popup ">
+          <div className="addpost-popup ">
+            <div className="addpost-modal rounded-xl mt-8 bg-secondary mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl dark:border dark:border-green">
+              <p className="font-semibold mb-2 dark:text-white">Create Post</p>
               <hr />
 
               <form onSubmit={formik.handleSubmit}>
-                <div className="post-info-section">
-                  <div className="post-inputs">
+                <div className="post-info-section ">
+                  <div className="post-inputs ">
                     <input
                       type="text"
                       placeholder="Title"
-                      className="rounded-lg border mt-3 border-gray-300 p-2  focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600   outline-none text-xs font-normal"
+                      className="rounded-lg border mt-3 dark:bg-fill dark:text-gray-400 border-gray-300 p-2  focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600   outline-none text-xs font-normal"
                       value={formik.values.title}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -188,7 +189,7 @@ function AddPost() {
                       </p>
                     )}
                     <textarea
-                      className=" rounded-lg description sec p-3 mt-4 h-60 border  focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600  border-gray-300 outline-none text-xs font-normal"
+                      className=" rounded-lg description  dark:bg-fill dark:text-gray-400 sec p-3 mt-4 h-60 border  focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600  border-gray-300 outline-none text-xs font-normal"
                       spellCheck="false"
                       placeholder="Describe everything about this post here"
                       value={formik.values.description}
@@ -213,7 +214,7 @@ function AddPost() {
                               strokeWidth={1.5}
                               size={40}
                             />
-                            <p className="text-xs">Select Image</p>{" "}
+                            <p className="text-xs  dark:text-gray-400">Select Image</p>{" "}
                           </div>
                         )}
 
@@ -248,10 +249,10 @@ function AddPost() {
 
                 <div className="flex justify-between gap-10 p-3">
                   <div>
-                    <p className="text-xs font-semibold text-grey-600">
+                    <p className="text-xs font-semibold text-grey-600 dark:text-white">
                       Hide Likes
                     </p>
-                    <p className=" hide  text-xs">
+                    <p className=" hide  text-xs dark:text-gray-400">
                       Enabling hide likes will hide the likes count from others
                     </p>
                   </div>
@@ -269,10 +270,10 @@ function AddPost() {
                 </div>
                 <div className="flex gap-10 p-3 justify-between ">
                   <div>
-                    <p className="text-xs font-semibold text-grey-600">
+                    <p className="text-xs font-semibold text-grey-600 dark:text-white">
                       Hide Comments
                     </p>
-                    <p className="hide text-xs">
+                    <p className="hide text-xs dark:text-gray-400">
                       Enabling hide comments will remove the commenting option
                       from the post
                     </p>
@@ -290,7 +291,7 @@ function AddPost() {
                 </div>
 
                 <div className="icons flex text-gray-500 m-2">
-                  <svg
+                  {/* <svg
                     className="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -323,7 +324,7 @@ function AddPost() {
                       strokeWidth="2"
                       d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
-                  </svg>
+                  </svg> */}
                   <button onClick={handleButtonClick}>
                     <svg
                       className="mr-2 hover:text-gray-700 border rounded-full p-1 h-7"
@@ -361,7 +362,7 @@ function AddPost() {
                 <div className="buttons flex">
                   <div
                     onClick={handleCancelClick}
-                    className="text-xs rounded btn border border-gray-300 px-4 py-2  cursor-pointer text-gray-500 ml-auto  hover:bg-red-600  hover:text-white "
+                    className="text-xs rounded dark:text-gray-400 btn border border-gray-300 px-4 py-2  cursor-pointer text-gray-500 ml-auto  hover:bg-red-600  hover:text-white "
                   >
                     Cancel
                   </div>
