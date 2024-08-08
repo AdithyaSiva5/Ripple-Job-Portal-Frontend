@@ -9,7 +9,7 @@ const Features = () => {
                 <div className="flex flex-col px-8 mx-auto space-y-12 max-w-7xl xl:px-12">
                     <div className="relative">
                         <h2 className="w-full title   text-black text-4xl font-bold text-center dark:text-white">
-                            Enhance Your Career with Circle Up
+                            Enhance Your Career with Ripple
                         </h2>
                         <p className="w-full py-8 mx-auto -mt-2 text-xs text-center text-gray-700 dark:text-gray-300 intro sm:max-w-3xl">
                             Discover new opportunities, connect with professionals, and take your career to the next level with our comprehensive job portal.
