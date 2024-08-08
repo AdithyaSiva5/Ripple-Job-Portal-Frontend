@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import "../pages/user/userHome/userHome.css"
-import { Award, Briefcase, CircleArrowDownIcon, CircleArrowUp, GraduationCap, LocateIcon, Mail, MessageCircle, Phone } from "lucide-react";
+import { Award, Briefcase, CircleArrowDownIcon, CircleArrowUp, GraduationCap, LocateIcon, Mail, MessageCircle, Phone, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -21,6 +21,7 @@ function ViewerBio() {
   const [Post, setPost] = useState([]);
   const [loading, setLoading] = useState(false);
   const { userId } = useParams();
+  const [connections2, setConnections2] = useState([]);
 
   useEffect(() => {
     getUserDetails(userId)
@@ -45,14 +46,17 @@ function ViewerBio() {
       .finally(() => {
         setLoading(false);
       });
+
   }, []);
 
   useEffect(() => {
     try {
       setLoading(true);
-      getUserConnection({ userId: loggedUserId })
+      getUserConnection({ userId })
         .then((response: any) => {
           const connectionData = response.data.connection;
+          setConnections2(connectionData.connections || []);
+          console.log(connections2)
           setLoggedUserConnections(connectionData.connections);
           setRequested(connectionData.requestSent);
           setLoading(false);
@@ -195,7 +199,7 @@ function ViewerBio() {
               </>
             )}
             <div>
-            
+
             </div>
             <div className="flex gap-4">
               {location.pathname.startsWith('/visit-profile/bio/') && (
@@ -221,6 +225,49 @@ function ViewerBio() {
                 </div>
               )}
             </div>
+            <div>
+              <h3 className="text-lg font-bold dark:text-white mb-2">Connections</h3>
+              <div className="flex items-center space-x-2">
+                <Users size={20} className="text-gray-600 dark:text-gray-400" />
+                <span className="text-sm font-semibold dark:text-white">
+                  {connections2.length} {connections2.length === 1 ? 'Connection' : 'Connections'}
+                </span>
+              </div>
+            </div>
+            <div className="connections w-full rounded-md mt-7 bg-secondary flex flex-col px-10 py-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold dark:text-white flex items-center">
+              <Users size={20} className="mr-2" /> Connections
+            </h3>
+            <span className="text-sm font-semibold dark:text-gray-300">
+              {connections2.length} {connections2.length === 1 ? 'Connection' : 'Connections'}
+            </span>
+          </div>
+          {connections2.length > 0 ? (
+            <div className="flex flex-wrap gap-4">
+              {connections2.slice(0, 5).map((connection) => (
+                <div key={connection._id} className="flex items-center space-x-2">
+                  <img
+                    src={connection.profileImageUrl}
+                    alt={connection.username}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                  <div className="text-sm dark:text-white truncate max-w-[100px]">
+                    {connection.username}
+                  </div>
+                </div>
+              ))}
+              {connections.connections.length > 5 && (
+                <div className="flex items-center justify-center w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full">
+                  <span className="text-xs font-semibold dark:text-white">+{connections.connections.length - 5}</span>
+                </div>
+              )}
+            </div>
+          ) : (
+            <p className="text-sm text-gray-600 dark:text-gray-400">No connections yet</p>
+          )}
+        </div>
+
           </div>
         </div>
         <div className="contact w-full rounded-md mt-7  flex flex-col px-10 py-6 gap-4">
@@ -248,11 +295,11 @@ function ViewerBio() {
             </div>
           </div>
         </div>
-        
+
       </div>
       <div className=" w-full bg-primary  mt-1 flex flex-col px-10 py-6">
 
-        </div>
+      </div>
     </div>
   );
 }

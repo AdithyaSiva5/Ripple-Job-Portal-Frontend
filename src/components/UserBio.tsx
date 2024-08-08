@@ -1,16 +1,34 @@
 import { useSelector } from "react-redux";
 import "../pages/user/userHome/userHome.css";
-import { Briefcase, Calendar, GraduationCap, LocateIcon, Mail, Phone } from "lucide-react";
+import { Briefcase, Calendar, GraduationCap, LocateIcon, Mail, Phone, Users } from "lucide-react";
 import "../pages/user/landingPage/landing.css"
+import { getUserConnection } from "../services/api/user/apiMethods";
+import { useEffect, useState } from "react";
 
 function UserBio() {
   const selectUser = (state: any) => state.auth.user || "";
   const user = useSelector(selectUser) || "";
-
+  const currentUser = useSelector(selectUser);
+  const userId = currentUser?._id
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  };
+  }
+  const [connections, setConnections] = useState([]);
+  useEffect(() => {
+    try {
+      getUserConnection({ userId })
+        .then((response: any) => {
+          const connectionData = response.data.connection
+          setConnections(connectionData.connections || []);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   return (
     <div className={`user-bio ${user.isPremium ? 'premium-user' : ''}`}>
       <div>
@@ -116,6 +134,48 @@ function UserBio() {
 
             </div>
           </div>
+        <div>
+          <h3 className="text-lg font-bold dark:text-white mb-2">Connections</h3>
+          <div className="flex items-center space-x-2">
+            <Users size={20} className="text-gray-600 dark:text-gray-400" />
+            <span className="text-sm font-semibold dark:text-white">
+              {connections.length} {connections.length === 1 ? 'Connection' : 'Connections'}
+            </span>
+          </div>
+        </div>
+        </div>
+        <div className="connections w-full rounded-md mt-7 bg-secondary flex flex-col px-10 py-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold dark:text-white flex items-center">
+              <Users size={20} className="mr-2" /> My Connections
+            </h3>
+            <span className="text-sm font-semibold dark:text-gray-300">
+              {connections.length} {connections.length === 1 ? 'Connection' : 'Connections'}
+            </span>
+          </div>
+          {connections.length > 0 ? (
+            <div className="flex flex-wrap gap-4">
+              {connections.slice(0, 5).map((connection) => (
+                <div key={connection._id} className="flex items-center space-x-2">
+                  <img
+                    src={connection?.profileImageUrl}
+                    alt={connection?.username}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                  <div className="text-sm dark:text-white truncate max-w-[100px]">
+                    {connection?.username}
+                  </div>
+                </div>
+              ))}
+              {connections.length > 5 && (
+                <div className="flex items-center justify-center w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full">
+                  <span className="text-xs font-semibold dark:text-white">+{connections.length - 5}</span>
+                </div>
+              )}
+            </div>
+          ) : (
+            <p className="text-sm text-gray-600 dark:text-gray-400">No connections yet</p>
+          )}
         </div>
         <div className="contact w-full rounded-md mt-7 bg-secondary flex flex-col px-10 py-6 gap-4">
           <h3 className="text-lg font-bold dark:text-white">Contact Information</h3>

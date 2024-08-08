@@ -1404,3 +1404,19 @@ export const logoutUser = () => {
     }
   });
 };
+// export const updateUserResume = ({ formData }: any) => {
+//   return new Promise((resolve, reject) => {
+//     try {
+//       apiCall("post", userUrls.updateResume, formData)
+//         .then((response) => {
+//           resolve(response);
+//         })
+//         .catch((err) => {
+//           reject(err);
+//         });
+//     } catch (error) {
+//       resolve({ status: 500, message: "Something's wrong." });
+//     }
+//   });
+// };
+

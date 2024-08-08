@@ -92,11 +92,11 @@ function UserHome() {
             {initialLoading ? (
               <PostSkeletonUi />
             ) : (
-            posts.map((post: any, index: number) => (
-              <div key={post._id} ref={index === posts.length - 1 ? lastPostElementRef : null}>
-                <Post post={post} />
-              </div>
-            )))}
+              posts.map((post: any, index: number) => (
+                <div key={post._id} ref={index === posts.length - 1 ? lastPostElementRef : null}>
+                  <Post post={post} />
+                </div>
+              )))}
             {loading && (
               <div className="flex justify-center items-center py-4 ">
                 <Loader className="animate-spin" color="green" size={24} />

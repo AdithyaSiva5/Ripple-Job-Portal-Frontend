@@ -21,6 +21,7 @@ export const userUrls = {
   getSettings: "/get-settings",
   updateSettings: "/update-settings",
   refreshToken: "/refresh-token",
+  updateResume: "/update-resume",
   logout: "/logout",
 };
 

@@ -7,9 +7,11 @@ import SetUserType from "./SetUserType";
 import ExperienceSection from "./ExperienceSection";
 import SkillsSection from "./SkillsSection";
 import QualificationsSection from "./QualificationsSection";
-import { getSettings, updateSettings } from "../services/api/user/apiMethods";
+import { getSettings, updateSettings, updateUserResume } from "../services/api/user/apiMethods";
 import { updateUserSettings } from "../utils/context/reducers/authSlice";
 import { toast } from "sonner";
+import axios from "axios";
+import { BASE_URL } from "../constants/baseUrls";
 
 function SettingsComponent() {
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ function SettingsComponent() {
       experience: [],
     },
   });
+  console.log(user)
   const [jobCategories, setJobCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const isOrganization = user.userType === "organization";
@@ -79,7 +82,33 @@ function SettingsComponent() {
     setGender(e.target.value);
     handleUpdate("gender", e.target.value);
   };
-  console.log()
+  const handleResumeUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('resume', file);
+      formData.append('userId', user._id)
+      try {
+ 
+        const response: any = await axios.post(`${BASE_URL}/api/update-resume`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        if (response.status === 200) {
+          toast.success('Resume updated successfully');
+          setLocalUser(response.data.user);
+          dispatch(updateUserSettings({ profile: { resume: response.data.user.profile.resume } }));
+        } else {
+          toast.error('Failed to update resume');
+        }
+      } catch (error) {
+        console.error('Error updating resume:', error);
+        toast.error('An error occurred while updating the resume');
+      }
+    }
+  };
+
 
   if (isLoading) {
     return <div className="dark:text-white text-black">Loading...</div>;
@@ -139,6 +168,31 @@ function SettingsComponent() {
               experiences={localUser.profile?.experience || []}
               onUpdate={(data: any) => handleUpdate("experience", data)}
             />
+            
+            {localUser.profile?.resume && (
+              <div className="mt-2">
+                <p className="mt-2 dark:text-green-600 ml-5 ">
+                  Current Resume: 
+                  <a
+                    href={`${BASE_URL}/uploads/${localUser.profile?.resume}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-2 text-blue-500"
+                  >
+                    View
+                  </a>
+                </p>
+              </div>
+            )}
+            <div className="w-full rounded-md p-4 mb-4">
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={handleResumeUpload}
+                className=" text-base bg-secondary text-black dark:text-white rounded w-full file-input"
+              />
+            </div>
+
           </>
         )}
         <div className="gender-section w-full rounded-md p-4 mb-4">
@@ -175,7 +229,7 @@ function SettingsComponent() {
           </Modal.Body>
         </Modal>
       </div>
-    </div>
+    </div >
   );
 }
 

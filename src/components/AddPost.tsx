@@ -22,7 +22,7 @@ function AddPost() {
 
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [hideLikes, setHideLikes] = useState(false); 
+  const [hideLikes, setHideLikes] = useState(false);
   const [hideComment, setHideComment] = useState(false);
   const [croppedImage, setCroppedImage] = useState("");
   const [isCroppeSelected, setIsCroppeSelected] = useState(false);
@@ -75,7 +75,7 @@ function AddPost() {
 
         const uploadPreset = import.meta.env.VITE_UPLOADPRESET;
         const cloudName = import.meta.env.VITE_CLOUDNAME;
-        
+
         if (!uploadPreset || !cloudName) {
           console.error("Missing Cloudinary configuration");
           toast.error("Missing Cloudinary configuration");
