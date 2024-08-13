@@ -9,13 +9,15 @@ function AdminSideNav() {
             <ul className="mt-4  flex-col ">
                 <span className="text-green-600  font-bold flex  pb-8 px-4  ">Overview</span>
                 <li className="mb-1 group">
-                    <a onClick={() => { navigate('/admin') }} className="flex font-semibold  items-center gap-1 py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <a onClick={() => { navigate('/admin') }} className={`flex font-semibold items-center gap-1 py-3 px-4  hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-950 group-[.active]:text-white ${location.pathname === "/admin" ? "bg-gray-950 text-gray-100" : ""
+                        }`}>
                         <BarChartBig strokeWidth={1.5} size={16} />
                         <span className="text-xs">Dashboard</span>
                     </a>
                 </li>
                 <li className="mb-1 group">
-                    <a onClick={() => { navigate('/admin/users') }} className="flex   items-center gap-1 font-semibold py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
+                    <a onClick={() => { navigate('/admin/users') }} className={`flex font-semibold items-center gap-1 py-3 px-4  hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-950 group-[.active]:text-white ${location.pathname === "/admin/users" ? "bg-gray-950 text-gray-100" : ""
+                        }`}>
                         <User strokeWidth={1.5} size={16} />
                         <span className="text-xs">Users</span>
 
@@ -23,20 +25,23 @@ function AdminSideNav() {
 
                 </li>
                 <li className="mb-1 group">
-                    <a onClick={() => { navigate('/admin/job-category') }} className="flex   font-semibold items-center gap-1  py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <a onClick={() => { navigate('/admin/job-category') }} className={`flex font-semibold items-center gap-1 py-3 px-4  hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-950 group-[.active]:text-white ${location.pathname === "/admin/job-category" ? "bg-gray-950 text-gray-100" : ""
+                        }`}>
                         <Layers3 strokeWidth={1.5} size={16} />
                         <span className="text-xs">Jobs category</span>
                     </a>
                 </li>
                 <li className="mb-1 group">
-                    <a onClick={() => { navigate('/admin/jobs') }} className="flex   font-semibold items-center gap-1  py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <a onClick={() => { navigate('/admin/jobs') }} className={`flex font-semibold items-center gap-1 py-3 px-4  hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-950 group-[.active]:text-white ${location.pathname === "/admin/jobs" ? "bg-gray-950 text-gray-100" : ""
+                        }`}>
                         <ClipboardList strokeWidth={1.5} size={16} />
                         <span className="text-xs">Jobs </span>
                     </a>
                 </li>
 
                 <li className="mb-1 group">
-                    <a onClick={() => { navigate('/admin/posts') }} className="flex font-semibold items-center gap-1 py-3 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
+                    <a onClick={() => { navigate('/admin/posts') }} className={`flex font-semibold items-center gap-1 py-3 px-4  hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-950 group-[.active]:text-white ${location.pathname === "/admin/posts" ? "bg-gray-950 text-gray-100" : ""
+                        }`}>
                         <FilePenLine strokeWidth={1.5} size={16} />
                         <span className="text-xs">Posts</span>
 

@@ -123,7 +123,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
             {post.userId.username}
           </span>
           <span className="text-gray-600 dark:text-white text-xs block">
-            Ernakulam , Kerala
+
           </span>
         </div>
 

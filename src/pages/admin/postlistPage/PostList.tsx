@@ -13,8 +13,6 @@ const PostList: React.FC = () => {
           const postsData = response.data;
           setPosts(postsData.posts);
 
-          console.log(postsData.posts);
-
         })
         .catch((error) => {
           console.log(error);
@@ -97,7 +95,7 @@ const PostList: React.FC = () => {
                 </div>
               </td>
               <td className="text-xs px-6 py-4">
-                {post.updatedAt}
+                { new Date(post.updatedAt).toLocaleDateString()}
 
 
               </td>

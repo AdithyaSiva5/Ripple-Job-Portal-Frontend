@@ -170,6 +170,7 @@ function Login() {
                   name="email"
                   className="mt-5 text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 />
+                <p className="text-yellow-600 text-sm">username: test2@gmail.com</p>
                 <ErrorMessage name="email" component={TextError} />
               </div>
               <div>
@@ -180,8 +181,11 @@ function Login() {
                   name="password"
                   className="mt-1 text-xs p-3 w-full border  border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 />
+                 <p className="text-yellow-600 text-sm">password : abcd1234</p>
                 <ErrorMessage name="password" component={TextError} />
               </div>
+
+
               <div className="flex justify-between  items-center ">
                 <div className="flex gap-2  items-center"></div>
 

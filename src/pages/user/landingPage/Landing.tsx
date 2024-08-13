@@ -14,7 +14,7 @@ function Landing() {
   const user = useSelector(selectUser) || "";
 
   const handleNavigateToLogin = () => {
-    navigate('/home');
+    navigate('/login');
   };
   const dark = useSelector(darkMode);
   const dispatch = useDispatch();
