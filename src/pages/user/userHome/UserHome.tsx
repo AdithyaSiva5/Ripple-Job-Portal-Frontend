@@ -25,6 +25,11 @@ function UserHome() {
   const loadingRef = useRef(false);
   const [initialLoading, setInitialLoading] = useState(true);
 
+  const addNewPost = (newPost: any) => {
+    setPosts(prevPosts => [newPost, ...prevPosts]);
+  };
+  
+
   useEffect(() => {
     if (!dark) {
       document.documentElement.classList.remove('dark')
@@ -93,7 +98,7 @@ function UserHome() {
       <div className="home-section-2 bg-primary">
         <div className="home-scroll">
           <div className="home-scrollbox">
-            <AddPost />
+            <AddPost addNewPost={addNewPost}/>
             {initialLoading ? (
               <PostSkeletonUi />
             ) : (

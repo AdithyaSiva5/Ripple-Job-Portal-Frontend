@@ -45,7 +45,7 @@ function JobsHiring() {
     <div className="tho">
       <div className="people-section-2">
         <div className="flex w-full">
-          <div className="border profile-nav flex items-center justify-center gap-20 bg-white rounded-md mx-5 flex-grow">
+            <div className="border profile-nav flex items-center justify-center gap-20 bg-secondary dark:border dark:border-green rounded-md mx-5 flex-grow">
             <button
               onClick={() => {
                 navigate("/jobs/hiring/job-list");
@@ -88,10 +88,10 @@ function JobsHiring() {
           </div>
           <button
             onClick={() => navigate("/jobs/hiring/add-job")}
-            className={`text-xs w-28 font-medium text-green-600 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${
+            className={`text-xs w-28 font-medium text-green-600 dark:border dark:border-green hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${
               location.pathname === "/jobs/hiring/add-job"
                 ? "bg-black text-white"
-                : " bg-white"
+                : " bg-secondary"
             }`}
             type="submit"
           >

@@ -86,13 +86,13 @@ const AddJob = () => {
       onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => (
-        <Form className='px-10 pb-10 py-5 text-sm  bg-white ms-5 mt-5 rounded-md'>
-          <p className='mb-4'>Add New Job</p>
+        <Form className='px-10 pb-10 py-5 text-sm  bg-secondary dark:border dark:border-green ms-5 mt-5 rounded-md'>
+          <p className='mb-4 dark:text-white'>Add New Job</p>
           <hr className='mb-4' />
 
           <div className='flex w-full gap-3'>
             <div className='w-full'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="companyName">Company Name:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="companyName">Company Name:</label>
               <Field
                 className="text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 type="text" id="companyName" name="companyName" />
@@ -100,7 +100,7 @@ const AddJob = () => {
             </div>
 
             <div className='w-full'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="jobRole">Job Role:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobRole">Job Role:</label>
               <Field
                 className="text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 type="text" id="jobRole" name="jobRole" />
@@ -108,7 +108,7 @@ const AddJob = () => {
             </div>
 
             <div className='w-full'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="experience">Experience:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="experience">Experience:</label>
               <Field
                 className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" type="text" id="experience" name="experience" />
               <ErrorMessage name="experience" component={TextError} />
@@ -118,7 +118,7 @@ const AddJob = () => {
           <div className='flex w-full gap-3 mt-6'>
 
             <div className='w-full'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="salary">Salary:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="salary">Salary:</label>
               <Field
                 className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 type="text" id="salary" name="salary" />
@@ -126,10 +126,10 @@ const AddJob = () => {
             </div>
 
             <div className='w-2/3'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="jobType">Job Type:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobType">Job Type:</label>
               <Field
                 as="select"
-                className="text-xs text-gray-500 p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
+                className="dark:text-gray-400 text-xs text-gray-500 p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 id="jobType"
                 name="jobType"
               >
@@ -142,7 +142,7 @@ const AddJob = () => {
             </div>
 
             <div className='w-full'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="jobLocation">Job Location:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobLocation">Job Location:</label>
               <Field
                 className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 type="text" id="jobLocation" name="jobLocation" />
@@ -153,7 +153,7 @@ const AddJob = () => {
           <div className='flex w-full gap-3 mt-6'>
 
             <div className='w-1/3'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="lastDateToApply">Last Date to Apply:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="lastDateToApply">Last Date to Apply:</label>
               <Field
                 className="text-xs text-gray-400 p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 type="date" id="lastDateToApply" name="lastDateToApply" />
@@ -161,7 +161,7 @@ const AddJob = () => {
             </div>
 
             <div className='w-full'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="requiredSkills">Required Skills:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="requiredSkills">Required Skills:</label>
               <Field
                 className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 type="text" id="requiredSkills" name="requiredSkills" />
@@ -170,7 +170,7 @@ const AddJob = () => {
 
 
             <div className='w-full'>
-              <label className='text-xs text-gray-600 mt-3' htmlFor="qualification">Qualification:</label>
+              <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="qualification">Qualification:</label>
               <Field
                 className="text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                 type="text" id="qualification" name="qualification" />
@@ -183,7 +183,7 @@ const AddJob = () => {
 
 
           <div className='mt-6'>
-            <label className='text-xs text-gray-600 mt-3' htmlFor="jobDescription">Job Description:</label>
+            <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobDescription">Job Description:</label>
             <Field
               className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
               as="textarea" id="jobDescription" name="jobDescription" />
@@ -195,7 +195,7 @@ const AddJob = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className=" text-xs rounded btn border w-24 px-4 py-2 cursor-pointer text-white ml-2 bg-gray-900  hover:bg-green-600"
+              className=" text-xs rounded btn border w-24 px-4 py-2 cursor-pointer dark:text-gray-400 text-white ml-2 bg-gray-900  hover:bg-green-600"
             >
               Add Job
             </button>

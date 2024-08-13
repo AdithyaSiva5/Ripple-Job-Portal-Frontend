@@ -11,7 +11,7 @@ function ViewerProfile() {
     <div className="wrapper dark:bg-fill">
       <Header />
       <div className="profile-wrapper px-48 mt-10 bg-backgroundgray dark:bg-fill" >
-        <div className="border profile-nav flex items-center justify-center gap-32 bg-white rounded-md">
+        <div className="border profile-nav flex items-center justify-center gap-32 bg-secondary dark:border dark:border-green rounded-md">
           <button
             onClick={() => { navigate(`/visit-profile/bio/${userId}`) }}
             className={`text-xs font-medium text-gray-400 hover:text-white focus:bg-black focus:text-white px-7 py-2 rounded-md hover:bg-gray-800 transition-colors duration-300 ${location.pathname === `/visit-profile/bio/${userId}` ? 'bg-black text-white' : ''

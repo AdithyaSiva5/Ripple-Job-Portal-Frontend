@@ -87,7 +87,7 @@ const ViewJobApplications = () => {
 
                 const applicationsData = response.data.applications
 
-                console.log(applicationsData)
+               
                 switch (pathname) {
                     case `/jobs/view-job/applications/pending/${jobId}`:
                         setApplications(applicationsData.filter((app: any) => app.applicationStatus === 'Pending'));

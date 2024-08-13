@@ -11,10 +11,12 @@ import { darkMode } from "../utils/context/reducers/darkmodeSlice";
 import CropImage from "./CropImage";
 
 
+interface AddPostProps {
+  addNewPost: (newPost: any) => void;
+}
 
 
-
-function AddPost() {
+function AddPost({ addNewPost }: AddPostProps) {
   const dark = useSelector(darkMode);
   const selectUser = (state: any) => state.auth.user || '';
   const user = useSelector(selectUser) || '';
@@ -99,6 +101,7 @@ function AddPost() {
               const data = response.data;
               if (response.status === 200) {
                 toast.success(data.message);
+                addNewPost(data.posts); 
                 handleCancelClick();
               } else {
                 console.log(response.message);
@@ -110,7 +113,7 @@ function AddPost() {
               console.log(error?.message);
             }).finally(() => {
               setLoading(false);
-              window.location.reload()
+              // window.location.reload()
             });
         } else {
           console.error("Cloudinary upload failed:", res.statusText);

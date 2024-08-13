@@ -111,7 +111,7 @@ function InterviewForm({ application, cancelscheduleInterview, setApplications }
             <Modal show={true}>
                 <Modal.Body>
                     <div className='flex justify-between items-center'>
-                        <p className='text-sm font-semibold'>Schedule Interview</p>
+                        <p className='text-sm font-semibold dark:text-white'>Schedule Interview</p>
                         <button onClick={() => cancelscheduleInterview()}>
                             <X size={18} color='gray' />
                         </button>
@@ -131,14 +131,14 @@ function InterviewForm({ application, cancelscheduleInterview, setApplications }
                             <Form className="w-full">
                                 <div className="flex w-full justify-between px-3">
                                     <div className="w-1/2">
-                                        <label className='text-xs text-gray-600 mt-3' htmlFor="interviewDate ">Interview Date</label>
+                                        <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="interviewDate ">Interview Date</label>
                                         <Field className="text-xs  w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                                             type="date" id="interviewDate" name="interviewDate" />
                                         <ErrorMessage name="interviewDate" component={TextError} className="error-message" />
                                     </div>
 
                                     <div className="w-1/2 ms-3">
-                                        <label className='text-xs  text-gray-600 mt-3' htmlFor="interviewTime">Interview Time</label>
+                                        <label className='text-xs  text-gray-600 mt-3 dark:text-gray-400' htmlFor="interviewTime">Interview Time</label>
                                         <Field
                                             className="text-xs  w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
 
@@ -150,7 +150,7 @@ function InterviewForm({ application, cancelscheduleInterview, setApplications }
 
 
                                 <div className="w-full mt-4 ">
-                                    <label className='text-xs text-gray-600 ms-3 mt-3 Jury Members' htmlFor="jury">Jury Members</label>
+                                    <label className='text-xs text-gray-600 ms-3 mt-3 Jury Members dark:text-gray-400' htmlFor="jury">Jury Members</label>
                                     <Select
                                         className="text-xs  text-gray-500 p-3 w-full rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                                         id="jury"

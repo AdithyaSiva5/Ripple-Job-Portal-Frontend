@@ -19,7 +19,7 @@ function JobsDetails() {
     <div>
       <div className="people-section-2">
         <div className="flex w-full">
-          <div className="border w-full profile-nav flex items-center justify-center gap-20 bg-white rounded-md mx-5">
+          <div className="border w-full profile-nav flex items-center justify-center gap-20 bg-secondary dark:border dark:border-green rounded-md mx-5">
             <button
               onClick={() => {
                 navigate(`/jobs/view-job/job-info/${jobId}`);
@@ -94,7 +94,7 @@ function JobsDetails() {
             onClick={() => {
               navigate("/jobs/hiring/job-list");
             }}
-            className=" border cursor-pointer text-xs text-gray-400 w-32 profile-nav flex items-center justify-center  bg-white rounded-md "
+            className=" border cursor-pointer text-xs text-gray-400 w-32 profile-nav flex items-center justify-center  bg-secondary dark:border dark:border-green rounded-md "
           >
             {" "}
             <ChevronLeft size={18} /> Go back
