@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import Select from 'react-select';
 import { addDays } from 'date-fns';
 import TextError from "./TextError";
-import { addInterview, getUserConnection, pl } from "../services/api/user/apiMethods";
+import { addInterview, getUserConnection } from "../services/api/user/apiMethods";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -188,5 +188,5 @@ function InterviewForm({ application, cancelscheduleInterview, setApplications }
         </>
     );
 }
- 
+
 export default InterviewForm;
