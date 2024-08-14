@@ -2,17 +2,29 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import TextError from './TextError';
-import { addJob } from '../services/api/user/apiMethods';
+import { addJob, getJobRoles } from '../services/api/user/apiMethods';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const AddJob = () => {
   const navigate = useNavigate();
-
+  const [jobRoles, setJobRoles] = useState([]);
   const selectUser = (state: any) => state.auth.user || '';
   const user = useSelector(selectUser) || '';
   const userId = user._id || '';
 
+  useEffect(() => {
+    getJobRoles({})
+      .then((response: any) => {
+        if (response && response.data && response.data.jobRoles) {
+          setJobRoles(response.data.jobRoles);
+        } else {
+          console.error('Unexpected response format:', response);
+        }
+      })
+      .catch(error => console.error('Error fetching job roles:', error));
+  }, []);
 
   const initialValues = {
     companyName: '',
@@ -102,8 +114,16 @@ const AddJob = () => {
             <div className='w-full'>
               <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobRole">Job Role:</label>
               <Field
+                as="select"
                 className="text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
-                type="text" id="jobRole" name="jobRole" />
+                id="jobRole"
+                name="jobRole"
+              >
+                <option value="">Select Job Role</option>
+                {jobRoles.map((role, index) => (
+                  <option key={index} value={role}>{role}</option>
+                ))}
+              </Field>
               <ErrorMessage name="jobRole" component={TextError} />
             </div>
 

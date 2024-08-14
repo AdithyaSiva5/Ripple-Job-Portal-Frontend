@@ -85,6 +85,7 @@ export const jobUrls = {
   getJobInterviews: "/job/get-job-interviews",
   getFormSelectData: "/job/form-select-data",
   blockJob: "/job/block-job",
+  jobRole : '/job/job-roles'
 };
 
 export const connectionUrls = {

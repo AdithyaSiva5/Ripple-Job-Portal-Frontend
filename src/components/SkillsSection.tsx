@@ -33,7 +33,7 @@ function SkillsSection({ skills, jobCategories = [], onUpdate }) {
         ))}
       </div>
       <div className="relative">
-        <button 
+        <button
           onClick={() => setShowDropdown(!showDropdown)}
           className="p-2 text-base bg-blue-500 text-white rounded"
         >

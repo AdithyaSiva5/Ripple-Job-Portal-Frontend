@@ -2,7 +2,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import TextError from './TextError';
-import { editJob, getJobDetails } from '../services/api/user/apiMethods';
+import { editJob, getJobDetails, getJobRoles } from '../services/api/user/apiMethods';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
@@ -10,13 +10,13 @@ import { toast } from 'sonner';
 const EditJob = () => {
 
   const navigate = useNavigate()
-  const selectUser = (state: any) => state.auth.user || ''; 
+  const selectUser = (state: any) => state.auth.user || '';
   const user = useSelector(selectUser) || '';
   const userId = user._id || '';
   const { jobId } = useParams();
   const [job, setJob] = useState<any>({})
   const [loading, setLoading] = useState(false);
-
+  const [jobRoles, setJobRoles] = useState([]);
   useEffect(() => {
     setLoading(true);
     getJobDetails({ jobId: jobId })
@@ -30,6 +30,18 @@ const EditJob = () => {
       .finally(() => {
         setLoading(false);
       });
+  }, []);
+
+  useEffect(() => {
+    getJobRoles({})
+      .then((response: any) => {
+        if (response && response.data && response.data.jobRoles) {
+          setJobRoles(response.data.jobRoles);
+        } else {
+          console.error('Unexpected response format:', response);
+        }
+      })
+      .catch(error => console.error('Error fetching job roles:', error));
   }, []);
 
 
@@ -127,13 +139,13 @@ const EditJob = () => {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <Form className='px-10 pb-10 py-5 text-sm  bg-white ms-5 mt-5 rounded-md'>
-              <p className='mb-4'>Edit Job</p>
+            <Form className='px-10 pb-10 py-5 text-sm  bg-secondary ms-5 mt-5 rounded-md'>
+              <p className='mb-4 text-white'>Edit Job</p>
               <hr className='mb-4' />
 
               <div className='flex w-full gap-3'>
                 <div className='w-full'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="companyName">Company Name:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="companyName">Company Name:</label>
                   <Field
                     className="text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                     type="text" id="companyName" name="companyName" />
@@ -141,15 +153,23 @@ const EditJob = () => {
                 </div>
 
                 <div className='w-full'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="jobRole">Job Role:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobRole">Job Role:</label>
                   <Field
+                    as="select"
                     className="text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
-                    type="text" id="jobRole" name="jobRole" />
+                    id="jobRole"
+                    name="jobRole"
+                  >
+                    <option value="">Select Job Role</option>
+                    {jobRoles.map((role, index) => (
+                      <option key={index} value={role}>{role}</option>
+                    ))}
+                  </Field>
                   <ErrorMessage name="jobRole" component={TextError} />
                 </div>
 
                 <div className='w-full'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="experience">Experience:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="experience">Experience:</label>
                   <Field
                     className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300" type="text" id="experience" name="experience" />
                   <ErrorMessage name="experience" component={TextError} />
@@ -159,7 +179,7 @@ const EditJob = () => {
               <div className='flex w-full gap-3 mt-6'>
 
                 <div className='w-full'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="salary">Salary:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="salary">Salary:</label>
                   <Field
                     className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                     type="text" id="salary" name="salary" />
@@ -167,7 +187,7 @@ const EditJob = () => {
                 </div>
 
                 <div className='w-2/3'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="jobType">Job Type:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobType">Job Type:</label>
                   <Field
                     as="select"
                     className="text-xs text-gray-500 p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
@@ -183,7 +203,7 @@ const EditJob = () => {
                 </div>
 
                 <div className='w-full'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="jobLocation">Job Location:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobLocation">Job Location:</label>
                   <Field
                     className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                     type="text" id="jobLocation" name="jobLocation" />
@@ -194,7 +214,7 @@ const EditJob = () => {
               <div className='flex w-full gap-3 mt-6'>
 
                 <div className='w-1/3'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="lastDateToApply">Last Date to Apply:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="lastDateToApply">Last Date to Apply:</label>
                   <Field
                     className="text-xs text-gray-400 p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                     type="date" id="lastDateToApply" name="lastDateToApply" />
@@ -202,7 +222,7 @@ const EditJob = () => {
                 </div>
 
                 <div className='w-full'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="requiredSkills">Required Skills:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="requiredSkills">Required Skills:</label>
                   <Field
                     className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                     type="text" id="requiredSkills" name="requiredSkills" />
@@ -211,7 +231,7 @@ const EditJob = () => {
 
 
                 <div className='w-full'>
-                  <label className='text-xs text-gray-600 mt-3' htmlFor="qualification">Qualification:</label>
+                  <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="qualification">Qualification:</label>
                   <Field
                     className="text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                     type="text" id="qualification" name="qualification" />
@@ -224,7 +244,7 @@ const EditJob = () => {
 
 
               <div className='mt-6'>
-                <label className='text-xs text-gray-600 mt-3' htmlFor="jobDescription">Job Description:</label>
+                <label className='text-xs text-gray-600 mt-3 dark:text-gray-400' htmlFor="jobDescription">Job Description:</label>
                 <Field
                   className=" text-xs p-3 w-full border border-gray-300 rounded-md focus:border-gray-200 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-green-600 transition-colors duration-300"
                   as="textarea" id="jobDescription" name="jobDescription" />
