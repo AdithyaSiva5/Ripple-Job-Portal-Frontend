@@ -88,20 +88,20 @@ const HiringApplications: React.FC = () => {
   return (
     <>
       {applications.map((application) => (
-        <div key={application._id} className="home-post-section bg-white p-4" style={{ height: "180px" }}>
+        <div key={application._id} className="home-post-section bg-secondary dark:border dark:border-green p-4" style={{ height: "180px" }}>
           <div className="w-full flex justify-between">
             <div className="flex">
-              <img className="w-14 h-14 rounded-md border-2 p-.5 mb-3 border-green-600" src={application.applicantId.profileImageUrl} alt="" />
+              <img className="w-14 h-14 rounded-md border-2 p-.5 mb-3 border-green-600 " src={application.applicantId.profileImageUrl} alt="" />
               <div className="mx-5">
-                <p className="text-sm font-bold">
+                <p className="text-sm font-bold dark:text-white">
                   {application.applicantId.profile?.fullname || application.applicantId.companyProfile?.companyName}
                 </p>
-                <p className="text-xs">
+                <p className="text-xs dark:text-gray-400">
                   {application.applicantId.profile?.designation || application.applicantId.companyProfile?.companyType}
                 </p>
               </div>
             </div>
-            <div className="flex text-xs gap-1">
+            <div className="flex text-xs gap-1 dark:text-white">
               <p className="font-semibold">Status:</p>
               <p className={`${
                 application.applicationStatus === 'Rejected' ? 'text-red-600' :
@@ -116,16 +116,16 @@ const HiringApplications: React.FC = () => {
           <div className="flex items-end justify-between">
             <div className="flex flex-col items-start">
               <div className="flex gap-2">
-                <p className="text-xs font-semibold">Applying for the position of:</p>
-                <p className="text-xs">{application.jobId.jobRole}</p>
+                <p className="text-xs font-semibold dark:text-white">Applying for the position of:</p>
+                <p className="text-xs dark:text-gray-400">{application.jobId.jobRole}</p>
               </div>
               <div className="flex gap-2">
-                <p className="text-xs font-semibold">Job location:</p>
-                <p className="text-xs">{application.jobId.jobLocation}</p>
+                <p className="text-xs font-semibold dark:text-white">Job location:</p>
+                <p className="text-xs dark:text-gray-400">{application.jobId.jobLocation}</p>
               </div>
               <div className="flex gap-2">
-                <p className="text-xs font-semibold">Job Type:</p>
-                <p className="text-xs">{application.jobId.jobType}</p>
+                <p className="text-xs font-semibold dark:text-white">Job Type:</p>
+                <p className="text-xs dark:text-gray-400">{application.jobId.jobType}</p>
               </div>
             </div>
 

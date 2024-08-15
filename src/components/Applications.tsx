@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
-import ApplyJobForm from "./ApplyJobForm";
 import { cancelJobApplication, getemployeeApplications } from "../services/api/user/apiMethods";
 import { updateUser } from "../utils/context/reducers/authSlice";
 import { toast } from "sonner";

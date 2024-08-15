@@ -95,7 +95,7 @@ function UserHome() {
     <div>
       {!user.userType && <Preferences />}
       {!user.profile?.fullname && !user.companyProfile?.companyName && user.userType && <BasicInformation />}
-      <div className="home-section-2 bg-primary">
+      <div className="home-section-2 bg-primary ">
         <div className="home-scroll">
           <div className="home-scrollbox">
             <AddPost addNewPost={addNewPost}/>

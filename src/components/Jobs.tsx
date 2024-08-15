@@ -67,6 +67,7 @@ const Jobs = () => {
     };
   }, [filterData]);
 
+
   useEffect(() => {
     try {
       listJob({})
@@ -98,10 +99,26 @@ const Jobs = () => {
       console.log(error.message);
     }
   };
-  console.log(user)
+  const isJobRecommended = (job: jobProps['post']) => {
+    const userSkills = user.profile?.skills || [];
+    return userSkills.some(skill =>
+      job.requiredSkills.toLowerCase().includes(skill.toLowerCase())
+    );
+  };
+
+  const sortJobs = (a: jobProps['post'], b: jobProps['post']) => {
+    const aRecommended = isJobRecommended(a);
+    const bRecommended = isJobRecommended(b);
+    if (aRecommended && !bRecommended) return -1;
+    if (!aRecommended && bRecommended) return 1;
+    return 0;
+  };
+
+  // Sort jobs before rendering
+  const sortedJobs = [...jobs].sort(sortJobs);
   return (
     <>
-      {jobs.map((job) => (
+      {sortedJobs.map((job) => (
         <div key={job._id} className="home-post-section bg-secondary border border-green p-4 py-10" style={{ height: "520px" }}>
           <div className="w-full flex justify-between items-center">
             <div className="flex">
@@ -109,6 +126,9 @@ const Jobs = () => {
               <div className="mx-5">
                 <p className="text-sm text-white">{job.companyName}</p>
                 <p className="text-sm font-bold text-white" >{job.jobRole}</p>
+                {isJobRecommended(job) && (
+                  <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">Recommended</span>
+                )}
               </div>
             </div>
 
