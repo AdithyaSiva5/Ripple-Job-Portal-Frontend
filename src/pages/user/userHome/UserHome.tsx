@@ -11,7 +11,6 @@ import BasicInformation from "../../../components/BasicInformation";
 import { darkMode } from "../../../utils/context/reducers/darkmodeSlice";
 import { Loader } from 'lucide-react';
 
-
 function UserHome() {
   const dark = useSelector(darkMode);
   const selectUser = (state: any) => state.auth.user || '';
@@ -24,19 +23,30 @@ function UserHome() {
   const [users, setUsers] = useState([]);
   const loadingRef = useRef(false);
   const [initialLoading, setInitialLoading] = useState(true);
+  const userSuggestionsLoaded = useRef(false); // Added to prevent multiple user suggestion calls
+
+  const fetchUserSuggestions = useCallback(() => {
+    if (!userSuggestionsLoaded.current) {
+      getUserSuggestions({ userId }).then((response: any) => {
+        setUsers(response.data.suggestedUsers);
+        userSuggestionsLoaded.current = true; // Prevent future calls
+      }).catch((error: any) => {
+        console.log(error.message);
+      });
+    }
+  }, [userId]);
 
   const addNewPost = (newPost: any) => {
     setPosts(prevPosts => [newPost, ...prevPosts]);
   };
-  
 
   useEffect(() => {
     if (!dark) {
-      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.remove('dark');
     } else {
-      document.documentElement.classList.add('dark')
+      document.documentElement.classList.add('dark');
     }
-  }, [dark])
+  }, [dark]);
 
   const loadPosts = useCallback(() => {
     if (loadingRef.current || !hasMore) return;
@@ -44,20 +54,13 @@ function UserHome() {
     setLoading(true);
     getAllPosts(page)
       .then((response: any) => {
-        setTimeout(() => {
-          const newPosts = response.data.posts;
-          setPosts(prevPosts => [...prevPosts, ...newPosts]);
-          // if (page === 1) {
-          //   dispatch(updatePosts({ posts: newPosts }));
-          // } else {
-          //   dispatch(updatePosts({ posts: newPosts, append: true }));
-          // }
-          setHasMore(response.data.hasMore);
-          setPage(prevPage => prevPage + 1);
-          setLoading(false);
-          loadingRef.current = false;
-          setInitialLoading(false);
-        }, 2000);
+        const newPosts = response.data.posts;
+        setPosts(prevPosts => [...prevPosts, ...newPosts]);
+        setHasMore(response.data.hasMore);
+        setPage(prevPage => prevPage + 1);
+        setLoading(false);
+        loadingRef.current = false;
+        setInitialLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -67,29 +70,28 @@ function UserHome() {
   }, [page, hasMore]);
 
   useEffect(() => {
-    loadPosts();
-    getUserSuggestions({ userId }).then((response: any) => {
-      setUsers(response.data.suggestedUsers);
-    }).catch((error: any) => {
-      console.log(error.message);
-    });
-  }, [loadPosts, userId]);
+    if (initialLoading) {
+      loadPosts();
+    }
+    fetchUserSuggestions(); // Load user suggestions only once
+  }, [loadPosts, fetchUserSuggestions, initialLoading]);
 
-  const observer = useRef<IntersectionObserver | null>(null)
+  const observer = useRef<IntersectionObserver | null>(null);
   const lastPostElementRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
+
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          loadPosts();
+          loadPosts(); // Trigger loading posts when the last element is in view
         }
       });
+
       if (node) observer.current.observe(node);
     },
     [loading, hasMore, loadPosts]
   );
-
 
   return (
     <div>
@@ -98,7 +100,7 @@ function UserHome() {
       <div className="home-section-2 bg-primary ">
         <div className="home-scroll">
           <div className="home-scrollbox">
-            <AddPost addNewPost={addNewPost}/>
+            <AddPost addNewPost={addNewPost} />
             {initialLoading ? (
               <PostSkeletonUi />
             ) : (

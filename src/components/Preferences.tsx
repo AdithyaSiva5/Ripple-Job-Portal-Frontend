@@ -49,7 +49,7 @@ function Preferences() {
     <>
       <Modal show={true} className="bg-transparent">
         <Modal.Body>
-          <p className="text-sm font-semibold">Basic Information</p>
+          <p className="text-sm font-semibold dark:text-white">Basic Information</p>
         </Modal.Body>
         <Modal.Footer className="flex flex-col items-start">
           <div className="space-y-6">

@@ -30,7 +30,7 @@ function PeopleCard({ user, handleFollow, updateConnection, updateRequested, upd
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [userId]);
 
 
 

@@ -24,7 +24,7 @@ function PeopleDiscover() {
       .catch((error: any) => {
         console.log(error.message);
       });
-  }, []);
+  }, [userId]);
 
   const handleFollow = (foloweduserId: string, followedUserName: string) => {
     followUser({ userId, followingUser: foloweduserId })
